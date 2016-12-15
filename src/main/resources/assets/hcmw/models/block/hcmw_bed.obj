@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 14.12.2016 17:29:06
 
-mtllib HCMWBed.mtl
+mtllib hcmw_bed.mtl
 
 #
 # object pbed_base

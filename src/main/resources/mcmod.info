@@ -1,8 +1,8 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "hcmw",
+  "name": "Homecraft Minewares",
+  "description": "",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

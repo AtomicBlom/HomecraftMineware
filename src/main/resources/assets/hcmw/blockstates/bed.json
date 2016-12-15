@@ -1,0 +1,47 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "hcmw:hcmw_bed.obj",
+    "custom": {
+      "flip-v": true
+    },
+    "textures": {
+      "#hcmw:models/pbed": "hcmw:models/pbed"
+    }
+  },
+  "variants": {
+    "normal": [{
+    }],
+    "inventory": [{
+      "transform": {
+        "thirdperson": {
+          "translation": [0, 0.0, -0.15],
+          "rotation": [{"y": 180}, {"x": 125 }],
+          "scale": 0.50
+        },
+        "firstperson": {"rotation": {"y": 180 }, "scale": 0.66},
+        "gui": {
+          "translation": [0,-0.15,0],
+          "rotation": {"y": 180 },
+          "scale": 0.62
+        }
+      }}],
+    "facing": {
+      "north": { },
+      "south": { "transform": {
+        "rotation": {"y": 180 }
+      }},
+      "east": { "transform": {
+        "rotation": {"y": 270 }
+      }},
+      "west": { "transform": {
+        "rotation": {"y": 90 }
+      }}
+    },
+    "is_slave": {
+      "false": {  },
+      "true": { "model": "hcmw:SSMultiblockPlaceholder.obj" }
+    }
+  }
+}
