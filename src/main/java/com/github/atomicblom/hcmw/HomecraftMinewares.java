@@ -1,12 +1,11 @@
 package com.github.atomicblom.hcmw;
 
 import com.foudroyantfactotum.tool.structure.StructureRegistry;
-import net.minecraft.init.Blocks;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = HomecraftMinewares.MODID, version = HomecraftMinewares.VERSION)
 public class HomecraftMinewares
@@ -24,7 +23,12 @@ public class HomecraftMinewares
     public void init(FMLInitializationEvent event)
     {
         StructureRegistry.loadRegisteredPatterns();
-        // some example code
-        System.out.println("DIRT BLOCK >> "+Blocks.DIRT.getUnlocalizedName());
+    }
+
+    @EventHandler
+    public static void serverStart(FMLServerStartingEvent event)
+    {
+        //TODO: Only load this if debug mode is enabled.
+        event.registerServerCommand(new StructureRegistry.CommandReloadStructures());
     }
 }

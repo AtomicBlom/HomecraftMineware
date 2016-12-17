@@ -38,10 +38,6 @@
       "west": { "transform": {
         "rotation": {"y": 90 }
       }}
-    },
-    "is_slave": {
-      "false": {  },
-      "true": { "model": "hcmw:SSMultiblockPlaceholder.obj" }
     }
   }
 }

@@ -1,0 +1,31 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "hcmw:hcmw_multiblock_placeholder.obj",
+    "textures": {
+      "#hcmw:models/hcmw_multiblock_placeholder": "hcmw:models/hcmw_multiblock_placeholder"
+    }
+  },
+  "variants": {
+    "normal": [{
+    }],
+    "inventory": [{
+      "transform": {
+        "thirdperson": { },
+        "firstperson": { },
+        "gui": { }
+      }
+    }],
+    "facing": {
+      "north": { },
+      "south": { },
+      "east": { },
+      "west": { }
+    },
+    "mirror": {
+      "false": { },
+      "true": { }
+    }
+  }
+}
