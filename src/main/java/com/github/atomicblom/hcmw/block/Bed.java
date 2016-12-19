@@ -73,8 +73,12 @@ public class Bed extends StructureBlock
                 );
 
         builder.setCollisionBoxes(
-                new float[] {0.0f, 0.0f, 0.0f, 2.0f, 1.0f, 2.0f},
-                new float[] {0.0f, 0.0f, 0.0f, 0.625f, 2.0f, 0.625f}
+                new float[] {0.0f, 0.0f, 0.0f, 2.0f, 0.625f, 2.0f},
+                new float[] {0.0f, 0.0f, 0.0f, 0.0625f, 2.0f, 0.0625f},
+                new float[] {2-0.0f, 0.0f, 0.0f, 2-0.0625f, 2.0f, 0.0625f},
+                new float[] {2-0.0f, 0.0f, 2-0.0f, 2-0.0625f, 2.0f, 2-0.0625f},
+                new float[] {0.0f, 0.0f, 2-0.0f, 0.0625f, 2.0f, 2-0.0625f},
+                new float[] {0.0f, 0.0f, 0.0f, 2f, 1.0f, 0.0625f}
         );
 
         return builder;

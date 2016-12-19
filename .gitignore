@@ -1,3 +1,7 @@
+# assets
+*.max
+*.7z
+
 # eclipse
 bin
 *.launch
