@@ -4,8 +4,11 @@ import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.item.StructureBlockItem;
 import com.github.atomicblom.hcmw.HomecraftMinewares;
 import com.github.atomicblom.hcmw.client.CreativeTab;
+import com.github.atomicblom.hcmw.item.StructureBlockSubItem;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,7 +20,7 @@ public final class ItemRegistration {
     @SubscribeEvent
     public static void registerItems(Register<Item> event) {
         final Items items = new Items(event.getRegistry());
-        items.addStructure(BlockLibrary.bed);
+        items.addStructureWithSubBlocks(BlockLibrary.bed);
     }
 
     private static class Items {
@@ -28,18 +31,17 @@ public final class ItemRegistration {
             this.registry = registry;
         }
 
-        StructureBlockItem addStructure(StructureBlock block)
+        StructureBlockItem addStructureWithSubBlocks(StructureBlock block)
         {
-            final StructureBlockItem item = new StructureBlockItem(block);
+            final StructureBlockItem item = new StructureBlockSubItem(block);
             item
                     .setRegistryName(block.getRegistryName())
                     .setUnlocalizedName("item." + block.getRegistryName())
-                    .setCreativeTab(CreativeTab.INSTANCE);;
+                    .setCreativeTab(CreativeTab.INSTANCE);
 
             registry.register(item);
 
             return item;
         }
     }
-
 }

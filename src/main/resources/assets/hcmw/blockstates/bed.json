@@ -38,6 +38,10 @@
       "west": { "transform": {
         "rotation": {"y": 90 }
       }}
+    },
+    "canopy": {
+      "true": { "model": "hcmw:hcmw_bed_canopy.obj" },
+      "false": { "model": "hcmw:hcmw_bed_4post.obj" }
     }
   }
 }
