@@ -2,7 +2,6 @@
   "forge_marker": 1,
   "defaults": {
     "transform": "forge:default-block",
-    "model": "hcmw:hcmw_bed.obj",
     "custom": {
       "flip-v": true
     },
@@ -14,35 +13,45 @@
     "normal": [{
     }],
     "inventory,canopy=false": [{
-      "model": "hcmw:hcmw_bed_4post.obj",
+      "model": "hcmw:hcmwbed4post.obj",
       "transform": {
         "thirdperson": {
-          "translation": [0, 0.0, -0.15],
-          "rotation": [{"y": 180}, {"x": 125 }],
+          "translation": [0, 0, 0],
+          "rotation": [{"y": 0}, {"x": 0 }],
           "scale": 0.50
         },
-        "firstperson": {"rotation": {"y": 180 }, "scale": 0.66},
+        "firstperson": {
+          "translation": [0.1, 0, 0.2],
+          "rotation": {"y": 15 },
+          "scale": 0.3333
+        },
         "gui": {
-          "translation": [0,-0.15,0],
-          "rotation": {"y": 180 },
-          "scale": 0.62
+          "translation": [0.20,-0.15,0],
+          "rotation": [{"x": 30}, {"y": 45}],
+          "scale": 0.3333
         }
-      }}],
+      }
+    }],
     "inventory,canopy=true": [{
-      "model": "hcmw:hcmw_bed_canopy.obj",
+      "model": "hcmw:hcmwbedcanopy.obj",
       "transform": {
         "thirdperson": {
-          "translation": [0, 0.0, -0.15],
-          "rotation": [{"y": 180}, {"x": 125 }],
+          "translation": [0, 0, 0],
+          "rotation": [{"y": 0}, {"x": 0 }],
           "scale": 0.50
         },
-        "firstperson": {"rotation": {"y": 180 }, "scale": 0.66},
+        "firstperson": {
+          "translation": [0.1, 0, 0.2],
+          "rotation": {"y": 15 },
+          "scale": 0.3333
+        },
         "gui": {
-          "translation": [0,-0.15,0],
-          "rotation": {"y": 180 },
-          "scale": 0.62
+          "translation": [0.20,-0.15,0],
+          "rotation": [{"x": 30}, {"y": 45}],
+          "scale": 0.3333
         }
-      }}],
+      }
+    }],
     "facing": {
       "north": { },
       "south": { "transform": {
@@ -56,8 +65,8 @@
       }}
     },
     "canopy": {
-      "true": { "model": "hcmw:hcmw_bed_canopy.obj" },
-      "false": { "model": "hcmw:hcmw_bed_4post.obj" }
+      "true": { "model": "hcmw:hcmwbedcanopy.obj" },
+      "false": { "model": "hcmw:hcmwbed4post.obj" }
     }
   }
 }
