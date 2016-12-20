@@ -13,7 +13,23 @@
   "variants": {
     "normal": [{
     }],
-    "inventory": [{
+    "inventory,canopy=false": [{
+      "model": "hcmw:hcmw_bed_4post.obj",
+      "transform": {
+        "thirdperson": {
+          "translation": [0, 0.0, -0.15],
+          "rotation": [{"y": 180}, {"x": 125 }],
+          "scale": 0.50
+        },
+        "firstperson": {"rotation": {"y": 180 }, "scale": 0.66},
+        "gui": {
+          "translation": [0,-0.15,0],
+          "rotation": {"y": 180 },
+          "scale": 0.62
+        }
+      }}],
+    "inventory,canopy=true": [{
+      "model": "hcmw:hcmw_bed_canopy.obj",
       "transform": {
         "thirdperson": {
           "translation": [0, 0.0, -0.15],

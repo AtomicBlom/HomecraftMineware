@@ -1,6 +1,7 @@
 package com.github.atomicblom.hcmw.registration;
 
 import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.library.BlockLibrary;
 import com.github.atomicblom.hcmw.library.ItemLibrary;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -18,7 +19,17 @@ public final class RenderingRegistration {
     public static void onModelRegistryReady(ModelRegistryEvent event) {
         OBJLoader.INSTANCE.addDomain(HomecraftMinewares.MODID);
 
-        setItemModel(ItemLibrary.bed);
+        setItemModel(ItemLibrary.bed, 6, "inventory,canopy=true");
+        setItemModel(ItemLibrary.bed, 2, "inventory,canopy=false");
+    }
+
+    private static void setItemModel(Item item, int meta, String variant)
+    {
+        ModelLoader.setCustomModelResourceLocation(
+                item,
+                meta,
+                new ModelResourceLocation(item.getRegistryName(), variant)
+        );
     }
 
     private static void setItemModel(Item item)
