@@ -1,6 +1,8 @@
 package com.github.atomicblom.hcmw;
 
 import com.foudroyantfactotum.tool.structure.StructureRegistry;
+import com.foudroyantfactotum.tool.structure.renderer.HighlightPreview;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -23,6 +25,7 @@ public class HomecraftMinewares
     public void init(FMLInitializationEvent event)
     {
         StructureRegistry.loadRegisteredPatterns();
+        MinecraftForge.EVENT_BUS.register(new HighlightPreview());
     }
 
     @EventHandler

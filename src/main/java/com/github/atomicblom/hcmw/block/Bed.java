@@ -102,22 +102,34 @@ public class Bed extends StructureBlock implements ILocalizedSubBlock
     }
 
     @Override
+    protected boolean shouldDecompose() {
+        return false;
+    }
+
+    @Override
     public StructureDefinitionBuilder getStructureBuild()
     {
         final StructureDefinitionBuilder builder = new StructureDefinitionBuilder();
 
         builder.assignConstructionDef(ImmutableMap.of(
-                'b', "minecraft:bed"
+                'b', "minecraft:bed",
+                'f', "minecraft:fence",
+                'c', "minecraft:carpet"
         ));
 
         builder.assignConstructionBlocks(
-                new String[] {"bb", "bb"}
+                new String[] {"bb", "bb"},
+                new String[] {"ff", "ff"},
+                new String[] {"cc", "cc"}
         );
 
         builder.assignToolFormPosition(BlockPos.ORIGIN);
 
         builder.setConfiguration(BlockPos.ORIGIN,
-                new String[] {"--", "-M"}
+                new String[] {"--", "-M"},
+                new String[] {"--", "--"},
+                new String[] {"--", "--"}
+
                 );
 
         builder.setCollisionBoxes(
