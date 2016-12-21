@@ -67,6 +67,10 @@
     "canopy": {
       "true": { "model": "hcmw:hcmwbedcanopy.obj" },
       "false": { "model": "hcmw:hcmwbed4post.obj" }
+    },
+    "occupied": {
+      "true": {},
+      "false": {}
     }
   }
 }
