@@ -84,6 +84,31 @@ processResources
 }
 
 ///////////////////////////////////////////////////
+// SHADING
+///////////////////////////////////////////////////
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+shadowJar {
+    def deobfPrefix = "deobf." + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
+    dependencies {
+        include(dependency(deobfPrefix + 'com.foudroyantfactotum:Structure-' + config.minecraft_version + ':' + config.structure_version))
+    }
+    relocate 'com.foudroyantfactotum.tool.structure', 'mod.steamnsteel.shaded.com.foudroyantfactotum.tool.structure'
+    classifier = 'universal'
+}
+
+reobf.jar.task.dependsOn shadowJar
+
+///////////////////////////////////////////////////
 // Dependencies
 ///////////////////////////////////////////////////
 if (config.structure_local_enabled == "true") {
@@ -120,30 +145,3 @@ if (config.structure_local_enabled == "true") {
         deobfCompile(group: 'com.foudroyantfactotum', name: 'Structure-' + config.minecraft_version, version: config.structure_version, classifier: 'universal')
     }
 }
-
-///////////////////////////////////////////////////
-// SHADING
-///////////////////////////////////////////////////
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
-    }
-}
-
-apply plugin: 'com.github.johnrengelman.shadow'
-
-shadowJar {
-    def deobfPrefix = "deobf." + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
-    dependencies {
-        include(dependency(deobfPrefix + 'mod.steamnsteel:mcgui-' + config.minecraft_version + ':' + config.mcgui_version))
-        include(dependency(deobfPrefix + 'com.foudroyantfactotum:Structure-' + config.minecraft_version + ':' + config.structure_version))
-    }
-    relocate 'mod.steamnsteel.mcgui', 'mod.steamnsteel.shaded.mod.steamnsteel.mcgui'
-    relocate 'com.foudroyantfactotum.tool.structure', 'mod.steamnsteel.shaded.com.foudroyantfactotum.tool.structure'
-    classifier = 'universal'
-}
-
-reobf.jar.task.dependsOn shadowJar
