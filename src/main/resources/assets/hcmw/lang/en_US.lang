@@ -1,1 +1,3 @@
 itemGroup.hcmw=Homecraft Mineware
+tile.hcmw:bed_4post.name=Four Post Bed
+tile.hcmw:bed_canopy.name=Bed with Canopy
