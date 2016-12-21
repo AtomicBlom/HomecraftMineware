@@ -1,6 +1,7 @@
 package com.github.atomicblom.hcmw;
 
 import com.foudroyantfactotum.tool.structure.StructureRegistry;
+import com.foudroyantfactotum.tool.structure.renderer.HighlightBoundingBoxDebug;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightPreview;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -26,6 +27,7 @@ public class HomecraftMinewares
     {
         StructureRegistry.loadRegisteredPatterns();
         MinecraftForge.EVENT_BUS.register(new HighlightPreview());
+        MinecraftForge.EVENT_BUS.register(new HighlightBoundingBoxDebug());
     }
 
     @EventHandler

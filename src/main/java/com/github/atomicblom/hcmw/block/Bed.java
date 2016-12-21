@@ -17,6 +17,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,6 +44,7 @@ public class Bed extends StructureBlock implements ILocalizedSubBlock
         setDefaultState(defaultState);
     }
 
+    @Deprecated
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
         return new ItemStack(ItemLibrary.bed, 1, 2);
@@ -170,6 +172,7 @@ public class Bed extends StructureBlock implements ILocalizedSubBlock
      * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
      * blockstate.
      */
+    @Deprecated
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
         return state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)));
