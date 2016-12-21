@@ -8,10 +8,15 @@ import net.minecraft.util.ResourceLocation;
  */
 public class Reference {
     public static class Block {
-        public static final ResourceLocation bed = new ResourceLocation(HomecraftMinewares.MODID, "bed");
-        public static ResourceLocation shape = new ResourceLocation(HomecraftMinewares.MODID, "shape");
+        public static final ResourceLocation bed_4post = resource("bed_4post");
+        public static final ResourceLocation bed_canopy = resource("bed_canopy");
+        public static final ResourceLocation shape = resource("shape");
 
         private Block() {}
+    }
+
+    private static ResourceLocation resource(String name) {
+        return new ResourceLocation(HomecraftMinewares.MODID, name);
     }
 
     private Reference() {}

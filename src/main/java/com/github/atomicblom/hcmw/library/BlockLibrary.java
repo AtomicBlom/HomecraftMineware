@@ -7,9 +7,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(HomecraftMinewares.MODID)
 public class BlockLibrary {
-    public static final StructureBlock bed;
+    public static final StructureBlock bed_4post;
+    public static final StructureBlock bed_canopy;
 
     static {
-        bed = null;
+        bed_4post = null;
+        bed_canopy = null;
     }
 }

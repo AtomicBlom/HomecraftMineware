@@ -6,7 +6,9 @@ import com.foudroyantfactotum.tool.structure.block.StructureShapeBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureShapeTE;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.github.atomicblom.hcmw.HomecraftMinewares;
-import com.github.atomicblom.hcmw.block.Bed;
+import com.github.atomicblom.hcmw.block.BedBlock;
+import com.github.atomicblom.hcmw.block.CanopyBedBlock;
+import com.github.atomicblom.hcmw.block.FourPostBedBlock;
 import com.github.atomicblom.hcmw.client.CreativeTab;
 import com.github.atomicblom.hcmw.library.Reference;
 import net.minecraft.block.Block;
@@ -24,7 +26,8 @@ public class BlockRegistration {
     @SubscribeEvent
     public static void registerBlocks(Register<Block> blockRegister) {
         final Blocks blocks = new Blocks(blockRegister.getRegistry());
-        blocks.addStructure(new Bed(), Reference.Block.bed);
+        blocks.addStructure(new FourPostBedBlock(), Reference.Block.bed_4post);
+        blocks.addStructure(new CanopyBedBlock(), Reference.Block.bed_canopy);
     }
 
     private static class Blocks

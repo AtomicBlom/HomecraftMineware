@@ -19,8 +19,8 @@ public final class RenderingRegistration {
     public static void onModelRegistryReady(ModelRegistryEvent event) {
         OBJLoader.INSTANCE.addDomain(HomecraftMinewares.MODID);
 
-        setItemModel(ItemLibrary.bed, 6, "inventory,canopy=true");
-        setItemModel(ItemLibrary.bed, 2, "inventory,canopy=false");
+        setItemModel(ItemLibrary.bed_4post);
+        setItemModel(ItemLibrary.bed_canopy);
     }
 
     private static void setItemModel(Item item, int meta, String variant)
