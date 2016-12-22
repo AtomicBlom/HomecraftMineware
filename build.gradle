@@ -84,6 +84,10 @@ processResources
     }
 }
 
+jar {
+    classifier = 'universal'
+}
+
 ///////////////////////////////////////////////////
 // SHADING
 ///////////////////////////////////////////////////
@@ -105,7 +109,7 @@ shadowJar {
     dependencies {
         include(dependency(deobfPrefix + 'com.foudroyantfactotum:Structure-' + config.minecraft_version + ':' + config.structure_version))
     }
-    relocate 'com.foudroyantfactotum.tool.structure', 'mod.steamnsteel.shaded.com.foudroyantfactotum.tool.structure'
+    relocate 'com.foudroyantfactotum.tool.structure', 'com.github.atomicblom.hcmw.shaded.structure'
     classifier = 'universal'
 }
 
