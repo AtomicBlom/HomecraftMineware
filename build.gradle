@@ -1,5 +1,6 @@
 import org.gradle.plugins.ide.idea.model.*
 
+
 // define the properties file
 ext.configFile = file "build.properties"
 configFile.withReader {
@@ -89,16 +90,18 @@ processResources
 buildscript {
     repositories {
         jcenter()
+        //mavenLocal()
     }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
     }
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
 
 shadowJar {
-    def deobfPrefix = "deobf." + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
+    def deobfPrefix = "deobf."// + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
+    println deobfPrefix
     dependencies {
         include(dependency(deobfPrefix + 'com.foudroyantfactotum:Structure-' + config.minecraft_version + ':' + config.structure_version))
     }
@@ -139,7 +142,7 @@ if (config.structure_local_enabled == "true") {
     dependencies {
         repositories {
             maven {
-                url 'http://repository.steamnsteel.info/artifactory/foudroyantfactotum-libs-stable'
+                url 'http://repository.steamnsteel.info/artifactory/atomicblom-libs-unstable'
             }
         }
         deobfCompile(group: 'com.foudroyantfactotum', name: 'Structure-' + config.minecraft_version, version: config.structure_version, classifier: 'universal')
