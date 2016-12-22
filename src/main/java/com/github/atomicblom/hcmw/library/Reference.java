@@ -8,9 +8,11 @@ import net.minecraft.util.ResourceLocation;
  */
 public class Reference {
     public static class Block {
+        public static final ResourceLocation shape = resource("shape");
         public static final ResourceLocation bed_4post = resource("bed_4post");
         public static final ResourceLocation bed_canopy = resource("bed_canopy");
-        public static final ResourceLocation shape = resource("shape");
+        public static final ResourceLocation barrel = resource("barrel");
+
 
         private Block() {}
     }

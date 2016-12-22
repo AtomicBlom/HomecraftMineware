@@ -5,7 +5,10 @@ import com.foudroyantfactotum.tool.structure.item.StructureBlockItem;
 import com.github.atomicblom.hcmw.HomecraftMinewares;
 import com.github.atomicblom.hcmw.client.CreativeTab;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -19,6 +22,7 @@ public final class ItemRegistration {
         final Items items = new Items(event.getRegistry());
         items.addStructure(BlockLibrary.bed_4post);
         items.addStructure(BlockLibrary.bed_canopy);
+        items.add(BlockLibrary.barrel);
     }
 
     private static class Items {
@@ -29,16 +33,28 @@ public final class ItemRegistration {
             this.registry = registry;
         }
 
-        StructureBlockItem addStructure(StructureBlock block)
+        ItemBlock add(Block block)
         {
-            final StructureBlockItem item = new StructureBlockItem(block);
+            final ItemBlock item = new ItemBlock(block);
+            add(item, block.getRegistryName());
+            return item;
+        }
+
+        Item add(Item item, ResourceLocation registryName) {
             item
-                    .setRegistryName(block.getRegistryName())
-                    .setUnlocalizedName("item." + block.getRegistryName())
+                    .setRegistryName(registryName)
+                    .setUnlocalizedName("item." + registryName)
                     .setCreativeTab(CreativeTab.INSTANCE);
 
             registry.register(item);
 
+            return item;
+        }
+
+        StructureBlockItem addStructure(StructureBlock block)
+        {
+            final StructureBlockItem item = new StructureBlockItem(block);
+            add(item, block.getRegistryName());
             return item;
         }
     }

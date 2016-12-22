@@ -8,9 +8,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemLibrary {
     public static final Item bed_4post;
     public static final Item bed_canopy;
+    public static final Item barrel;
 
     static {
         bed_4post = null;
         bed_canopy = null;
+        barrel = null;
     }
 }

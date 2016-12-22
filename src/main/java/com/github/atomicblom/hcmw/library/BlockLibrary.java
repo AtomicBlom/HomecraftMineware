@@ -9,9 +9,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockLibrary {
     public static final StructureBlock bed_4post;
     public static final StructureBlock bed_canopy;
+    public static final Block barrel;
 
     static {
         bed_4post = null;
         bed_canopy = null;
+        barrel = null;
     }
 }

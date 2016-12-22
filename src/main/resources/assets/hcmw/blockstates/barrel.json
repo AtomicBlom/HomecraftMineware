@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "hcmw:hcmwbarrel.obj",
+    "textures": {
+      "#hcmw:models/barrel_liquid": "hcmw:models/barrel_liquid"
+    }
+  },
+  "variants": {
+    "normal": [{
+    }],
+    "inventory": [{
+      "transform": {
+        "thirdperson": { },
+        "firstperson": { },
+        "gui": { }
+      }
+    }]
+  }
+}

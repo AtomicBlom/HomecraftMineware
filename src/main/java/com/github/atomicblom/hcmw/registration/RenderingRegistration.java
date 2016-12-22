@@ -21,6 +21,7 @@ public final class RenderingRegistration {
 
         setItemModel(ItemLibrary.bed_4post);
         setItemModel(ItemLibrary.bed_canopy);
+        setItemModel(ItemLibrary.barrel);
     }
 
     private static void setItemModel(Item item, int meta, String variant)
