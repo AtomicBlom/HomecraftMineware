@@ -7,17 +7,10 @@ import net.minecraft.block.state.IBlockState;
 /**
  * Created by codew on 23/12/2016.
  */
-public class BarrelBlock extends Block
+public class BedSideDrawersBlock extends Block
 {
-    public BarrelBlock()
+    public BedSideDrawersBlock()
     {
         super(Material.WOOD);
-    }
-
-    @Override
-    @Deprecated
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
     }
 }

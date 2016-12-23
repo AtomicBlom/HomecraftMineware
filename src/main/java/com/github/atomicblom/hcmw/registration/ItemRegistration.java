@@ -23,6 +23,9 @@ public final class ItemRegistration {
         items.addStructure(BlockLibrary.bed_4post);
         items.addStructure(BlockLibrary.bed_canopy);
         items.add(BlockLibrary.barrel);
+        items.add(BlockLibrary.bed_side_drawers);
+        items.add(BlockLibrary.candle_holder);
+        items.add(BlockLibrary.lantern);
     }
 
     private static class Items {

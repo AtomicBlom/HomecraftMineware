@@ -12,6 +12,9 @@ public class Reference {
         public static final ResourceLocation bed_4post = resource("bed_4post");
         public static final ResourceLocation bed_canopy = resource("bed_canopy");
         public static final ResourceLocation barrel = resource("barrel");
+        public static final ResourceLocation bed_side_drawers = resource("bed_side_drawers");
+        public static final ResourceLocation lantern = resource("lantern");
+        public static final ResourceLocation candleholder = resource("candle_holder");
 
 
         private Block() {}

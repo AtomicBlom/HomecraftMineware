@@ -4,7 +4,7 @@ import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.util.math.BlockPos;
 
-public class CanopyBedBlock extends BedBlock
+public class CanopyBedBlock extends BedBlockBase
 {
     @Override
     public StructureDefinitionBuilder getStructureBuild()

@@ -7,11 +7,11 @@ import net.minecraft.block.state.IBlockState;
 /**
  * Created by codew on 23/12/2016.
  */
-public class BarrelBlock extends Block
+public class CandleHolderBlock extends Block
 {
-    public BarrelBlock()
+    public CandleHolderBlock()
     {
-        super(Material.WOOD);
+        super(Material.REDSTONE_LIGHT);
     }
 
     @Override

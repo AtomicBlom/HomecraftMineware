@@ -6,10 +6,7 @@ import com.foudroyantfactotum.tool.structure.block.StructureShapeBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureShapeTE;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.github.atomicblom.hcmw.HomecraftMinewares;
-import com.github.atomicblom.hcmw.block.BarrelBlock;
-import com.github.atomicblom.hcmw.block.BedBlock;
-import com.github.atomicblom.hcmw.block.CanopyBedBlock;
-import com.github.atomicblom.hcmw.block.FourPostBedBlock;
+import com.github.atomicblom.hcmw.block.*;
 import com.github.atomicblom.hcmw.client.CreativeTab;
 import com.github.atomicblom.hcmw.library.Reference;
 import net.minecraft.block.Block;
@@ -30,6 +27,9 @@ public class BlockRegistration {
         blocks.addStructure(new FourPostBedBlock(), Reference.Block.bed_4post);
         blocks.addStructure(new CanopyBedBlock(), Reference.Block.bed_canopy);
         blocks.add(new BarrelBlock(), Reference.Block.barrel);
+        blocks.add(new LanternBlock(), Reference.Block.lantern);
+        blocks.add(new CandleHolderBlock(), Reference.Block.candleholder);
+        blocks.add(new BedSideDrawersBlock(), Reference.Block.bed_side_drawers);
     }
 
     private static class Blocks

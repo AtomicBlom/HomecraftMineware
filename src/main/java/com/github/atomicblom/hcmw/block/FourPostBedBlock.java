@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 /**
  * Created by codew on 21/12/2016.
  */
-public class FourPostBedBlock extends BedBlock
+public class FourPostBedBlock extends BedBlockBase
 {
     @Override
     public StructureDefinitionBuilder getStructureBuild()

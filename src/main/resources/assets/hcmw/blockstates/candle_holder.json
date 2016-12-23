@@ -5,9 +5,9 @@
     "custom": {
       "flip-v": true
     },
-    "model": "hcmw:hcmwbarrel.obj",
+    "model": "hcmw:hcmwcandleholder.obj",
     "textures": {
-      "#hcmw:models/barrel_liquid": "hcmw:models/barrel_liquid"
+      "#hcmw:models/lantern3": "hcmw:models/lantern3"
     }
   },
   "variants": {

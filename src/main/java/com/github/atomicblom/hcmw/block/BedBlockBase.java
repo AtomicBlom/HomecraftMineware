@@ -20,9 +20,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 
-public abstract class BedBlock extends StructureBlock
+public abstract class BedBlockBase extends StructureBlock
 {
-    protected BedBlock() {
+    protected BedBlockBase() {
         super(false);
 
         final IBlockState defaultState = blockState

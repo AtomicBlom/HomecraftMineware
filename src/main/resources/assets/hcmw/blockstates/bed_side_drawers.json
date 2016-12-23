@@ -5,9 +5,9 @@
     "custom": {
       "flip-v": true
     },
-    "model": "hcmw:hcmwbarrel.obj",
+    "model": "hcmw:hcmwbedsidedrawers.obj",
     "textures": {
-      "#hcmw:models/barrel_liquid": "hcmw:models/barrel_liquid"
+      "#hcmw:models/bed_side_drawers": "hcmw:models/bed_side_drawers"
     }
   },
   "variants": {
