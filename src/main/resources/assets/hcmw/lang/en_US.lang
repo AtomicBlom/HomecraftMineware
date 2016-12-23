@@ -1,3 +1,8 @@
 itemGroup.hcmw=Homecraft Mineware
+
 tile.hcmw:bed_4post.name=Four Post Bed
 tile.hcmw:bed_canopy.name=Bed with Canopy
+tile.hcmw:lantern.name=Lantern
+tile.hcmw:candle_holder.name=Candle Holder
+tile.hcmw:barrel.name=Barrel
+tile.hcmw:bed_side_drawers.name=Bedside Drawers

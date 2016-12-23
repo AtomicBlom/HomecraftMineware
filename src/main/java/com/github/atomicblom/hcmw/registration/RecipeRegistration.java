@@ -32,13 +32,15 @@ public class RecipeRegistration
         );
 
         GameRegistry.addRecipe(
-                new ItemStack(BlockLibrary.candle_holder),
-                new String[] { "t", "i" }, 't', Blocks.TORCH, 'i', Items.IRON_INGOT
+                new ItemStack(BlockLibrary.lantern),
+                new String[] { "i", "t", "i" }, 't', Blocks.TORCH, 'i', Items.IRON_INGOT
         );
 
         GameRegistry.addRecipe(
                 new ItemStack(BlockLibrary.candle_holder),
-                new String[] { "i", "t", "i" }, 't', Blocks.TORCH, 'i', Items.IRON_INGOT
+                new String[] { "t", "i" }, 't', Blocks.TORCH, 'i', Items.IRON_INGOT
         );
+
+
     }
 }
