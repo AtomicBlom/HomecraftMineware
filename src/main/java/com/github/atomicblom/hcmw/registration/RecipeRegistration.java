@@ -21,6 +21,7 @@ public class RecipeRegistration
     public static void registerRecipes(RegistryEvent.Register<SoundEvent> event) {
         GameRegistry.addRecipe(new ItemStack(BlockLibrary.bed_4post),
                 new String[] { "bb" }, 'b', Items.BED);
+
         GameRegistry.addRecipe(new ShapedOreRecipe(
                 new ItemStack(BlockLibrary.bed_canopy),
                 new String[] {"ww","ll","bb" }, 'b', Items.BED, 'w', "blockWool", 'l', "plankWood"
@@ -28,6 +29,16 @@ public class RecipeRegistration
         GameRegistry.addRecipe(
                 new ItemStack(BlockLibrary.bed_canopy),
                 new String[] {"ww","ll","bb" }, 'b', Items.BED, 'w', Blocks.WOOL, 'l', Blocks.PLANKS
+        );
+
+        GameRegistry.addRecipe(
+                new ItemStack(BlockLibrary.candle_holder),
+                new String[] { "t", "i" }, 't', Blocks.TORCH, 'i', Items.IRON_INGOT
+        );
+
+        GameRegistry.addRecipe(
+                new ItemStack(BlockLibrary.candle_holder),
+                new String[] { "i", "t", "i" }, 't', Blocks.TORCH, 'i', Items.IRON_INGOT
         );
     }
 }
