@@ -12,7 +12,9 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,6 +26,9 @@ import static com.github.atomicblom.hcmw.block.BlockProperties.IS_LIT;
 
 public class LanternBlock extends Block
 {
+
+    private final AxisAlignedBB boundingBox = new AxisAlignedBB(0.25f, 0, 0.25f, 0.75f, 0.75f, 0.75f);
+
     public LanternBlock()
     {
         super(Material.REDSTONE_LIGHT);
@@ -35,15 +40,18 @@ public class LanternBlock extends Block
         setDefaultState(defaultState);
     }
 
+    @Override
+    @Deprecated
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return boundingBox;
+    }
+
     ///////////// Block State Management //////////////
 
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this,
-                FACING,
-                IS_LIT
-                );
+        return new BlockStateContainer(this, FACING, IS_LIT);
     }
 
     @Override
@@ -120,13 +128,13 @@ public class LanternBlock extends Block
                 .anyMatch(facing -> canPlaceAt(world, pos, facing));
     }
 
-    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing)
+    private boolean canPlaceAt(IBlockAccess worldIn, BlockPos pos, EnumFacing facing)
     {
         BlockPos blockpos = pos.offset(facing.getOpposite());
         return worldIn.isSideSolid(blockpos, facing, true) || facing.equals(EnumFacing.UP) && this.canPlaceOn(worldIn, blockpos);
     }
 
-    private boolean canPlaceOn(World worldIn, BlockPos pos) {
+    private boolean canPlaceOn(IBlockAccess worldIn, BlockPos pos) {
         IBlockState state = worldIn.getBlockState(pos);
         return state.isSideSolid(worldIn, pos, EnumFacing.UP) || state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
     }
@@ -155,5 +163,28 @@ public class LanternBlock extends Block
             }
         }
         return this.getDefaultState();
+    }
+
+    @Override
+    @Deprecated
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+        if (!canPlaceAt(world, pos, state.getValue(FACING).getOpposite())) {
+            for (EnumFacing preferredDirection : preferredDirections) {
+                if (canPlaceAt(world, pos, preferredDirection)) {
+                    world.setBlockState(pos, state.withProperty(FACING, preferredDirection.getOpposite()), 3);
+                    return;
+                }
+            }
+
+            this.dropBlockAsItem(world, pos, state, 0);
+            world.setBlockToAir(pos);
+        }
+    }
+
+    @Override
+    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+        IBlockState blockState = world.getBlockState(pos);
+
+        super.onNeighborChange(world, pos, neighbor);
     }
 }
