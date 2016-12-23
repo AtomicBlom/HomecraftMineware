@@ -20,6 +20,13 @@ public class Reference {
         private Block() {}
     }
 
+    public static class Model {
+        public static final ResourceLocation lantern_wall_hook = resource("block/hcmwlanternwallhook.obj");
+        public static final ResourceLocation lantern_roof_hook = resource("block/hcmwlanternroofhook.obj");
+
+        private Model() {}
+    }
+
     private static ResourceLocation resource(String name) {
         return new ResourceLocation(HomecraftMinewares.MODID, name);
     }

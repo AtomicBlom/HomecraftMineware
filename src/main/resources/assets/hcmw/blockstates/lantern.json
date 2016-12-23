@@ -19,6 +19,15 @@
         "firstperson": { },
         "gui": { }
       }
-    }]
+    }],
+    "facing": {
+      "north": {},
+      "south": {},
+      "east": {},
+      "west": {},
+      "up": {},
+      "down": {}
+    },
+    "lit": {"true": {}, "false": {}}
   }
 }

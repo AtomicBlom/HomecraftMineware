@@ -2,8 +2,6 @@ package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -27,8 +25,8 @@ public abstract class BedBlockBase extends StructureBlock
 
         final IBlockState defaultState = blockState
                 .getBaseState()
-                .withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
-                .withProperty(BlockBed.OCCUPIED, false);
+                .withProperty(BlockProperties.HORIZONTAL_FACING, EnumFacing.NORTH)
+                .withProperty(BlockProperties.OCCUPIED, false);
         setDefaultState(defaultState);
     }
 
@@ -57,7 +55,7 @@ public abstract class BedBlockBase extends StructureBlock
         {
             if (worldIn.provider.canRespawnHere() && worldIn.getBiome(pos) != Biomes.HELL)
             {
-                if (state.getValue(BlockBed.OCCUPIED))
+                if (state.getValue(BlockProperties.OCCUPIED))
                 {
                     boolean isBedOccupied = false;
 
@@ -75,7 +73,7 @@ public abstract class BedBlockBase extends StructureBlock
                         return true;
                     }
 
-                    state = state.withProperty(BlockBed.OCCUPIED, Boolean.FALSE);
+                    state = state.withProperty(BlockProperties.OCCUPIED, Boolean.FALSE);
                     worldIn.setBlockState(pos, state, 4);
                 }
 
@@ -83,7 +81,7 @@ public abstract class BedBlockBase extends StructureBlock
 
                 if (sleepResult == SleepResult.OK)
                 {
-                    state = state.withProperty(BlockBed.OCCUPIED, Boolean.TRUE);
+                    state = state.withProperty(BlockProperties.OCCUPIED, Boolean.TRUE);
                     worldIn.setBlockState(pos, state, 4);
                     return true;
                 } else
@@ -104,7 +102,7 @@ public abstract class BedBlockBase extends StructureBlock
             } else
             {
                 worldIn.setBlockToAir(pos);
-                final BlockPos blockpos = pos.offset(state.getValue(BlockHorizontal.FACING).getOpposite());
+                final BlockPos blockpos = pos.offset(state.getValue(BlockProperties.HORIZONTAL_FACING).getOpposite());
 
                 if (worldIn.getBlockState(blockpos).getBlock() == this)
                 {
@@ -122,7 +120,7 @@ public abstract class BedBlockBase extends StructureBlock
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, BlockHorizontal.FACING, BlockBed.OCCUPIED);
+        return new BlockStateContainer(this, BlockProperties.HORIZONTAL_FACING, BlockProperties.OCCUPIED);
     }
 
     @Override
@@ -130,7 +128,7 @@ public abstract class BedBlockBase extends StructureBlock
     public IBlockState getStateFromMeta(int meta)
     {
         IBlockState stateFromMeta = super.getStateFromMeta(meta);
-        stateFromMeta = stateFromMeta.withProperty(BlockBed.OCCUPIED, (meta & 4) != 0);
+        stateFromMeta = stateFromMeta.withProperty(BlockProperties.OCCUPIED, (meta & 4) != 0);
         return stateFromMeta;
     }
 
@@ -139,7 +137,7 @@ public abstract class BedBlockBase extends StructureBlock
     {
         // Bit 3 is deliberately overloaded with MIRROR, because beds don't mirror.
         int metaFromState = super.getMetaFromState(state);
-        metaFromState |= state.getValue(BlockBed.OCCUPIED) ? 4 : 0;
+        metaFromState |= state.getValue(BlockProperties.OCCUPIED) ? 4 : 0;
         return metaFromState;
     }
 
@@ -147,7 +145,7 @@ public abstract class BedBlockBase extends StructureBlock
     @Deprecated
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)));
+        return state.withProperty(BlockProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockProperties.HORIZONTAL_FACING)));
     }
 
     ///////////// Rendering //////////////
