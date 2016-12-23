@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public abstract class BedBlockBase extends StructureBlock
 {
@@ -113,6 +114,12 @@ public abstract class BedBlockBase extends StructureBlock
                 return true;
             }
         }
+    }
+
+    @Override
+    public int quantityDropped(Random rnd)
+    {
+        return 1;
     }
 
     ///////////// Block State Management //////////////
