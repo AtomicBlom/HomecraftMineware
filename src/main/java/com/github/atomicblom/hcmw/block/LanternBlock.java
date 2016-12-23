@@ -82,6 +82,7 @@ public class LanternBlock extends Block
     }
 
     @Override
+    @Deprecated
     public boolean isFullCube(IBlockState state) {
         return false;
     }
