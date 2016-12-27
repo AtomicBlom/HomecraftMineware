@@ -27,6 +27,17 @@ public class Reference {
         private Model() {}
     }
 
+    public static class Sound {
+        public static final ResourceLocation bed_side_drawers_open = resource("bed_side_drawers_open");
+        public static final ResourceLocation bed_side_drawers_close = resource("bed_side_drawers_close");
+
+        private Sound() {}
+    }
+
+    public static class Gui {
+        public static final ResourceLocation bed_side_drawers_gui = resource("gui." + Block.bed_side_drawers.getResourcePath());
+    }
+
     private static ResourceLocation resource(String name) {
         return new ResourceLocation(HomecraftMinewares.MODID, name);
     }
