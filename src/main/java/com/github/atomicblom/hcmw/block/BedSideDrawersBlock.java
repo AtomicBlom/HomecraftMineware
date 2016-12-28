@@ -120,7 +120,7 @@ public class BedSideDrawersBlock extends Block
             return true;
         }
 
-        TileEntity te = world.getTileEntity(pos);
+        final TileEntity te = world.getTileEntity(pos);
 
         if (te == null || !(te instanceof BedSideDrawersTileEntity))
         {

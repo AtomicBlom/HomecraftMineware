@@ -8,12 +8,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import javax.annotation.Nullable;
 
 public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements ITickable, IInventory {
     private float animationProgress;
@@ -63,7 +68,7 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
 
     @Override
     public String getName() {
-        return "gui." + BlockLibrary.bed_side_drawers.getRegistryName().toString();
+        return "gui." + BlockLibrary.bed_side_drawers.getRegistryName();
     }
 
     @Override
@@ -93,7 +98,6 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
 
             world.addBlockEvent(pos, BlockLibrary.bed_side_drawers, 1, observers);
             world.notifyNeighborsOfStateChange(pos, BlockLibrary.bed_side_drawers, false);
-            world.notifyNeighborsOfStateChange(pos.down(), BlockLibrary.bed_side_drawers, false);
         }
     }
 
@@ -127,6 +131,13 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
     @Override
     public void update()
     {
+        resynchronize();
+        ticksSinceSync++;
+        updateAnimation();
+    }
+
+    private void resynchronize()
+    {
         // Resynchronizes clients with the server state
         if (world != null && !world.isRemote && observers != 0 && (ticksSinceSync + pos.getX() + pos.getY() + pos.getZ()) % 200 == 0)
         {
@@ -147,9 +158,10 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
         {
             world.addBlockEvent(pos, BlockLibrary.bed_side_drawers, 1, observers);
         }
+    }
 
-        ticksSinceSync++;
-
+    private void updateAnimation()
+    {
         previousAnimationProgress = animationProgress;
 
         if (observers > 0 && animationProgress == 0.0F)
@@ -196,5 +208,66 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
                 animationProgress = 0.0F;
             }
         }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound)
+    {
+        super.readFromNBT(compound);
+
+        contents = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
+
+        if (!checkLootAndRead(compound))
+        {
+            ItemStackHelper.loadAllItems(compound, contents);
+        }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound)
+    {
+        super.writeToNBT(compound);
+
+        if (!checkLootAndWrite(compound))
+        {
+            ItemStackHelper.saveAllItems(compound, contents);
+        }
+
+        return compound;
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket()
+    {
+        final NBTTagCompound compound = new NBTTagCompound();
+
+        if (!checkLootAndWrite(compound))
+        {
+            ItemStackHelper.saveAllItems(compound, contents);
+        }
+
+        return new SPacketUpdateTileEntity(pos, 0, compound);
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag()
+    {
+        return writeToNBT(new NBTTagCompound());
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+    {
+        if (pkt.getTileEntityType() == 0)
+        {
+            ItemStackHelper.loadAllItems(pkt.getNbtCompound(), contents);
+        }
+    }
+
+    @Override
+    public boolean canRenderBreaking()
+    {
+        return true;
     }
 }

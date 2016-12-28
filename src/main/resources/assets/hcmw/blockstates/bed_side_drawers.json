@@ -21,15 +21,17 @@
       }
     }],
     "facing": {
-      "north": { },
-      "south": { "transform": {
+      "north": { "transform": {
         "rotation": {"y": 180 }
       }},
+      "south": { "transform": {
+        "rotation": {"y": 0 }
+      }},
       "east": { "transform": {
-        "rotation": {"y": 270 }
+        "rotation": {"y": 90 }
       }},
       "west": { "transform": {
-        "rotation": {"y": 90 }
+        "rotation": {"y": 270 }
       }}
     }
   }

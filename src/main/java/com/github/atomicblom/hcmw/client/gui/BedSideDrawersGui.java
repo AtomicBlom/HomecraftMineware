@@ -8,6 +8,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public class BedSideDrawersGui extends GuiContainer {
     private final int inventoryRows;
@@ -19,14 +20,14 @@ public class BedSideDrawersGui extends GuiContainer {
     public BedSideDrawersGui(InventoryPlayer inventory, BedSideDrawersTileEntity te) {
         super(new BedsideDrawersContainer(inventory, te));
 
-        this.playerInventory = inventory;
-        this.drawerInventory = te;
+        playerInventory = inventory;
+        drawerInventory = te;
 
-        this.allowUserInput = false;
-        this.inventoryRows = te.getSizeInventory() / 9 + 2;
-        this.ySize = 204; //114 + (this.inventoryRows) * 18;
-        this.upperUnlocalizedLabel = "gui." + Reference.Gui.bed_side_drawers_upper_label.toString();
-        this.lowerUnlocalizedLabel = "gui." + Reference.Gui.bed_side_drawers_lower_label.toString();
+        allowUserInput = false;
+        inventoryRows = te.getSizeInventory() / 9 + 2;
+        ySize = 204;
+        upperUnlocalizedLabel = new TextComponentTranslation("gui." + Reference.Gui.bed_side_drawers_upper_label).getUnformattedComponentText();
+        lowerUnlocalizedLabel = new TextComponentTranslation("gui." + Reference.Gui.bed_side_drawers_lower_label).getUnformattedComponentText();
     }
 
     /**
@@ -34,31 +35,24 @@ public class BedSideDrawersGui extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRendererObj.drawString(upperUnlocalizedLabel, 8, 6, 4210752);
-        this.fontRendererObj.drawString(lowerUnlocalizedLabel, 8, 6 + 18 * 3, 4210752);
-        this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        fontRendererObj.drawString(upperUnlocalizedLabel, 8, 6, 4210752);
+        fontRendererObj.drawString(lowerUnlocalizedLabel, 8, 6 + 18 * 3, 4210752);
+        fontRendererObj.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation(HomecraftMinewares.MODID, "textures/gui/hcmwbedsidedrawergui.png"));
-        int offsetX = (this.width - this.xSize) / 2;
-        int offsetY = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(
+        mc.getTextureManager().bindTexture(new ResourceLocation(HomecraftMinewares.MODID, "textures/gui/hcmwbedsidedrawergui.png"));
+        final int offsetX = (width - xSize) / 2;
+        final int offsetY = (height - ySize) / 2;
+        drawTexturedModalRect(
                 offsetX,
                 offsetY,
                 0,
                 0,
-                this.xSize,
-                this.ySize
+                xSize,
+                ySize
         );
-        /*this.drawTexturedModalRect(
-                offsetX,
-                offsetY + (this.inventoryRows) * 18 + 17,
-                0,
-                126,
-                this.xSize,
-                96);*/
     }
 }
