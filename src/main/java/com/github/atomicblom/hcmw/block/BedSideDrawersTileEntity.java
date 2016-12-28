@@ -63,7 +63,7 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
 
     @Override
     public String getName() {
-        return null;
+        return "gui." + BlockLibrary.bed_side_drawers.getRegistryName().toString();
     }
 
     @Override

@@ -36,6 +36,10 @@ public class Reference {
 
     public static class Gui {
         public static final ResourceLocation bed_side_drawers_gui = resource("gui." + Block.bed_side_drawers.getResourcePath());
+        public static final ResourceLocation bed_side_drawers_upper_label = resource(Block.bed_side_drawers.getResourcePath() + "_upper");
+        public static final ResourceLocation bed_side_drawers_lower_label = resource(Block.bed_side_drawers.getResourcePath() + "_lower");
+
+        //public static final ResourceLocation bed_side_drawers_texture = resource("" + Block.bed_side_drawers.getResourcePath());
     }
 
     private static ResourceLocation resource(String name) {

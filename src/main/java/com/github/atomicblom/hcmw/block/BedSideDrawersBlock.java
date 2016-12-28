@@ -1,11 +1,15 @@
 package com.github.atomicblom.hcmw.block;
 
+import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.gui.GuiType;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -15,9 +19,7 @@ import net.minecraft.world.World;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
 
-/**
- * Created by codew on 23/12/2016.
- */
+//TODO: Bounding Boxes
 public class BedSideDrawersBlock extends Block
 {
     public BedSideDrawersBlock()
@@ -109,5 +111,29 @@ public class BedSideDrawersBlock extends Block
     {
         final TileEntity te = worldIn.getTileEntity(pos);
         return te != null && te.receiveClientEvent(id, param);
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (world.isRemote)
+        {
+            return true;
+        }
+
+        TileEntity te = world.getTileEntity(pos);
+
+        if (te == null || !(te instanceof BedSideDrawersTileEntity))
+        {
+            return true;
+        }
+
+        //FIXME: check if block in front prevents drawer opening.
+        /*if (world.isSideSolid(pos.add(0, 1, 0), EnumFacing.DOWN))
+        {
+            return true;
+        }*/
+
+        player.openGui(HomecraftMinewares.INSTANCE, GuiType.BEDSIDE_DRAWERS.getId(), world, pos.getX(), pos.getY(), pos.getZ());
+        return true;
     }
 }

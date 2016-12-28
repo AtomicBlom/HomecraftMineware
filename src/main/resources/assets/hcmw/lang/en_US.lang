@@ -6,3 +6,6 @@ tile.hcmw:lantern.name=Lantern
 tile.hcmw:candle_holder.name=Candle Holder
 tile.hcmw:barrel.name=Barrel
 tile.hcmw:bed_side_drawers.name=Bedside Drawers
+
+gui.hcmw:bed_side_drawers_upper=Drawer
+gui.hcmw:bed_side_drawers_lower=Drawer
