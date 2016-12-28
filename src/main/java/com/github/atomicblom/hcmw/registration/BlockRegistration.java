@@ -30,6 +30,8 @@ public class BlockRegistration {
         blocks.add(new LanternBlock(), Reference.Block.lantern);
         blocks.add(new CandleHolderBlock(), Reference.Block.candleholder);
         blocks.add(new BedSideDrawersBlock(), Reference.Block.bed_side_drawers);
+
+        blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers.toString());
     }
 
     private static class Blocks
@@ -67,13 +69,13 @@ public class BlockRegistration {
             shapeBlock = new StructureShapeBlock();
             add(shapeBlock, Reference.Block.shape);
 
-            GameRegistry.registerTileEntity(StructureTE.class, "tile.hcmw:structure");
-            GameRegistry.registerTileEntity(StructureShapeTE.class, "tile.hcmw:shape");
+            add(StructureTE.class, "hcmw:structure");
+            add(StructureShapeTE.class, "hcmw:shape");
         }
 
         public void add(Class<? extends TileEntity> tileEntityClass, String id)
         {
-            GameRegistry.registerTileEntity(tileEntityClass, id);
+            GameRegistry.registerTileEntity(tileEntityClass, "tile." + id);
         }
     }
 }

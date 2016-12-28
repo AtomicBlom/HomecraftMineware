@@ -16,14 +16,14 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 
 public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements ITickable, IInventory {
-    public float lidAngle;
-    public float prevLidAngle;
+    private float animationProgress;
+    private float previousAnimationProgress;
 
     private NonNullList<ItemStack> contents;
 
     private int ticksSinceSync = -1;
 
-    public int observers;
+    private int observers;
 
     public BedSideDrawersTileEntity() {
         contents = NonNullList.withSize(4* 9, ItemStack.EMPTY);
@@ -102,7 +102,7 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
     {
         if (id == 1)
         {
-            this.observers = data;
+            observers = data;
         }
 
         return true;
@@ -111,91 +111,89 @@ public class BedSideDrawersTileEntity extends TileEntityLockableLoot implements 
     @Override
     public boolean isUsableByPlayer(EntityPlayer player)
     {
-        if (this.world == null)
+        if (world == null)
         {
             return true;
         }
 
-        if (this.world.getTileEntity(this.pos) != this)
+        if (world.getTileEntity(pos) != this)
         {
             return false;
         }
 
-        return player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64D;
+        return player.getDistanceSq(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) <= 64D;
     }
 
     @Override
     public void update()
     {
         // Resynchronizes clients with the server state
-        if (this.world != null && !this.world.isRemote && this.observers != 0 && (this.ticksSinceSync + this.pos.getX() + this.pos.getY() + this.pos.getZ()) % 200 == 0)
+        if (world != null && !world.isRemote && observers != 0 && (ticksSinceSync + pos.getX() + pos.getY() + pos.getZ()) % 200 == 0)
         {
-            this.observers = 0;
+            observers = 0;
 
-            float radius = 5.0F;
-
-            AxisAlignedBB searchBounds = new AxisAlignedBB(this.pos.getX() - radius, this.pos.getY() - radius, this.pos.getZ() - radius, this.pos.getX() + 1 + radius, this.pos.getY() + 1 + radius, this.pos.getZ() + 1 + radius)
-            for (EntityPlayer player : this.world.getEntitiesWithinAABB(EntityPlayer.class, searchBounds))
+            final float radius = 5.0F;
+            final AxisAlignedBB searchBounds = new AxisAlignedBB(pos).expandXyz(radius);
+            for (final EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, searchBounds))
             {
                 if (player.openContainer instanceof BedsideDrawersContainer)
                 {
-                    ++this.observers;
+                    ++observers;
                 }
             }
         }
 
-        if (this.world != null && !this.world.isRemote && this.ticksSinceSync < 0)
+        if (world != null && !world.isRemote && ticksSinceSync < 0)
         {
-            this.world.addBlockEvent(this.pos, BlockLibrary.bed_side_drawers, 1, observers);
+            world.addBlockEvent(pos, BlockLibrary.bed_side_drawers, 1, observers);
         }
 
-        this.ticksSinceSync++;
+        ticksSinceSync++;
 
-        this.prevLidAngle = this.lidAngle;
+        previousAnimationProgress = animationProgress;
 
-        float angle = 0.1F;
-
-        if (this.observers > 0 && this.lidAngle == 0.0F)
+        if (observers > 0 && animationProgress == 0.0F)
         {
-            double x = this.pos.getX() + 0.5D;
-            double y = this.pos.getY() + 0.5D;
-            double z = this.pos.getZ() + 0.5D;
+            final double x = pos.getX() + 0.5D;
+            final double y = pos.getY() + 0.5D;
+            final double z = pos.getZ() + 0.5D;
 
-            this.world.playSound(null, x, y, z, SoundLibrary.bed_side_drawers_open, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+            world.playSound(null, x, y, z, SoundLibrary.bed_side_drawers_open, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
         }
 
-        if (this.observers == 0 && this.lidAngle > 0.0F || this.observers > 0 && this.lidAngle < 1.0F)
+        if (observers == 0 && animationProgress > 0.0F || observers > 0 && animationProgress < 1.0F)
         {
-            float currentAngle = this.lidAngle;
+            final float currentAngle = animationProgress;
 
-            if (this.observers > 0)
+            final float angle = 0.1F;
+            if (observers > 0)
             {
-                this.lidAngle += angle;
+                animationProgress += angle;
             }
             else
             {
-                this.lidAngle -= angle;
+                animationProgress -= angle;
             }
 
-            if (this.lidAngle > 1.0F)
+            if (animationProgress > 1.0F)
             {
-                this.lidAngle = 1.0F;
+                animationProgress = 1.0F;
             }
 
-            float maxAngle = 0.5F;
+            final float maxAngle = 0.5F;
 
-            if (this.lidAngle < maxAngle && currentAngle >= maxAngle)
+            if (animationProgress < maxAngle && currentAngle >= maxAngle)
             {
-                double x = this.pos.getX() + 0.5D;
-                double y = this.pos.getY() + 0.5D;
-                double z = this.pos.getZ() + 0.5D;
+                final double x = pos.getX() + 0.5D;
+                final double y = pos.getY() + 0.5D;
+                final double z = pos.getZ() + 0.5D;
 
-                this.world.playSound(null, x, y, z, SoundLibrary.bed_side_drawers_close, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                world.playSound(null, x, y, z, SoundLibrary.bed_side_drawers_close, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
             }
 
-            if (this.lidAngle < 0.0F)
+            if (animationProgress < 0.0F)
             {
-                this.lidAngle = 0.0F;
+                animationProgress = 0.0F;
             }
         }
     }

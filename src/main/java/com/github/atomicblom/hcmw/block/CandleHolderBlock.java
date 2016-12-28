@@ -116,9 +116,8 @@ public class CandleHolderBlock extends Block
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 
         if (canPlaceOn(world, pos.down())) {
-            final EnumFacing orientation = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0f / 360.0f + 0.5) & 3);
             return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
-                    .withProperty(HORIZONTAL_FACING, orientation);
+                    .withProperty(HORIZONTAL_FACING, placer.getHorizontalFacing().getOpposite());
         }
         return this.getDefaultState();
     }

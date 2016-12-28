@@ -19,6 +19,18 @@
         "firstperson": { },
         "gui": { }
       }
-    }]
+    }],
+    "facing": {
+      "north": { },
+      "south": { "transform": {
+        "rotation": {"y": 180 }
+      }},
+      "east": { "transform": {
+        "rotation": {"y": 270 }
+      }},
+      "west": { "transform": {
+        "rotation": {"y": 90 }
+      }}
+    }
   }
 }
