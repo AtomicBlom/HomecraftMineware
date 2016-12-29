@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemLibrary {
     public static final Item bed_4post;
     public static final Item bed_canopy;
-    public static final Item barrel;
+    public static final Item item_barrel;
     public static final Item lantern;
     public static final Item candle_holder;
     public static final Item bed_side_drawers;
@@ -16,7 +16,7 @@ public class ItemLibrary {
     static {
         bed_4post = null;
         bed_canopy = null;
-        barrel = null;
+        item_barrel = null;
         lantern = null;
         candle_holder = null;
         bed_side_drawers = null;

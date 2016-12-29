@@ -1,6 +1,6 @@
-package com.github.atomicblom.hcmw.block;
+package com.github.atomicblom.hcmw.block.tileentity;
 
-import com.github.atomicblom.hcmw.gui.BedsideDrawersContainer;
+import com.github.atomicblom.hcmw.container.BedsideDrawersContainer;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
 import com.github.atomicblom.hcmw.library.Reference;
 import com.github.atomicblom.hcmw.library.SoundLibrary;
