@@ -1,15 +1,16 @@
 package com.github.atomicblom.hcmw.gui;
 
-import com.github.atomicblom.hcmw.block.BedSideDrawersTileEntity;
+import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
+import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
 import com.github.atomicblom.hcmw.client.gui.BedSideDrawersGui;
+import com.github.atomicblom.hcmw.client.gui.ItemBarrelGui;
+import com.github.atomicblom.hcmw.container.BedsideDrawersContainer;
+import com.github.atomicblom.hcmw.container.ItemBarrelContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
-/**
- * Created by codew on 28/12/2016.
- */
 public enum GuiHandler implements IGuiHandler {
     INSTANCE;
 
@@ -19,8 +20,12 @@ public enum GuiHandler implements IGuiHandler {
         switch(gui)
         {
             case BEDSIDE_DRAWERS:
-                final BedSideDrawersTileEntity te = (BedSideDrawersTileEntity)world.getTileEntity(pos);
-                return new BedsideDrawersContainer(player.inventory, te);
+                final BedSideDrawersTileEntity bedsideDrawersTE = (BedSideDrawersTileEntity)world.getTileEntity(pos);
+                return new BedsideDrawersContainer(player.inventory, bedsideDrawersTE);
+            case ITEM_BARREL:
+                final ItemBarrelTileEntity itemBarrelTE = (ItemBarrelTileEntity)world.getTileEntity(pos);
+                return new ItemBarrelContainer(player.inventory, itemBarrelTE);
+            case FLUID_BARREL:
         }
 
         return null;
@@ -32,8 +37,12 @@ public enum GuiHandler implements IGuiHandler {
         switch(gui)
         {
             case BEDSIDE_DRAWERS:
-                final BedSideDrawersTileEntity te = (BedSideDrawersTileEntity)world.getTileEntity(pos);
-                return new BedSideDrawersGui(player.inventory, te);
+                final BedSideDrawersTileEntity bedsideDrawersTE = (BedSideDrawersTileEntity)world.getTileEntity(pos);
+                return new BedSideDrawersGui(player.inventory, bedsideDrawersTE);
+            case ITEM_BARREL:
+                final ItemBarrelTileEntity itemBarrelTE = (ItemBarrelTileEntity)world.getTileEntity(pos);
+                return new ItemBarrelGui(player.inventory, itemBarrelTE);
+            case FLUID_BARREL:
         }
 
         return null;

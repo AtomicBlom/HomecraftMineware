@@ -7,6 +7,8 @@ import com.foudroyantfactotum.tool.structure.tileentity.StructureShapeTE;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.github.atomicblom.hcmw.HomecraftMinewares;
 import com.github.atomicblom.hcmw.block.*;
+import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
+import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
 import com.github.atomicblom.hcmw.client.CreativeTab;
 import com.github.atomicblom.hcmw.library.Reference;
 import net.minecraft.block.Block;
@@ -26,12 +28,13 @@ public class BlockRegistration {
         final Blocks blocks = new Blocks(blockRegister.getRegistry());
         blocks.addStructure(new FourPostBedBlock(), Reference.Block.bed_4post);
         blocks.addStructure(new CanopyBedBlock(), Reference.Block.bed_canopy);
-        blocks.add(new BarrelBlock(), Reference.Block.barrel);
+        blocks.add(new ItemBarrelBlock(), Reference.Block.item_barrel);
         blocks.add(new LanternBlock(), Reference.Block.lantern);
         blocks.add(new CandleHolderBlock(), Reference.Block.candleholder);
         blocks.add(new BedSideDrawersBlock(), Reference.Block.bed_side_drawers);
 
         blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers.toString());
+        blocks.add(ItemBarrelTileEntity.class, Reference.Block.item_barrel.toString());
     }
 
     private static class Blocks

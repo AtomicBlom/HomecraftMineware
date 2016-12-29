@@ -1,17 +1,13 @@
 package com.github.atomicblom.hcmw.block;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
-import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
+import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
 import com.github.atomicblom.hcmw.gui.GuiType;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -19,10 +15,9 @@ import net.minecraft.world.World;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
 
-//TODO: Bounding Boxes
-public class BedSideDrawersBlock extends BaseInventoryBlock
+public class ItemBarrelBlock extends BaseInventoryBlock
 {
-    public BedSideDrawersBlock()
+    public ItemBarrelBlock()
     {
         super(Material.WOOD);
         final IBlockState defaultState = blockState
@@ -65,26 +60,19 @@ public class BedSideDrawersBlock extends BaseInventoryBlock
     }
 
     @Override
-    @Deprecated
-    public EnumBlockRenderType getRenderType(IBlockState state)
-    {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state)
-    {
-        return new BedSideDrawersTileEntity();
-    }
-
-    @Override
     protected GuiType getGuiType() {
-        return GuiType.BEDSIDE_DRAWERS;
+        return GuiType.ITEM_BARREL;
     }
 
     @Override
     protected boolean canOpen(World world, BlockPos pos, IBlockState state) {
-        EnumFacing facing = state.getValue(HORIZONTAL_FACING);
-        return world.getBlockState(pos.offset(facing)).isSideSolid(world, pos, facing.getOpposite());
+        return true;
+    }
+
+
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state)
+    {
+        return new ItemBarrelTileEntity();
     }
 }
