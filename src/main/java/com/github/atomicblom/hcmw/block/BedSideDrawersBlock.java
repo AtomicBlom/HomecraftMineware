@@ -43,7 +43,7 @@ public class BedSideDrawersBlock extends BaseInventoryBlock
     public IBlockState getStateFromMeta(int meta)
     {
         IBlockState stateFromMeta = super.getStateFromMeta(meta);
-        EnumFacing facing = EnumFacing.VALUES[(meta & 7)];
+        EnumFacing facing = EnumFacing.VALUES[meta & 7];
         if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
             facing = EnumFacing.NORTH;
         }
@@ -85,6 +85,6 @@ public class BedSideDrawersBlock extends BaseInventoryBlock
     @Override
     protected boolean canOpen(World world, BlockPos pos, IBlockState state) {
         EnumFacing facing = state.getValue(HORIZONTAL_FACING);
-        return world.getBlockState(pos.offset(facing)).isSideSolid(world, pos, facing.getOpposite());
+        return world.isSideSolid(pos.offset(facing), facing.getOpposite());
     }
 }

@@ -38,7 +38,7 @@ public class ItemBarrelBlock extends BaseInventoryBlock
     public IBlockState getStateFromMeta(int meta)
     {
         IBlockState stateFromMeta = super.getStateFromMeta(meta);
-        EnumFacing facing = EnumFacing.VALUES[(meta & 7)];
+        EnumFacing facing = EnumFacing.VALUES[meta & 7];
         if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
             facing = EnumFacing.NORTH;
         }
