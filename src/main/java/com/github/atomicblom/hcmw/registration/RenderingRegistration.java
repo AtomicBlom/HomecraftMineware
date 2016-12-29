@@ -10,8 +10,11 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(modid = HomecraftMinewares.MODID)
+@EventBusSubscriber(Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public final class RenderingRegistration {
 
     @SubscribeEvent

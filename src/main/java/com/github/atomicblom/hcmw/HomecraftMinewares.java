@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = HomecraftMinewares.MODID, version = HomecraftMinewares.VERSION)
 public class HomecraftMinewares
@@ -20,7 +22,7 @@ public class HomecraftMinewares
     public static final boolean DEBUG = false;
 
     @Mod.Instance
-    public static HomecraftMinewares INSTANCE = null  ;
+    public static HomecraftMinewares INSTANCE = null;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -32,11 +34,18 @@ public class HomecraftMinewares
     {
         StructureRegistry.loadRegisteredPatterns();
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, GuiHandler.INSTANCE);
+    }
+
+    @EventHandler
+    @SideOnly(Side.CLIENT)
+    public void initClient(FMLInitializationEvent event)
+    {
         MinecraftForge.EVENT_BUS.register(new HighlightPreview());
         if (DEBUG)
         {
             MinecraftForge.EVENT_BUS.register(new HighlightBoundingBoxDebug());
         }
+
     }
 
     @EventHandler

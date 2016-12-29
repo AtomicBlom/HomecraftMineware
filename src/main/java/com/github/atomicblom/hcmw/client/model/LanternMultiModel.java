@@ -19,9 +19,10 @@ import net.minecraftforge.client.model.MultiModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber
 public class LanternMultiModel extends HCMWMultiModel {
 
     private static final ImmutableMap<String, String> flipData = ImmutableMap.of("flip-v", String.valueOf(true));

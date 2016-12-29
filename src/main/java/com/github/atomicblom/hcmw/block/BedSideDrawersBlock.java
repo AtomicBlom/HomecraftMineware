@@ -65,6 +65,7 @@ public class BedSideDrawersBlock extends Block
     }
 
     @Override
+    @Deprecated
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
         return EnumBlockRenderType.MODEL;
@@ -77,12 +78,14 @@ public class BedSideDrawersBlock extends Block
     }
 
     @Override
+    @Deprecated
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
 
     @Override
+    @Deprecated
     public boolean isFullCube(IBlockState state)
     {
         return false;
@@ -115,11 +118,6 @@ public class BedSideDrawersBlock extends Block
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (world.isRemote)
-        {
-            return true;
-        }
-
         final TileEntity te = world.getTileEntity(pos);
 
         if (te == null || !(te instanceof BedSideDrawersTileEntity))

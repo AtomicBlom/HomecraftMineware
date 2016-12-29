@@ -13,7 +13,10 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public abstract class HCMWMultiModel {
     protected static final DefaultStateMapper stateMapper = new DefaultStateMapper();
     protected static final Function<ResourceLocation, TextureAtlasSprite> textureGetter =
@@ -40,7 +43,7 @@ public abstract class HCMWMultiModel {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = HomecraftMinewares.MODID)
+    @Mod.EventBusSubscriber(modid = HomecraftMinewares.MODID, value = Side.CLIENT)
     static class ModelBakeEventHandler {
         static HCMWMultiModel[] multiModels = new HCMWMultiModel[] {
                 new LanternMultiModel()
