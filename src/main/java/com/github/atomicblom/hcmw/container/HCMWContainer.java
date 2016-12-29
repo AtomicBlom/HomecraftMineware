@@ -53,6 +53,20 @@ public abstract class HCMWContainer extends Container {
         return itemstack;
     }
 
+    protected void addPlayerInventory(IInventory playerInventory, int verticalOffset) {
+        for (int row = 0; row < 3; ++row)
+        {
+            for (int column = 0; column < 9; ++column)
+            {
+                addSlotToContainer(new Slot(playerInventory, column + row * 9 + 9, 8 + column * 18, row * 18 + verticalOffset));
+            }
+        }
+
+        for (int column = 0; column < 9; ++column)
+        {
+            addSlotToContainer(new Slot(playerInventory, column, 8 + column * 18, verticalOffset + 3 * 18 + 4));
+        }
+    }
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {

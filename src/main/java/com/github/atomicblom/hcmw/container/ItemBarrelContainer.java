@@ -11,7 +11,7 @@ public class ItemBarrelContainer extends HCMWContainer {
         playerInventory.openInventory(playerInventory.player);
 
         int index = 0;
-        final int offsetSpacing = 20;
+        final int offsetSpacing = 5 * 18;
         for (int xOffset = 0; xOffset < 2; ++xOffset) {
             for (int y = 0; y < 4; ++y) {
                 for (int x = 0; x < 4; ++x) {
@@ -19,11 +19,13 @@ public class ItemBarrelContainer extends HCMWContainer {
                         continue;
                     }
 
-                    addSlotToContainer(new Slot(barrelInventory, index, 8 + x * 18 + (xOffset * offsetSpacing), 18 + y * 18));
+                    addSlotToContainer(new Slot(barrelInventory, index, 8 + x * 18 + (xOffset * offsetSpacing), 8 + y * 18));
 
                     index++;
                 }
             }
         }
+
+        addPlayerInventory(playerInventory, 8 + 4 * 18 + 4);
     }
 }

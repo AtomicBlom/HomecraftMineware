@@ -1,7 +1,6 @@
 package com.github.atomicblom.hcmw.block;
 
 import com.github.atomicblom.hcmw.HomecraftMinewares;
-import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
 import com.github.atomicblom.hcmw.gui.GuiType;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

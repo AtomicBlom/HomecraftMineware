@@ -43,7 +43,7 @@ public class BedSideDrawersGui extends GuiContainer {
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.getTextureManager().bindTexture(Reference.Gui.item_barrel_texture);
+        mc.getTextureManager().bindTexture(Reference.Gui.bed_side_drawers_texture);
         final int offsetX = (width - xSize) / 2;
         final int offsetY = (height - ySize) / 2;
         drawTexturedModalRect(

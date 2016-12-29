@@ -1,15 +1,12 @@
 package com.github.atomicblom.hcmw.block;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.block.properties.IHorizontalBlockHelper;
 import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
 import com.github.atomicblom.hcmw.gui.GuiType;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -20,7 +17,7 @@ import net.minecraft.world.World;
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
 
 //TODO: Bounding Boxes
-public class BedSideDrawersBlock extends BaseInventoryBlock
+public class BedSideDrawersBlock extends BaseInventoryBlock implements IHorizontalBlockHelper
 {
     public BedSideDrawersBlock()
     {
@@ -43,19 +40,14 @@ public class BedSideDrawersBlock extends BaseInventoryBlock
     public IBlockState getStateFromMeta(int meta)
     {
         IBlockState stateFromMeta = super.getStateFromMeta(meta);
-        EnumFacing facing = EnumFacing.VALUES[meta & 7];
-        if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
-            facing = EnumFacing.NORTH;
-        }
-        stateFromMeta = stateFromMeta.withProperty(HORIZONTAL_FACING, facing);
-
+        stateFromMeta = getHorizontalStateFromMeta(stateFromMeta, meta);
         return stateFromMeta;
     }
 
     @Override
     public int getMetaFromState(IBlockState state)
     {
-        return state.getValue(HORIZONTAL_FACING).ordinal();
+        return getHorizontalMetaFromState(state);
     }
 
     @Override
@@ -85,6 +77,6 @@ public class BedSideDrawersBlock extends BaseInventoryBlock
     @Override
     protected boolean canOpen(World world, BlockPos pos, IBlockState state) {
         EnumFacing facing = state.getValue(HORIZONTAL_FACING);
-        return world.isSideSolid(pos.offset(facing), facing.getOpposite());
+        return !world.isSideSolid(pos.offset(facing), facing.getOpposite());
     }
 }
