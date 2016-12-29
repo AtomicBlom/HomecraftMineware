@@ -35,25 +35,12 @@ public abstract class HCMWMultiModel {
         }
     }
 
+    //TODO: Is this actually neccessary? Mincraft provides a Default state mapper that may be sufficient
     protected static class DefaultStateMapper extends StateMapperBase
     {
         public ModelResourceLocation getModelResourceLocation(IBlockState state)
         {
             return new ModelResourceLocation(state.getBlock().getRegistryName(), getPropertyString(state.getProperties()));
-        }
-    }
-
-    @Mod.EventBusSubscriber(modid = HomecraftMinewares.MODID, value = Side.CLIENT)
-    static class ModelBakeEventHandler {
-        static HCMWMultiModel[] multiModels = new HCMWMultiModel[] {
-                new LanternMultiModel()
-        };
-
-        @SubscribeEvent
-        public static void onModelBake(ModelBakeEvent event) {
-            for (HCMWMultiModel multiModel : multiModels) {
-                multiModel.loadModel(event);
-            }
         }
     }
 }
