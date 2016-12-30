@@ -25,6 +25,7 @@ public final class RenderingRegistration {
         setItemModel(ItemLibrary.bed_4post);
         setItemModel(ItemLibrary.bed_canopy);
         setItemModel(ItemLibrary.item_barrel);
+        setItemModel(ItemLibrary.fluid_barrel);
         setItemModel(ItemLibrary.bed_side_drawers);
         setItemModel(ItemLibrary.candle_holder);
         setItemModel(ItemLibrary.lantern);

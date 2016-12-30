@@ -5,6 +5,7 @@ tile.hcmw:bed_canopy.name=Bed with Canopy
 tile.hcmw:lantern.name=Lantern
 tile.hcmw:candle_holder.name=Candle Holder
 tile.hcmw:item_barrel.name=Item Barrel
+tile.hcmw:fluid_barrel.name=Fluid Barrel
 tile.hcmw:bed_side_drawers.name=Bedside Drawers
 
 gui.hcmw:bed_side_drawers_upper=Upper Drawer
