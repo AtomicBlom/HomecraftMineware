@@ -4,7 +4,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 
-public class ItemBarrelContainer extends HCMWContainer {
+public class ItemBarrelContainer extends HCMWItemContainer {
     public ItemBarrelContainer(InventoryPlayer playerInventory, IInventory barrelInventory) {
         super(barrelInventory);
 

@@ -12,6 +12,7 @@ public class Reference {
         public static final ResourceLocation bed_4post = resource("bed_4post");
         public static final ResourceLocation bed_canopy = resource("bed_canopy");
         public static final ResourceLocation item_barrel = resource("item_barrel");
+        public static final ResourceLocation fluid_barrel = resource("fluid_barrel");
         public static final ResourceLocation bed_side_drawers = resource("bed_side_drawers");
         public static final ResourceLocation lantern = resource("lantern");
         public static final ResourceLocation candleholder = resource("candle_holder");
@@ -42,8 +43,9 @@ public class Reference {
 
         public static final ResourceLocation item_barrel_gui = resource("gui." + Block.item_barrel.getResourcePath());
         public static final ResourceLocation item_barrel_texture = resource("textures/gui/hcmwbarrelitemgui.png");
-        //public static final ResourceLocation bed_side_drawers_texture = resource("" + Block.bed_side_drawers.getResourcePath());
 
+        public static final ResourceLocation fluid_barrel_gui = resource("gui." + Block.fluid_barrel.getResourcePath());
+        public static final ResourceLocation fluid_barrel_texture = resource("textures/gui/hcmwbarrelfluidgui.png");
     }
 
     private static ResourceLocation resource(String name) {

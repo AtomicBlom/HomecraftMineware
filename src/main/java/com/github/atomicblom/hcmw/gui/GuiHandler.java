@@ -1,10 +1,13 @@
 package com.github.atomicblom.hcmw.gui;
 
 import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
+import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
 import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
 import com.github.atomicblom.hcmw.client.gui.BedSideDrawersGui;
+import com.github.atomicblom.hcmw.client.gui.FluidBarrelGui;
 import com.github.atomicblom.hcmw.client.gui.ItemBarrelGui;
 import com.github.atomicblom.hcmw.container.BedsideDrawersContainer;
+import com.github.atomicblom.hcmw.container.FluidBarrelContainer;
 import com.github.atomicblom.hcmw.container.ItemBarrelContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
@@ -26,6 +29,8 @@ public enum GuiHandler implements IGuiHandler {
                 final ItemBarrelTileEntity itemBarrelTE = (ItemBarrelTileEntity)world.getTileEntity(pos);
                 return new ItemBarrelContainer(player.inventory, itemBarrelTE);
             case FLUID_BARREL:
+                final FluidBarrelTileEntity fluidBarrelTE = (FluidBarrelTileEntity)world.getTileEntity(pos);
+                return new FluidBarrelContainer(player.inventory, fluidBarrelTE);
         }
 
         return null;
@@ -43,6 +48,8 @@ public enum GuiHandler implements IGuiHandler {
                 final ItemBarrelTileEntity itemBarrelTE = (ItemBarrelTileEntity)world.getTileEntity(pos);
                 return new ItemBarrelGui(player.inventory, itemBarrelTE);
             case FLUID_BARREL:
+                final FluidBarrelTileEntity fluidBarrelTE = (FluidBarrelTileEntity)world.getTileEntity(pos);
+                return new FluidBarrelGui(player.inventory, fluidBarrelTE);
         }
 
         return null;

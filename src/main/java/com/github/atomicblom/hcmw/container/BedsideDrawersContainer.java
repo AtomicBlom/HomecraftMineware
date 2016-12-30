@@ -1,13 +1,10 @@
 package com.github.atomicblom.hcmw.container;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
-public class BedsideDrawersContainer extends HCMWContainer {
+public class BedsideDrawersContainer extends HCMWItemContainer {
 
     public BedsideDrawersContainer(InventoryPlayer playerInventory, IInventory inventory) {
         super(inventory);

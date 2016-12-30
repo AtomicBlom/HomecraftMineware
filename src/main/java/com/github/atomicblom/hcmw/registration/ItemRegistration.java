@@ -23,6 +23,7 @@ public final class ItemRegistration {
         items.addStructure(BlockLibrary.bed_4post);
         items.addStructure(BlockLibrary.bed_canopy);
         items.add(BlockLibrary.item_barrel);
+        items.add(BlockLibrary.fluid_barrel);
         items.add(BlockLibrary.bed_side_drawers);
         items.add(BlockLibrary.candle_holder);
         items.add(BlockLibrary.lantern);
