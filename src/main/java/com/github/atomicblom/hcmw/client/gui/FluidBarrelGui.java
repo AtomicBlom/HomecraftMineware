@@ -2,23 +2,30 @@ package com.github.atomicblom.hcmw.client.gui;
 
 import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
 import com.github.atomicblom.hcmw.container.FluidBarrelContainer;
-import com.github.atomicblom.hcmw.container.ItemBarrelContainer;
 import com.github.atomicblom.hcmw.library.Reference;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-
-import java.util.Arrays;
+import org.lwjgl.opengl.GL11;
 
 public class FluidBarrelGui extends GuiContainer {
     //private final int inventoryRows;
     private final InventoryPlayer playerInventory;
     private final FluidBarrelTileEntity drawerInventory;
+    private final TextureMap blocksTextureMap;
+    private TextureManager textureManager;
 
     //private final String barrelName;
 
@@ -31,7 +38,10 @@ public class FluidBarrelGui extends GuiContainer {
         allowUserInput = false;
         //inventoryRows = te.getSizeInventory() / 9 + 2;
         ySize = 204;
+        Minecraft mc = Minecraft.getMinecraft();
 
+        blocksTextureMap = mc.getTextureMapBlocks();
+        textureManager = mc.getTextureManager();
         //barrelName = te.getDisplayName().getUnformattedText();
     }
 
@@ -47,7 +57,8 @@ public class FluidBarrelGui extends GuiContainer {
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.getTextureManager().bindTexture(Reference.Gui.fluid_barrel_texture);
+
+        textureManager.bindTexture(Reference.Gui.fluid_barrel_texture);
         final int offsetX = (width - xSize) / 2;
         final int offsetY = (height - ySize) / 2;
         drawTexturedModalRect(
@@ -61,12 +72,38 @@ public class FluidBarrelGui extends GuiContainer {
 
         IFluidHandler capability = drawerInventory.getCapability(FluidBarrelTileEntity.FLUID_HANDLER_CAPABILITY, null);
 
-        FluidStack contents = capability.getTankProperties()[0].getContents();
+        IFluidTankProperties[] tankProperties = capability.getTankProperties();
+        if (tankProperties != null && tankProperties.length > 0) {
+            IFluidTankProperties tankProperty = tankProperties[0];
+            if (tankProperty != null) {
+                FluidStack contents = tankProperty.getContents();
+                if (contents != null) {
+                    Fluid fluid = contents.getFluid();
+                    if (fluid != null) {
+                        ResourceLocation still = fluid.getStill();
+                        if (still != null) {
 
-        ResourceLocation still = contents.getFluid().getStill();
-        mc.getTextureManager().bindTexture(still);
 
+                            textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                            TextureAtlasSprite sprite = blocksTextureMap.getAtlasSprite(fluid.getStill().toString());
 
+                            float amountStored = 8 * contents.amount / 1000.0f;
+
+                            if (sprite != null) {
+                                drawRepeatedFluidSprite(
+                                        sprite,
+                                        offsetX + 70,
+                                        offsetY + 10 + 64 - amountStored,
+                                        36,
+                                        amountStored
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        textureManager.bindTexture(Reference.Gui.fluid_barrel_texture);
 
         drawTexturedModalRect(
                 offsetX + 69,
@@ -77,4 +114,53 @@ public class FluidBarrelGui extends GuiContainer {
                 65
         );
     }
+
+    public static void drawRepeatedFluidSprite(TextureAtlasSprite sprite, float x, float y, float w, float h)
+    {
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer vertexBuffer = tessellator.getBuffer();
+        vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        int iW = sprite.getIconWidth();
+        int iH = sprite.getIconHeight();
+        if(iW > 0 && iH > 0) {
+            drawRepeatedSprite(vertexBuffer, x, y, w, h, iW, iH, sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV());
+        }
+
+        tessellator.draw();
+    }
+
+
+    public static void drawRepeatedSprite(VertexBuffer tessellator, float x, float y, float w, float h, int iconWidth, int iconHeight, float uMin, float uMax, float vMin, float vMax)
+    {
+        int iterMaxW = (int) (w / iconWidth);
+        int iterMaxH = (int) (h / iconHeight);
+        float leftoverW = w % iconWidth;
+        float leftoverH = h % iconHeight;
+        float leftoverWf = leftoverW / (float) iconWidth;
+        float leftoverHf = leftoverH / (float) iconHeight;
+        float iconUDif = uMax - uMin;
+        float iconVDif = vMax - vMin;
+        for(int ww = 0; ww < iterMaxW; ww++)
+        {
+            for(int hh = 0; hh < iterMaxH; hh++)
+                drawTexturedRect(tessellator, x + ww * iconWidth, y + hh * iconHeight, iconWidth, iconHeight, uMin, uMax, vMin, vMax);
+            drawTexturedRect(tessellator, x + ww * iconWidth, y + iterMaxH * iconHeight, iconWidth, leftoverH, uMin, uMax, vMin, (vMin + iconVDif * leftoverHf));
+        }
+        if(leftoverW > 0)
+        {
+            for(int hh = 0; hh < iterMaxH; hh++)
+                drawTexturedRect(tessellator, x + iterMaxW * iconWidth, y + hh * iconHeight, leftoverW, iconHeight, uMin, (uMin + iconUDif * leftoverWf), vMin, vMax);
+            drawTexturedRect(tessellator, x + iterMaxW * iconWidth, y + iterMaxH * iconHeight, leftoverW, leftoverH, uMin, (uMin + iconUDif * leftoverWf), vMin, (vMin + iconVDif * leftoverHf));
+        }
+    }
+
+
+    public static void drawTexturedRect(VertexBuffer vertexBuffer, float x, float y, float w, float h, double... uv)
+    {
+        vertexBuffer.pos(x, y + h, 0).tex(uv[0], uv[3]).endVertex();
+        vertexBuffer.pos(x + w, y + h, 0).tex(uv[1], uv[3]).endVertex();
+        vertexBuffer.pos(x + w, y, 0).tex(uv[1], uv[2]).endVertex();
+        vertexBuffer.pos(x, y, 0).tex(uv[0], uv[2]).endVertex();
+    }
+
 }

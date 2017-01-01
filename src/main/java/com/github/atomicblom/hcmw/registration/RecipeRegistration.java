@@ -50,6 +50,5 @@ public class RecipeRegistration
                 new ItemStack(BlockLibrary.fluid_barrel),
                 new String[] {"ppp", "ibi", "ppp"}, 'p', "plankWood", 'i', "ingotIron", 'b', Items.GLASS_BOTTLE
         ));
-
     }
 }
