@@ -12,6 +12,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
@@ -78,5 +79,11 @@ public class BedSideDrawersBlock extends BaseInventoryBlock implements IHorizont
     protected boolean canOpen(World world, BlockPos pos, IBlockState state) {
         EnumFacing facing = state.getValue(HORIZONTAL_FACING);
         return !world.isSideSolid(pos.offset(facing), facing.getOpposite());
+    }
+
+    @Override
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
+    {
+        return side == EnumFacing.UP || side == EnumFacing.DOWN;
     }
 }
