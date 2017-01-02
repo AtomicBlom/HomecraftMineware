@@ -50,5 +50,10 @@ public class RecipeRegistration
                 new ItemStack(BlockLibrary.fluid_barrel),
                 new String[] {"ppp", "ibi", "ppp"}, 'p', "plankWood", 'i', "ingotIron", 'b', Items.GLASS_BOTTLE
         ));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                new ItemStack(BlockLibrary.bed_side_drawers),
+                new String[] {"p", "c", "p"}, 'p', "plankWood", 'c', Blocks.CHEST
+        ));
     }
 }

@@ -4,6 +4,7 @@ import com.github.atomicblom.hcmw.container.FluidBarrelContainer;
 import com.github.atomicblom.hcmw.container.ItemBarrelContainer;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
 import com.github.atomicblom.hcmw.library.Reference;
+import com.github.atomicblom.hcmw.util.HCMWFluidTank;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -33,7 +34,7 @@ public class FluidBarrelTileEntity extends TileEntity implements IInteractionObj
     IFluidHandler inventory;
 
     public FluidBarrelTileEntity() {
-        inventory = new FluidTank(8000);
+        inventory = new HCMWFluidTank(this, 8000);
     }
 
     @Override
