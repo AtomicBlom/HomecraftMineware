@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["AtomicBlom", "Rorax"],
   "credits": "Kihira (Original developer), BluSunrize (advice and help)",
-  "logoFile": "",
+  "logoFile": "assets/hcmw/logo.png",
   "screenshots": [],
   "dependencies": []
 }
