@@ -86,7 +86,7 @@ public abstract class BedBlockBase extends StructureBlock
                 {
                     state = state.withProperty(BlockProperties.OCCUPIED, Boolean.TRUE);
                     worldIn.setBlockState(pos, state, 4);
-                    playerIn.setPosition(playerIn.posX, playerIn.posY + 0.5, playerIn.posZ);
+                    playerIn.setPosition(playerIn.posX, playerIn.posY + 1, playerIn.posZ);
                     return true;
                 } else
                 {

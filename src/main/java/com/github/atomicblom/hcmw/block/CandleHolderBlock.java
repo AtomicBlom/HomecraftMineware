@@ -117,7 +117,7 @@ public class CandleHolderBlock extends Block
 
         if (canPlaceOn(world, pos.down())) {
             return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
-                    .withProperty(HORIZONTAL_FACING, placer.getHorizontalFacing().getOpposite());
+                    .withProperty(HORIZONTAL_FACING, placer.getHorizontalFacing());
         }
         return this.getDefaultState();
     }

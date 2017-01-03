@@ -18,12 +18,12 @@
         "thirdperson": {
           "translation": [0, 0, 0],
           "rotation": [{"y": 0}, {"x": 0 }],
-          "scale": 0.50
+          "scale": 0.25
         },
         "firstperson": {
           "translation": [0.1, 0, 0.2],
           "rotation": {"y": 15 },
-          "scale": 0.3333
+          "scale": 0.25
         },
         "gui": {
           "translation": [0.20,-0.15,0],
