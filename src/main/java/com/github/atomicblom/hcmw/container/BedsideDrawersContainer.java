@@ -10,7 +10,7 @@ public class BedsideDrawersContainer extends HCMWItemContainer {
         super(inventory);
 
         final int numRows = inventory.getSizeInventory() / 9;
-        playerInventory.openInventory(playerInventory.player);
+        inventory.openInventory(playerInventory.player);
 
         for (int j = 0; j < numRows / 2; ++j)
         {
@@ -28,6 +28,6 @@ public class BedsideDrawersContainer extends HCMWItemContainer {
             }
         }
 
-        addPlayerInventory(playerInventory, 140);
+        addPlayerInventory(playerInventory, 122);
     }
 }

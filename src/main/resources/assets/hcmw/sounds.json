@@ -1,0 +1,20 @@
+{
+  "bed_side_drawers_open": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "hcmw:bed_side_drawers_open"
+      }
+    ],
+    "subtitle": "subtitle.hcmw:bed_side_drawers_open"
+  },
+  "bed_side_drawers_close": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "hcmw:bed_side_drawers_close"
+      }
+    ],
+    "subtitle": "subtitle.hcmw:bed_side_drawers_close"
+  }
+}

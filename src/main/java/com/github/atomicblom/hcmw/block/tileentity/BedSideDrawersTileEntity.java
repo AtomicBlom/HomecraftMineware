@@ -17,6 +17,7 @@ import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.IInteractionObject;
 import javax.annotation.Nullable;
@@ -47,4 +48,7 @@ public class BedSideDrawersTileEntity extends BaseSimpleInventoryTileEntity impl
     {
         return true;
     }
+
+    protected SoundEvent getOpenSound() { return SoundLibrary.bed_side_drawers_open; }
+    protected SoundEvent getCloseSound() { return SoundLibrary.bed_side_drawers_close; }
 }
