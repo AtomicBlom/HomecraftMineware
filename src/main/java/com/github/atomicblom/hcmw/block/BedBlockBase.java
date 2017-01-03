@@ -78,12 +78,15 @@ public abstract class BedBlockBase extends StructureBlock
                     worldIn.setBlockState(pos, state, 4);
                 }
 
-                final SleepResult sleepResult = playerIn.trySleep(pos);
+                final BlockPos sleepPosition = pos.offset(state.getValue(BlockProperties.HORIZONTAL_FACING));
+
+                final SleepResult sleepResult = playerIn.trySleep(sleepPosition);
 
                 if (sleepResult == SleepResult.OK)
                 {
                     state = state.withProperty(BlockProperties.OCCUPIED, Boolean.TRUE);
                     worldIn.setBlockState(pos, state, 4);
+                    playerIn.setPosition(playerIn.posX, playerIn.posY + 0.5, playerIn.posZ);
                     return true;
                 } else
                 {
