@@ -2,6 +2,7 @@ package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
+import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -46,6 +47,23 @@ public abstract class BedBlockBase extends StructureBlock
     }
 
     @Override
+    public void setBedOccupied(IBlockAccess world, BlockPos pos, EntityPlayer player, boolean occupied)
+    {
+        if (world instanceof World)
+        {
+            final StructureTE tileEntity = (StructureTE)world.getTileEntity(pos);
+            IBlockState state = world.getBlockState(pos);
+            state = state.getBlock()
+                    .getActualState(state, world, pos)
+                    .withProperty(BlockProperties.OCCUPIED, occupied);
+
+            ((World)world).setBlockState(pos, state, 6);
+            final StructureTE newTileEntity = (StructureTE)world.getTileEntity(pos);
+            newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getRegHash());
+        }
+    }
+
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState blockState, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         IBlockState state = blockState;
@@ -75,7 +93,10 @@ public abstract class BedBlockBase extends StructureBlock
                     }
 
                     state = state.withProperty(BlockProperties.OCCUPIED, Boolean.FALSE);
-                    worldIn.setBlockState(pos, state, 4);
+                    final StructureTE tileEntity = (StructureTE)worldIn.getTileEntity(pos);
+                    worldIn.setBlockState(pos, state, 6);
+                    final StructureTE newTileEntity = (StructureTE)worldIn.getTileEntity(pos);
+                    newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getRegHash());
                 }
 
                 final BlockPos sleepPosition = pos.offset(state.getValue(BlockProperties.HORIZONTAL_FACING));
@@ -84,8 +105,14 @@ public abstract class BedBlockBase extends StructureBlock
 
                 if (sleepResult == SleepResult.OK)
                 {
+                    final StructureTE tileEntity = (StructureTE)worldIn.getTileEntity(pos);
+
                     state = state.withProperty(BlockProperties.OCCUPIED, Boolean.TRUE);
-                    worldIn.setBlockState(pos, state, 4);
+                    worldIn.setBlockState(pos, state, 6);
+
+                    final StructureTE newTileEntity = (StructureTE)worldIn.getTileEntity(pos);
+                    newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getRegHash());
+
                     playerIn.setPosition(playerIn.posX, playerIn.posY + 1, playerIn.posZ);
                     return true;
                 } else
