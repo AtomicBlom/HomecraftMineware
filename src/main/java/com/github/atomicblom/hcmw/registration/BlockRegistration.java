@@ -5,7 +5,7 @@ import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.block.StructureShapeBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureShapeTE;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.block.*;
 import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
 import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
-@EventBusSubscriber(modid = HomecraftMinewares.MODID)
+@EventBusSubscriber(modid = HomecraftMineware.MODID)
 public class BlockRegistration {
 
     @SubscribeEvent

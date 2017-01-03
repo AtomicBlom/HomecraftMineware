@@ -14,15 +14,15 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = HomecraftMinewares.MODID, version = HomecraftMinewares.VERSION)
-public class HomecraftMinewares
+@Mod(modid = HomecraftMineware.MODID, version = HomecraftMineware.VERSION)
+public class HomecraftMineware
 {
     public static final String MODID = "hcmw";
     public static final String VERSION = "1.0";
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     @Mod.Instance
-    public static HomecraftMinewares INSTANCE = null;
+    public static HomecraftMineware INSTANCE = null;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {

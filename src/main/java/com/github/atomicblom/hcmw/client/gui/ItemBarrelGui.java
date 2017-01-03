@@ -1,16 +1,11 @@
 package com.github.atomicblom.hcmw.client.gui;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
-import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
-import com.github.atomicblom.hcmw.container.BedsideDrawersContainer;
 import com.github.atomicblom.hcmw.container.ItemBarrelContainer;
 import com.github.atomicblom.hcmw.library.Reference;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
 
 public class ItemBarrelGui extends GuiContainer {
     private final int inventoryRows;

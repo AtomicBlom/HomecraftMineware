@@ -1,6 +1,6 @@
 package com.github.atomicblom.hcmw.block;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.gui.GuiType;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -72,7 +72,7 @@ public abstract class BaseInventoryBlock extends Block {
             return true;
         }
 
-        player.openGui(HomecraftMinewares.INSTANCE, getGuiType().getId(), world, pos.getX(), pos.getY(), pos.getZ());
+        player.openGui(HomecraftMineware.INSTANCE, getGuiType().getId(), world, pos.getX(), pos.getY(), pos.getZ());
 
         return true;
     }

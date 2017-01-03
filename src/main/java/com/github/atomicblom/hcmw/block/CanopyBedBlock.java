@@ -41,7 +41,7 @@ public class CanopyBedBlock extends BedBlockBase
                 new float[] {2.0f, 0.0f, 2.0f, 2-pixelWidth*3, 3.0f, 2-pixelWidth*3},
                 new float[] {0.0f, 0.0f, 2.0f, pixelWidth*3, 3.0f, 2-pixelWidth*3},
                 //Matress
-                new float[] {pixelWidth * 3, pixelWidth * 6, 0.0f, 2.0f-pixelWidth * 3, pixelWidth * 12, 2.0f-pixelWidth * 2}
+                new float[] {pixelWidth * 3, pixelWidth * 6, 0.0f, 2.0f-pixelWidth * 3, pixelWidth * 11, 2.0f-pixelWidth * 2}
 
         );
 

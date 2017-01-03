@@ -1,6 +1,6 @@
 package com.github.atomicblom.hcmw.registration;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.client.model.HCMWMultiModel;
 import com.github.atomicblom.hcmw.client.model.LanternMultiModel;
 import com.github.atomicblom.hcmw.client.model.obj.OBJLoader;
@@ -25,7 +25,7 @@ public final class RenderingRegistration {
 
     @SubscribeEvent
     public static void onModelRegistryReady(ModelRegistryEvent event) {
-        OBJLoader.INSTANCE.addDomain(HomecraftMinewares.MODID);
+        OBJLoader.INSTANCE.addDomain(HomecraftMineware.MODID);
         ModelLoaderRegistry.registerLoader(OBJLoader.INSTANCE);
 
         setItemModel(ItemLibrary.bed_4post);

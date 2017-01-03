@@ -1,8 +1,7 @@
 package com.github.atomicblom.hcmw.registration;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.library.Reference;
-import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -10,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
-@Mod.EventBusSubscriber(modid = HomecraftMinewares.MODID)
+@Mod.EventBusSubscriber(modid = HomecraftMineware.MODID)
 public class SoundRegistration {
 
     @SubscribeEvent

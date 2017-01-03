@@ -12,5 +12,5 @@ newmtl Material__1
 #	Kd 0.5880 0.5880 0.5880
 #	Ks 0.0000 0.0000 0.0000
 #	Ke 0.0000 0.0000 0.0000
-map_Ka hcmw:barrel
+map_Ka hcmw:models/barrel_item
 #	map_Kd F:\3dsMax\scenes\Minecraft\HomeWare\barrelLiquid.png

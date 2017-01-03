@@ -1,11 +1,11 @@
 package com.github.atomicblom.hcmw.library;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @SuppressWarnings("Duplicates")
-@GameRegistry.ObjectHolder(HomecraftMinewares.MODID)
+@GameRegistry.ObjectHolder(HomecraftMineware.MODID)
 public class ItemLibrary {
     public static final Item bed_4post;
     public static final Item bed_canopy;

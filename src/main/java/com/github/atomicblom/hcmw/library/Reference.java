@@ -1,6 +1,6 @@
 package com.github.atomicblom.hcmw.library;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import net.minecraft.util.ResourceLocation;
 
 /**
@@ -49,7 +49,7 @@ public class Reference {
     }
 
     private static ResourceLocation resource(String name) {
-        return new ResourceLocation(HomecraftMinewares.MODID, name);
+        return new ResourceLocation(HomecraftMineware.MODID, name);
     }
 
     private Reference() {}

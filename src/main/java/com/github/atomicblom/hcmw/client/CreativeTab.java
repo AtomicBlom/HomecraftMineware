@@ -1,6 +1,6 @@
 package com.github.atomicblom.hcmw.client;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.library.ItemLibrary;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -9,7 +9,7 @@ public class CreativeTab extends CreativeTabs
 {
     private CreativeTab()
     {
-        super(HomecraftMinewares.MODID);
+        super(HomecraftMineware.MODID);
     }
 
     public static CreativeTab INSTANCE = new CreativeTab();

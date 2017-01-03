@@ -1,6 +1,5 @@
 package com.github.atomicblom.hcmw.client.model;
 
-import com.github.atomicblom.hcmw.HomecraftMinewares;
 import com.google.common.base.Function;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -11,8 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

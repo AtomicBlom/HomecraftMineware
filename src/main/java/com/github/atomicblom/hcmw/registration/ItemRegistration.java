@@ -2,12 +2,11 @@ package com.github.atomicblom.hcmw.registration;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.item.StructureBlockItem;
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.client.CreativeTab;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@EventBusSubscriber(modid = HomecraftMinewares.MODID)
+@EventBusSubscriber(modid = HomecraftMineware.MODID)
 public final class ItemRegistration {
 
     @SubscribeEvent

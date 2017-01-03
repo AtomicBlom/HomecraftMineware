@@ -1,12 +1,12 @@
 package com.github.atomicblom.hcmw.library;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
-import com.github.atomicblom.hcmw.HomecraftMinewares;
+import com.github.atomicblom.hcmw.HomecraftMineware;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @SuppressWarnings("Duplicates")
-@GameRegistry.ObjectHolder(HomecraftMinewares.MODID)
+@GameRegistry.ObjectHolder(HomecraftMineware.MODID)
 public class BlockLibrary {
     public static final StructureBlock bed_4post;
     public static final StructureBlock bed_canopy;
