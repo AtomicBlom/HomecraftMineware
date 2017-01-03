@@ -12,6 +12,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -83,5 +84,11 @@ public class ItemBarrelBlock extends BaseInventoryBlock implements IHorizontalBl
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state)
     {
         return new ItemBarrelTileEntity();
+    }
+
+    @Override
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
+    {
+        return side == EnumFacing.UP || side == EnumFacing.DOWN;
     }
 }
