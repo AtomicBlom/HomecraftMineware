@@ -3,11 +3,15 @@ package com.github.atomicblom.hcmw.block.tileentity;
 import com.github.atomicblom.hcmw.container.BedsideDrawersContainer;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
 import com.github.atomicblom.hcmw.library.SoundLibrary;
+import mcjty.lib.tools.ItemStackList;
+import mcjty.lib.tools.ItemStackTools;
+import mcjty.lib.tools.WorldTools;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -17,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,15 +34,15 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     private int ticksSinceSync = -1;
 
 
-    private final NonNullList<ItemStack> items;
+    private final ItemStackList items;
     private int observingPlayerCount;
 
     BaseSimpleInventoryTileEntity(int itemStackSize) {
-        items = NonNullList.withSize(itemStackSize, ItemStack.EMPTY);
+        items = ItemStackList.create(itemStackSize);
     }
 
     @Override
-    public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack) {
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
         return true;
     }
 
@@ -47,24 +52,16 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     }
 
     @Override
-    public boolean isEmpty() {
-        return items
-                .stream()
-                .anyMatch(itemStack -> !itemStack.isEmpty());
-    }
-
-    @Override
-    @Nonnull
     public ItemStack getStackInSlot(int index) {
         return items.get(index);
     }
 
     @Override
-    @Nonnull
     public ItemStack decrStackSize(int index, int count) {
-        final ItemStack itemstack = ItemStackHelper.getAndSplit(items, index, count);
+        final ItemStack itemstack = getAndSplit(items, index, count);
 
-        if (!itemstack.isEmpty())
+
+        if (!ItemStackTools.isEmpty(itemstack))
         {
             markDirty();
         }
@@ -73,18 +70,19 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     }
 
     @Override
-    @Nonnull
     public ItemStack removeStackFromSlot(int index) {
-        return ItemStackHelper.getAndRemove(items, index);
+
+        return getAndRemove(items, index);
     }
 
     @Override
-    public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
+    public void setInventorySlotContents(int index, ItemStack stack) {
         items.set(index, stack);
 
-        if (stack.getCount() > getInventoryStackLimit())
+
+        if (ItemStackTools.getStackSize(stack) > getInventoryStackLimit())
         {
-            stack.setCount(getInventoryStackLimit());
+            ItemStackTools.setStackSize(stack, getInventoryStackLimit());
         }
 
         markDirty();
@@ -96,8 +94,9 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     }
 
     @Override
-    public boolean isUsableByPlayer(@Nonnull EntityPlayer player)
+    public boolean isUseableByPlayer(@Nonnull EntityPlayer player)
     {
+        World world = getWorld();
         if (world.getTileEntity(pos) == this)
             if (player.getDistanceSq(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) <= 64.0D)
                 return true;
@@ -106,6 +105,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
 
     @Override
     public void openInventory(@Nonnull EntityPlayer player) {
+        World world = getWorld();
         if (player.isSpectator() || world == null) {
             return;
         }
@@ -113,7 +113,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
         observingPlayerCount = Math.max(0, observingPlayerCount + 1);
 
         world.addBlockEvent(pos, blockType, 1, observingPlayerCount);
-        world.notifyNeighborsOfStateChange(pos, blockType, false);
+        WorldTools.notifyNeighborsOfStateChange(world, pos, blockType);
     }
 
     @Override
@@ -121,6 +121,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
         if (!player.isSpectator())
         {
             final BlockPos pos = getPos();
+            World world = getWorld();
             if (world == null)
             {
                 return;
@@ -129,7 +130,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
             observingPlayerCount = Math.max(0, observingPlayerCount - 1);
 
             world.addBlockEvent(pos, blockType, 1, observingPlayerCount);
-            world.notifyNeighborsOfStateChange(pos, blockType, false);
+            world.notifyNeighborsOfStateChange(pos, blockType);
         }
     }
 
@@ -143,6 +144,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
 
     private void resynchronize()
     {
+        World world = getWorld();
         // Resynchronizes clients with the server state
         if (world != null && !world.isRemote && observingPlayerCount != 0 && (ticksSinceSync + pos.getX() + pos.getY() + pos.getZ()) % 200 == 0)
         {
@@ -167,6 +169,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
 
     private void updateAnimation()
     {
+        World world = getWorld();
         previousAnimationProgress = animationProgress;
 
         if (observingPlayerCount > 0 && animationProgress == 0.0F)
@@ -285,7 +288,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     {
         super.readFromNBT(compound);
         items.clear();
-        ItemStackHelper.loadAllItems(compound, items);
+        loadAllItems(compound, items);
     }
 
     @Override
@@ -293,7 +296,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
-        ItemStackHelper.saveAllItems(compound, items);
+        saveAllItems(compound, items);
 
         return compound;
     }
@@ -304,7 +307,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     {
         final NBTTagCompound compound = new NBTTagCompound();
 
-        ItemStackHelper.saveAllItems(compound, items);
+        saveAllItems(compound, items);
 
         return new SPacketUpdateTileEntity(getPos(), 0, compound);
     }
@@ -314,7 +317,74 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     {
         if (pkt.getTileEntityType() == 0)
         {
-            ItemStackHelper.loadAllItems(pkt.getNbtCompound(), items);
+            loadAllItems(pkt.getNbtCompound(), items);
         }
+    }
+
+    @Nullable
+    private static ItemStack getAndSplit(ItemStackList stacks, int index, int amount)
+    {
+        if (index >= 0 && index < stacks.size() && stacks.get(index) != null && amount > 0)
+        {
+            ItemStack itemstack = stacks.get(index).splitStack(amount);
+
+            if (stacks.get(index).stackSize == 0)
+            {
+                stacks.set(index, null);
+            }
+
+            return itemstack;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private static ItemStack getAndRemove(ItemStackList stacks, int index)
+    {
+        if (index >= 0 && index < stacks.size())
+        {
+            ItemStack itemstack = stacks.get(index);
+            stacks.set(index, null);
+            return itemstack;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private static void loadAllItems(NBTTagCompound compound, ItemStackList items) {
+        NBTTagList nbttaglist = compound.getTagList("Items", 10);
+
+        for (int i = 0; i < nbttaglist.tagCount(); ++i)
+        {
+            NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+            int slot = nbttagcompound.getByte("Slot") & 255;
+
+            if (slot >= 0 && slot < items.size())
+            {
+                items.set(slot, ItemStack.loadItemStackFromNBT(nbttagcompound));
+            }
+        }
+    }
+
+    private static void saveAllItems(NBTTagCompound compound, ItemStackList items) {
+        NBTTagList nbttaglist = new NBTTagList();
+
+        for (int i = 0; i < items.size(); ++i)
+        {
+            ItemStack itemStack = items.get(i);
+            if (itemStack != null)
+            {
+                NBTTagCompound nbttagcompound = new NBTTagCompound();
+                nbttagcompound.setByte("Slot", (byte)i);
+                itemStack.writeToNBT(nbttagcompound);
+                nbttaglist.appendTag(nbttagcompound);
+            }
+        }
+
+        compound.setTag("Items", nbttaglist);
     }
 }

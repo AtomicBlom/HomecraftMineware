@@ -56,7 +56,7 @@ public class FluidBarrelTileEntity extends TileEntity implements IInteractionObj
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             if (facing == null || facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
-                return (T) inventory;
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory);
             }
         }
         return super.getCapability(capability, facing);

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
-@Mod.EventBusSubscriber(modid = HomecraftMineware.MODID)
+@Mod.EventBusSubscriber()
 public class SoundRegistration {
 
     @SubscribeEvent

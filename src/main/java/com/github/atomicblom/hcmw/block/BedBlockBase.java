@@ -2,6 +2,7 @@ package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
+import mcjty.lib.tools.ChatTools;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -9,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.SleepResult;
 import net.minecraft.init.Biomes;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -43,7 +45,7 @@ public abstract class BedBlockBase extends StructureBlock
     @Override
     public boolean onStructureBlockActivated(World world, BlockPos pos, EntityPlayer player, EnumHand hand, BlockPos callPos, EnumFacing side, BlockPos local, float sx, float sy, float sz) {
         final IBlockState state = world.getBlockState(pos);
-        return onBlockActivated(world, pos, state, player, hand, side, sx, sy, sz);
+        return onBlockActivated(world, pos, state, player, hand, player.getHeldItem(hand), side, sx, sy, sz);
     }
 
     @Override
@@ -64,9 +66,7 @@ public abstract class BedBlockBase extends StructureBlock
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState blockState, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        IBlockState state = blockState;
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote)
         {
             return true;
@@ -88,7 +88,7 @@ public abstract class BedBlockBase extends StructureBlock
 
                     if (isBedOccupied)
                     {
-                        playerIn.sendStatusMessage(new TextComponentTranslation("tile.bed.occupied"), true);
+                        playerIn.addChatMessage(new TextComponentTranslation("tile.bed.occupied"));
                         return true;
                     }
 
@@ -119,13 +119,13 @@ public abstract class BedBlockBase extends StructureBlock
                 {
                     if (sleepResult == SleepResult.NOT_POSSIBLE_NOW)
                     {
-                        playerIn.sendStatusMessage(new TextComponentTranslation("tile.bed.noSleep"), true);
+                        playerIn.addChatMessage(new TextComponentTranslation("tile.bed.noSleep"));
                     } else if (sleepResult == SleepResult.NOT_SAFE)
                     {
-                        playerIn.sendStatusMessage(new TextComponentTranslation("tile.bed.notSafe"), true);
+                        playerIn.addChatMessage(new TextComponentTranslation("tile.bed.notSafe"));
                     } else if (sleepResult == SleepResult.TOO_FAR_AWAY)
                     {
-                        playerIn.sendStatusMessage(new TextComponentTranslation("tile.bed.tooFarAway"), true);
+                        playerIn.addChatMessage(new TextComponentTranslation("tile.bed.tooFarAway"));
                     }
 
                     return true;

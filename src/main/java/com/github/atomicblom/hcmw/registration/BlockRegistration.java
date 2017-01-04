@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
-@EventBusSubscriber(modid = HomecraftMineware.MODID)
+@EventBusSubscriber()
 public class BlockRegistration {
 
     @SubscribeEvent

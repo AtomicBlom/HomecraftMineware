@@ -1,5 +1,6 @@
 package com.github.atomicblom.hcmw.block;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -112,11 +113,11 @@ public class CandleHolderBlock extends Block
 
     // Behaviour
 
-    @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
         if (canPlaceOn(world, pos.down())) {
-            return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
+            return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, stack)
                     .withProperty(HORIZONTAL_FACING, placer.getHorizontalFacing());
         }
         return this.getDefaultState();
@@ -132,25 +133,25 @@ public class CandleHolderBlock extends Block
         return state.isSideSolid(worldIn, pos, EnumFacing.UP) || state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
     }
 
+
     @Override
     @Deprecated
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
-        if (!canPlaceOn(world, pos.down())) {
-            this.dropBlockAsItem(world, pos, state, 0);
-            world.setBlockToAir(pos);
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+        if (!canPlaceOn(worldIn, pos.down())) {
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            worldIn.setBlockToAir(pos);
         }
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack heldItem = player.getHeldItem(hand);
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         Boolean isLit = state.getValue(IS_LIT);
         if (heldItem.getItem() == Items.FLINT_AND_STEEL && !isLit) {
-            world.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
-            heldItem.damageItem(1, player);
+            worldIn.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
+            heldItem.damageItem(1, playerIn);
             return true;
-        } else if (heldItem.isEmpty() && isLit) {
-            world.setBlockState(pos, state.withProperty(IS_LIT, false), 3);
+        } else if (ItemStackTools.isEmpty(heldItem) && isLit) {
+            worldIn.setBlockState(pos, state.withProperty(IS_LIT, false), 3);
             return true;
         }
         return false;

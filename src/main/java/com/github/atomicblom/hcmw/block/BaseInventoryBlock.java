@@ -8,11 +8,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public abstract class BaseInventoryBlock extends Block {
 
@@ -60,19 +63,19 @@ public abstract class BaseInventoryBlock extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        final TileEntity te = world.getTileEntity(pos);
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        final TileEntity te = worldIn.getTileEntity(pos);
 
         if (te == null)
         {
             return true;
         }
 
-        if (!canOpen(world, pos, state)) {
+        if (!canOpen(worldIn, pos, state)) {
             return true;
         }
 
-        player.openGui(HomecraftMineware.INSTANCE, getGuiType().getId(), world, pos.getX(), pos.getY(), pos.getZ());
+        playerIn.openGui(HomecraftMineware.INSTANCE, getGuiType().getId(), worldIn, pos.getX(), pos.getY(), pos.getZ());
 
         return true;
     }

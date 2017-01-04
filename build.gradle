@@ -108,8 +108,10 @@ shadowJar {
     println deobfPrefix
     dependencies {
         include(dependency(deobfPrefix + 'com.foudroyantfactotum:Structure-' + config.minecraft_version + ':' + config.structure_version))
+        include(dependency(deobfPrefix + 'com.github.mcjty:compatlayer:' + config.compatlayer_version))
     }
     relocate 'com.foudroyantfactotum.tool.structure', 'com.github.atomicblom.hcmw.shaded.structure'
+    relocate 'mcjty.lib', 'com.github.atomicblom.hcmw.shaded.compatlayer'
     classifier = 'universal'
 }
 
@@ -151,4 +153,13 @@ if (config.structure_local_enabled == "true") {
         }
         deobfCompile(group: 'com.foudroyantfactotum', name: 'Structure-' + config.minecraft_version, version: config.structure_version, classifier: 'universal')
     }
+}
+
+dependencies {
+    repositories {
+        maven {
+            url 'http://maven.k-4u.nl'
+        }
+    }
+    deobfCompile(group: 'com.github.mcjty', name: 'compatlayer', version: config.compatlayer_version)
 }

@@ -18,9 +18,6 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.MultiModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class LanternMultiModel extends HCMWMultiModel {

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@EventBusSubscriber(modid = HomecraftMineware.MODID)
+@EventBusSubscriber()
 public final class ItemRegistration {
 
     @SubscribeEvent

@@ -2,9 +2,7 @@ package com.github.atomicblom.hcmw.block;
 
 import com.github.atomicblom.hcmw.block.properties.IHorizontalBlockHelper;
 import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
-import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
 import com.github.atomicblom.hcmw.gui.GuiType;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -18,12 +16,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
 
@@ -61,10 +58,11 @@ public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalB
     {
         return getHorizontalMetaFromState(state);
     }
+
     @Override
     @Nonnull
-    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
-        return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+        return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, stack)
                 .withProperty(HORIZONTAL_FACING, placer.getHorizontalFacing().getOpposite());
     }
 
@@ -93,26 +91,21 @@ public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalB
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
-
-        final TileEntity te = world.getTileEntity(pos);
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        final TileEntity te = worldIn.getTileEntity(pos);
 
         if (te == null || !(te instanceof FluidBarrelTileEntity))
         {
             return true;
         }
 
-        ItemStack heldItem = player.getHeldItem(hand);
-
         IFluidHandler capability = te.getCapability(FluidBarrelTileEntity.FLUID_HANDLER_CAPABILITY, null);
 
 
-        FluidActionResult fluidActionResult = FluidUtil.interactWithFluidHandler(heldItem, capability, player);
-        if (!fluidActionResult.isSuccess()) {
-            return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
+        boolean fluidActionResult = FluidUtil.interactWithFluidHandler(heldItem, capability, playerIn);
+        if (!fluidActionResult) {
+            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
         }
-        player.setHeldItem(hand, fluidActionResult.getResult());
 
         return true;
     }

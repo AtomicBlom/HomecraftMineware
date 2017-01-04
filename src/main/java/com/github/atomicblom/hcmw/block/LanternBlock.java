@@ -1,5 +1,6 @@
 package com.github.atomicblom.hcmw.block;
 
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -19,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.FACING;
@@ -106,16 +108,16 @@ public class LanternBlock extends Block
         }
     }
 
+
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack heldItem = player.getHeldItem(hand);
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         Boolean isLit = state.getValue(IS_LIT);
         if (heldItem.getItem() == Items.FLINT_AND_STEEL && !isLit) {
-            world.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
-            heldItem.damageItem(1, player);
+            worldIn.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
+            heldItem.damageItem(1, playerIn);
             return true;
-        } else if (heldItem.isEmpty() && isLit) {
-            world.setBlockState(pos, state.withProperty(IS_LIT, false), 3);
+        } else if (ItemStackTools.isEmpty(heldItem) && isLit) {
+            worldIn.setBlockState(pos, state.withProperty(IS_LIT, false), 3);
             return true;
         }
         return false;
@@ -155,15 +157,14 @@ public class LanternBlock extends Block
     };
 
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
         if (canPlaceAt(world, pos, facing)) {
-            return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
+            return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, stack)
                     .withProperty(FACING, facing.getOpposite());
         } else {
             for (EnumFacing preferredDirection : preferredDirections) {
                 if (canPlaceAt(world, pos, preferredDirection)) {
-                    return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
+                    return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, stack)
                             .withProperty(FACING, preferredDirection.getOpposite());
                 }
             }
@@ -171,19 +172,20 @@ public class LanternBlock extends Block
         return this.getDefaultState();
     }
 
+
     @Override
     @Deprecated
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
-        if (!canPlaceAt(world, pos, state.getValue(FACING).getOpposite())) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+        if (!canPlaceAt(worldIn, pos, state.getValue(FACING).getOpposite())) {
             for (EnumFacing preferredDirection : preferredDirections) {
-                if (canPlaceAt(world, pos, preferredDirection)) {
-                    world.setBlockState(pos, state.withProperty(FACING, preferredDirection.getOpposite()), 3);
+                if (canPlaceAt(worldIn, pos, preferredDirection)) {
+                    worldIn.setBlockState(pos, state.withProperty(FACING, preferredDirection.getOpposite()), 3);
                     return;
                 }
             }
 
-            this.dropBlockAsItem(world, pos, state, 0);
-            world.setBlockToAir(pos);
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            worldIn.setBlockToAir(pos);
         }
     }
 
