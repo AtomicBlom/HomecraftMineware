@@ -19,7 +19,7 @@ public class HomecraftMineware
 {
     public static final String MODID = "hcmw";
     public static final String VERSION = "1.0";
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     @Mod.Instance
     public static HomecraftMineware INSTANCE = null;
