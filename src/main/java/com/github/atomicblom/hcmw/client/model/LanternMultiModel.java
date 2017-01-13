@@ -44,8 +44,12 @@ public class LanternMultiModel extends HCMWMultiModel {
             final ImmutableMap.Builder<String, Pair<IModel, IModelState>> builder = new ImmutableMap.Builder<>();
             ModelResourceLocation modelLocation = stateMapper.getModelResourceLocation(state);
 
-            final OBJBakedModel bakedModel = (OBJBakedModel) modelRegistry.getObject(modelLocation);
-            OBJModel model = bakedModel.getModel();
+            IBakedModel bakedModel = modelRegistry.getObject(modelLocation);
+            if (!(bakedModel instanceof OBJBakedModel)) {
+                continue;
+            }
+            final OBJBakedModel objBakedModel = (OBJBakedModel) bakedModel;
+            OBJModel model = objBakedModel.getModel();
 
             if (connection == EnumFacing.UP)  {
                 builder.put("roof_hook", Pair.of(roofHookModel, TRSRTransformation.identity()));
@@ -61,12 +65,12 @@ public class LanternMultiModel extends HCMWMultiModel {
             IModel multiModel = new MultiModel(
                     modelLocation,
                     model,
-                    bakedModel.getState(),
+                    objBakedModel.getState(),
                     builder.build()
             );
 
             modelRegistry.putObject(modelLocation,
-                    multiModel.bake(bakedModel.getState(), DefaultVertexFormats.ITEM, textureGetter)
+                    multiModel.bake(objBakedModel.getState(), DefaultVertexFormats.ITEM, textureGetter)
             );
         }
     }
