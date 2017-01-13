@@ -112,7 +112,7 @@ public class LanternBlock extends Block
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         Boolean isLit = state.getValue(IS_LIT);
-        if (heldItem.getItem() == Items.FLINT_AND_STEEL && !isLit) {
+        if (!ItemStackTools.isEmpty(heldItem) && heldItem.getItem() == Items.FLINT_AND_STEEL && !isLit) {
             worldIn.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
             heldItem.damageItem(1, playerIn);
             return true;
