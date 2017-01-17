@@ -112,6 +112,8 @@ shadowJar {
     }
     relocate 'com.foudroyantfactotum.tool.structure', 'com.github.atomicblom.hcmw.shaded.structure'
     relocate 'mcjty.lib', 'com.github.atomicblom.hcmw.shaded.compatlayer'
+
+    exclude('mcjty/lib/package-info.class')
     classifier = 'universal'
 }
 
