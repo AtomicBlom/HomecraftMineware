@@ -1,6 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 30.12.2016 17:07:44
 
+mtllib particles_wood.mtl
 mtllib hcmwbarrel.mtl
 
 #

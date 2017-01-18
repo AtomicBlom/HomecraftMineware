@@ -141,6 +141,11 @@ public class OBJBakedModel implements IPerspectiveAwareModel {
             putVertexData(builder, f.verts[3], faceNormal, TextureCoordinate.getDefaultUVs()[3], sprite);
             quads.add(builder.build());
         }
+
+        if (this.textures.containsKey("particles")) {
+            sprite = this.textures.get("particles");
+        }
+
         return ImmutableList.copyOf(quads);
     }
 
