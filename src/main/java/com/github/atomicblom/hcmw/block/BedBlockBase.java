@@ -1,10 +1,14 @@
 package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
+import com.foudroyantfactotum.tool.structure.registry.StructureDefinition;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleDigging;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.SleepResult;
@@ -211,7 +215,33 @@ public abstract class BedBlockBase extends StructureBlock
     @Override
     public void spawnBreakParticle(World world, StructureTE te, BlockPos local, float sx, float sy, float sz)
     {
+        final StructureDefinition pattern = getPattern();
+        final IBlockState state = world.getBlockState(te.getPos());
+        final BlockPos masterLocation = pattern.getMasterLocation();
 
+        for (int x = 0; x < 4; ++x)
+        {
+            for (int y = 0; y < 4; ++y)
+            {
+                for (int z = 0; z < 4; ++z)
+                {
+                    final double particleX = local.getX() + (x + 0.5D) / 4.0D;
+                    final double particleY = local.getY() + (y + 0.5D) / 4.0D;
+                    final double particleZ = local.getZ() + (z + 0.5D) / 4.0D;
+
+                    world.spawnParticle(
+                            EnumParticleTypes.BLOCK_CRACK,
+                            particleX + masterLocation.getX(),
+                            particleY + masterLocation.getY(),
+                            particleZ + masterLocation.getZ(),
+                            particleX - local.getX() - 0.5D,
+                            particleY - local.getY() - 0.5D,
+                            particleZ - local.getZ() - 0.5D,
+                            Block.getStateId(state)
+                    );
+                }
+            }
+        }
     }
 
     @Override
