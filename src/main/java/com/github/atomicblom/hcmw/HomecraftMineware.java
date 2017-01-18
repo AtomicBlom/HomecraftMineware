@@ -4,6 +4,7 @@ import com.foudroyantfactotum.tool.structure.StructureRegistry;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightBoundingBoxDebug;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightPreview;
 import com.github.atomicblom.hcmw.gui.GuiHandler;
+import com.github.atomicblom.hcmw.util.Logger;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -19,7 +20,8 @@ public class HomecraftMineware
 {
     public static final String MODID = "hcmw";
     public static final String VERSION = "1.0";
-    public static final boolean DEBUG = false;
+    public static boolean DEBUG = false;
+    public static final String IS_CI_BUILD = "@CI_BUILD@";
 
     @Mod.Instance
     public static HomecraftMineware INSTANCE = null;
@@ -32,6 +34,12 @@ public class HomecraftMineware
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        if (Boolean.parseBoolean(IS_CI_BUILD)) {
+            DEBUG = false;
+        } else {
+            Logger.info("You are not running a release build of Homecraft Mineware. This message is purely for informational purposes.");
+        }
+
         StructureRegistry.loadRegisteredPatterns();
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, GuiHandler.INSTANCE);
     }
