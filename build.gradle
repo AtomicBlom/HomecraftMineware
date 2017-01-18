@@ -55,9 +55,7 @@ minecraft {
 
     replace '@MOD_VERSION@', version
     replace '@MOD_ID@', config.mod_id
-    if (hasProperty("CIRevision")) {
-        replace '@BUILT_BY_CI@', "true"
-    }
+    replace '@CI_BUILD@', hasProperty("CIRevision") ? 'true' : 'false'
 }
 
 processResources

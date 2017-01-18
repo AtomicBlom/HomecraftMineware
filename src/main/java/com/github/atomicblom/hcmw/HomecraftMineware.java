@@ -22,7 +22,7 @@ public class HomecraftMineware
     public static final String VERSION = "1.0";
     public static final String MOD_VERSION = "@MOD_VERSION@";
     public static boolean DEBUG = false;
-    public static final String BUILT_BY_CI = "@BUILT_BY_CI@";
+    public static final String IS_CI_BUILD = "@CI_BUILD@";
 
 
 
@@ -45,6 +45,12 @@ public class HomecraftMineware
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        if (Boolean.parseBoolean(IS_CI_BUILD)) {
+            DEBUG = false;
+        } else {
+            Logger.info("You are not running a release build of Homecraft Mineware. This message is purely for informational purposes.");
+        }
+
         StructureRegistry.loadRegisteredPatterns();
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, GuiHandler.INSTANCE);
     }
