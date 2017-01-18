@@ -7,11 +7,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -107,15 +105,19 @@ public class LanternBlock extends Block
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack heldItem = player.getHeldItem(hand);
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack heldItem = playerIn.getHeldItem(hand);
         Boolean isLit = state.getValue(IS_LIT);
-        if (heldItem.getItem() == Items.FLINT_AND_STEEL && !isLit) {
-            world.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
-            heldItem.damageItem(1, player);
+        if (heldItem.getItem() == Items.FLINT_AND_STEEL) {
+            if (!isLit)
+            {
+                worldIn.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
+                heldItem.damageItem(1, playerIn);
+                worldIn.playSound(playerIn, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
+            }
             return true;
         } else if (heldItem.isEmpty() && isLit) {
-            world.setBlockState(pos, state.withProperty(IS_LIT, false), 3);
+            worldIn.setBlockState(pos, state.withProperty(IS_LIT, false), 3);
             return true;
         }
         return false;
