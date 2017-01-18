@@ -119,7 +119,6 @@ public class MaterialLibrary {
     }
 
     public void parseMaterials(IResourceManager manager, String path, ResourceLocation from) throws IOException {
-        this.materials.clear();
         boolean hasSetTexture = false;
         boolean hasSetColor = false;
         String domain = from.getResourceDomain();

@@ -3,6 +3,3 @@
 
 newmtl 04___Default
 map_Ka hcmw:models/lantern3
-
-newmtl particles
-map_Ka hcmw:particles/metal
