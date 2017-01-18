@@ -32,7 +32,7 @@ public class HomecraftMineware
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
-        if (BUILT_BY_CI == "true") {
+        if (IS_CI_BUILD == "true") {
             DEBUG = false;
         }
         if (DEBUG) {

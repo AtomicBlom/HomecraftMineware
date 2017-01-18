@@ -3,6 +3,7 @@ package com.github.atomicblom.hcmw.block;
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.registry.StructureDefinition;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -217,7 +218,6 @@ public abstract class BedBlockBase extends StructureBlock
     {
         final StructureDefinition pattern = getPattern();
         final IBlockState state = world.getBlockState(te.getPos());
-        final BlockPos masterLocation = pattern.getMasterLocation();
 
         for (int x = 0; x < 4; ++x)
         {
@@ -231,9 +231,9 @@ public abstract class BedBlockBase extends StructureBlock
 
                     world.spawnParticle(
                             EnumParticleTypes.BLOCK_CRACK,
-                            particleX + masterLocation.getX(),
-                            particleY + masterLocation.getY(),
-                            particleZ + masterLocation.getZ(),
+                            particleX,
+                            particleY,
+                            particleZ,
                             particleX - local.getX() - 0.5D,
                             particleY - local.getY() - 0.5D,
                             particleZ - local.getZ() - 0.5D,
