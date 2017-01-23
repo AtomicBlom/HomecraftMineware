@@ -210,13 +210,12 @@ public abstract class BedBlockBase extends StructureBlock
     @Override
     public TileEntity createTileEntity(World world, IBlockState state)
     {
-        return new StructureTE();
+        return new StructureTE(getPattern(), state.getValue(BlockProperties.HORIZONTAL_FACING), false);
     }
 
     @Override
     public void spawnBreakParticle(World world, StructureTE te, BlockPos local, float sx, float sy, float sz)
     {
-        final StructureDefinition pattern = getPattern();
         final IBlockState state = world.getBlockState(te.getPos());
 
         for (int x = 0; x < 4; ++x)
