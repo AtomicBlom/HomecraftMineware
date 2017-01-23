@@ -16,6 +16,7 @@ public abstract class HCMWItemContainer extends HCMWContainer {
     }
 
     @Override
+    @Nonnull
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
