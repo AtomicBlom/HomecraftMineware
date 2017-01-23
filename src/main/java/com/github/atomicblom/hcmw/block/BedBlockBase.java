@@ -205,15 +205,13 @@ public abstract class BedBlockBase extends StructureBlock
     @Override
     public TileEntity createTileEntity(World world, IBlockState state)
     {
-        return new StructureTE();
+        return new StructureTE(getPattern(), state.getValue(BlockProperties.HORIZONTAL_FACING), false);
     }
 
     @Override
     public void spawnBreakParticle(World world, StructureTE te, BlockPos local, float sx, float sy, float sz)
     {
-        final StructureDefinition pattern = getPattern();
         final IBlockState state = world.getBlockState(te.getPos());
-        final BlockPos masterLocation = pattern.getMasterLocation();
 
         for (int x = 0; x < 4; ++x)
         {
@@ -227,9 +225,9 @@ public abstract class BedBlockBase extends StructureBlock
 
                     world.spawnParticle(
                             EnumParticleTypes.BLOCK_CRACK,
-                            particleX + masterLocation.getX(),
-                            particleY + masterLocation.getY(),
-                            particleZ + masterLocation.getZ(),
+                            particleX,
+                            particleY,
+                            particleZ,
                             particleX - local.getX() - 0.5D,
                             particleY - local.getY() - 0.5D,
                             particleZ - local.getZ() - 0.5D,
