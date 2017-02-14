@@ -22,6 +22,7 @@ public class StructureBlockSubItem extends StructureBlockItem
     {
         if (block instanceof ILocalizedSubBlock) {
 
+            @SuppressWarnings("deprecation")
             final IBlockState state = block.getStateFromMeta(stack.getMetadata());
 
             return ((ILocalizedSubBlock) block).getUnlocalizedName(state);
