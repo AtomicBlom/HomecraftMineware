@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockLibrary {
     public static final StructureBlock bed_4post;
     public static final StructureBlock bed_canopy;
+    public static final StructureBlock door_inner_gate;
     public static final Block item_barrel;
     public static final Block fluid_barrel;
     public static final Block lantern;
@@ -19,6 +20,7 @@ public class BlockLibrary {
     static {
         bed_4post = null;
         bed_canopy = null;
+        door_inner_gate = null;
         item_barrel = null;
         fluid_barrel = null;
         lantern = null;

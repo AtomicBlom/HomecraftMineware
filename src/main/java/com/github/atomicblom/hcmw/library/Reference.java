@@ -11,6 +11,7 @@ public class Reference {
         public static final ResourceLocation shape = resource("shape");
         public static final ResourceLocation bed_4post = resource("bed_4post");
         public static final ResourceLocation bed_canopy = resource("bed_canopy");
+        public static final ResourceLocation door_inner_gate = resource("door_inner_gate");
         public static final ResourceLocation item_barrel = resource("item_barrel");
         public static final ResourceLocation fluid_barrel = resource("fluid_barrel");
         public static final ResourceLocation bed_side_drawers = resource("bed_side_drawers");

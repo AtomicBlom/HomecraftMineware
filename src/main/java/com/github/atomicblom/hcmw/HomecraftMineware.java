@@ -23,7 +23,7 @@ public class HomecraftMineware
     public static final String MODID = "hcmw";
     public static final String VERSION = "1.0";
     public static final String MOD_VERSION = "@MOD_VERSION@";
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     public static final String IS_CI_BUILD = "@CI_BUILD@";
 
     public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(HomecraftMineware.MODID);

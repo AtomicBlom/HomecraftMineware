@@ -1,0 +1,5 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 15.02.2017 00:24:08
+
+newmtl CheckerE64
+	map_Ka hcmw:models/hcmwdoors

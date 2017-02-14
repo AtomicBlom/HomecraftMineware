@@ -26,6 +26,7 @@ public final class ItemRegistration {
         final Items items = new Items(event.getRegistry());
         items.addStructure(BlockLibrary.bed_4post);
         items.addStructure(BlockLibrary.bed_canopy);
+        items.addStructure(BlockLibrary.door_inner_gate);
         items.add(BlockLibrary.item_barrel);
         items.add(BlockLibrary.fluid_barrel);
         items.add(BlockLibrary.bed_side_drawers);
