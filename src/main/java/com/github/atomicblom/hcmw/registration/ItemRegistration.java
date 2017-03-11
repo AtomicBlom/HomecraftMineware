@@ -27,6 +27,9 @@ public final class ItemRegistration {
         items.addStructure(BlockLibrary.bed_4post);
         items.addStructure(BlockLibrary.bed_canopy);
         items.addStructure(BlockLibrary.door_inner_gate);
+        items.addStructure(BlockLibrary.door_tower);
+        items.addStructure(BlockLibrary.door_grand);
+
         items.add(BlockLibrary.item_barrel);
         items.add(BlockLibrary.fluid_barrel);
         items.add(BlockLibrary.bed_side_drawers);

@@ -7,6 +7,9 @@ import com.foudroyantfactotum.tool.structure.tileentity.StructureShapeTE;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.block.*;
+import com.github.atomicblom.hcmw.block.doors.GrandDoorBlock;
+import com.github.atomicblom.hcmw.block.doors.InnerGateDoorBlock;
+import com.github.atomicblom.hcmw.block.doors.TowerDoorBlock;
 import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
 import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
 import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
@@ -29,13 +32,15 @@ public class BlockRegistration {
         final Blocks blocks = new Blocks(blockRegister.getRegistry());
         blocks.addStructure(new FourPostBedBlock(), Reference.Block.bed_4post);
         blocks.addStructure(new CanopyBedBlock(), Reference.Block.bed_canopy);
-        blocks.addStructure(new BaseDoorBlock(), Reference.Block.door_inner_gate);
+        blocks.addStructure(new InnerGateDoorBlock(), Reference.Block.door_inner_gate);
+        blocks.addStructure(new TowerDoorBlock(), Reference.Block.door_tower);
+        blocks.addStructure(new GrandDoorBlock(), Reference.Block.door_grand);
 
-        blocks.add(new ItemBarrelBlock().setResistance(2f).setHardness(2f), Reference.Block.item_barrel);
-        blocks.add(new FluidBarrelBlock().setResistance(2f).setHardness(2f), Reference.Block.fluid_barrel);
-        blocks.add(new LanternBlock().setResistance(2f).setHardness(2f), Reference.Block.lantern);
-        blocks.add(new CandleHolderBlock().setResistance(2f).setHardness(2f), Reference.Block.candleholder);
-        blocks.add(new BedSideDrawersBlock().setResistance(2f).setHardness(2f), Reference.Block.bed_side_drawers);
+        blocks.add(new ItemBarrelBlock(), Reference.Block.item_barrel);
+        blocks.add(new FluidBarrelBlock(), Reference.Block.fluid_barrel);
+        blocks.add(new LanternBlock(), Reference.Block.lantern);
+        blocks.add(new CandleHolderBlock(), Reference.Block.candleholder);
+        blocks.add(new BedSideDrawersBlock(), Reference.Block.bed_side_drawers);
 
         blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers.toString());
         blocks.add(ItemBarrelTileEntity.class, Reference.Block.item_barrel.toString());

@@ -2,25 +2,17 @@ package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
-import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import javax.annotation.Nullable;
 
-/**
- * Created by codew on 14/02/2017.
- */
-public class BaseDoorBlock extends StructureBlock
+public abstract class BaseDoorBlock extends StructureBlock
 {
-    public BaseDoorBlock()
+    protected BaseDoorBlock()
     {
         super(true);
 
@@ -34,6 +26,26 @@ public class BaseDoorBlock extends StructureBlock
     protected BlockStateContainer createBlockState()
     {
         return new BlockStateContainer(this, BlockProperties.HORIZONTAL_FACING, MIRROR);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
+    {
+        IBlockState placementState = super.getStateForPlacement(world, pos, facing.getOpposite(), hitX, hitY, hitZ, meta, placer, hand);
+        //Disable Structure mirroring
+        placementState = placementState.withProperty(MIRROR, false);
+
+        final EnumFacing opposite = placementState.getValue(BlockProperties.HORIZONTAL_FACING).getOpposite();
+        /*final IBlockState leftBlock = world.getBlockState(pos.offset(opposite.rotateY()));
+        if (leftBlock.getBlock() == this) {
+            placementState = placementState.withProperty(MIRROR, true);
+        }*/
+        final IBlockState rightBlock = world.getBlockState(pos.offset(opposite.rotateY()));
+        if (rightBlock.getBlock() == this) {
+            placementState = placementState.withProperty(MIRROR, true);
+        }
+        placementState = placementState.withProperty(BlockProperties.HORIZONTAL_FACING, opposite);
+        return placementState;
     }
 
     @Override
@@ -66,6 +78,7 @@ public class BaseDoorBlock extends StructureBlock
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @Deprecated
     public EnumBlockRenderType getRenderType(IBlockState state)
@@ -73,11 +86,10 @@ public class BaseDoorBlock extends StructureBlock
         return EnumBlockRenderType.MODEL;
     }
 
-    @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state)
+    public BlockRenderLayer getBlockLayer()
     {
-        return new StructureTE(getPattern(), state.getValue(BlockProperties.HORIZONTAL_FACING), state.getValue(MIRROR));
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @Override
@@ -85,37 +97,5 @@ public class BaseDoorBlock extends StructureBlock
         return false;
     }
 
-    @Override
-    public StructureDefinitionBuilder getStructureBuild()
-    {
-        final StructureDefinitionBuilder builder = new StructureDefinitionBuilder();
 
-        builder.assignConstructionDef(ImmutableMap.of(
-                'w', "minecraft:planks"
-        ));
-
-        builder.assignConstructionBlocks(
-                new String[] {"ww"},
-                new String[] {"ww"},
-                new String[] {"ww"}
-
-        );
-
-        builder.assignToolFormPosition(BlockPos.ORIGIN);
-
-        builder.setConfiguration(BlockPos.ORIGIN,
-                new String[] {"M-"},
-                new String[] {"--"},
-                new String[] {"--"}
-
-        );
-
-        final float pixelWidth = 0.0625f;
-
-        builder.setCollisionBoxes(
-                new float[] {0.0f, 0.0f, 1-pixelWidth * 3, 2.0f, 3.0f, 1}
-        );
-
-        return builder;
-    }
 }

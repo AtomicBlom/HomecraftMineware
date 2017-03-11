@@ -11,6 +11,8 @@ public class ItemLibrary {
     public static final Item bed_4post;
     public static final Item bed_canopy;
     public static final Item door_inner_gate;
+    public static final Item door_grand;
+    public static final Item door_tower;
     public static final Item item_barrel;
     public static final Item fluid_barrel;
     public static final Item lantern;
@@ -21,6 +23,8 @@ public class ItemLibrary {
         bed_4post = null;
         bed_canopy = null;
         door_inner_gate = null;
+        door_tower = null;
+        door_grand = null;
         item_barrel = null;
         fluid_barrel = null;
         lantern = null;
