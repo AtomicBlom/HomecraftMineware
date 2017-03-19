@@ -4,6 +4,7 @@ import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
 import com.github.atomicblom.hcmw.block.BaseDoorBlock;
 import com.github.atomicblom.hcmw.block.BlockProperties;
+import com.github.atomicblom.hcmw.block.tileentity.DoorTileEntity;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -13,14 +14,6 @@ import javax.annotation.Nullable;
 
 public class GrandDoorBlock extends BaseDoorBlock
 {
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state)
-    {
-        return new StructureTE(getPattern(), state.getValue(BlockProperties.HORIZONTAL_FACING), state.getValue(MIRROR));
-    }
-
     @Override
     public StructureDefinitionBuilder getStructureBuild()
     {

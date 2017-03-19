@@ -22,6 +22,9 @@ public class BlockProperties {
     /** Whether this block connects in the down direction */
     public static final PropertyBool CONNECT_DOWN = PropertyBool.create("down");
 
+    /** Whether doors are open or not */
+    public static final PropertyBool IS_OPEN = PropertyBool.create("is_open");
+
     public static final PropertyDirection HORIZONTAL_FACING = BlockHorizontal.FACING;
 
     public static final PropertyDirection FACING = BlockDirectional.FACING;

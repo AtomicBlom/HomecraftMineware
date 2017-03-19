@@ -13,14 +13,6 @@ import javax.annotation.Nullable;
 
 public class InnerGateDoorBlock extends BaseDoorBlock
 {
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state)
-    {
-        return new StructureTE(getPattern(), state.getValue(BlockProperties.HORIZONTAL_FACING), state.getValue(MIRROR));
-    }
-
     @Override
     public StructureDefinitionBuilder getStructureBuild()
     {
