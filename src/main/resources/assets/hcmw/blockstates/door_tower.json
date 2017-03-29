@@ -15,21 +15,21 @@
     }],
     "inventory": [{
     }],
-    "facing": {
-      "north": { },
-      "south": { "transform": {
-        "rotation": {"y": 180 }
-      }},
-      "east": { "transform": {
-        "rotation": {"y": 270 }
-      }},
-      "west": { "transform": {
-        "rotation": {"y": 90 }
-      }}
-    },
-    "mirror": {
-      "true": {},
-      "false": {}
-    }
+    "facing=north,is_open=false,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 0  } } },
+    "facing=south,is_open=false,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 180 } } },
+    "facing=east,is_open=false,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 270 } } },
+    "facing=west,is_open=false,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 90  } } },
+    "facing=north,is_open=true,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [-0.8125, 0, 0], "rotation": {"y": 90  } } },
+    "facing=south,is_open=true,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [0.8125, 0, 0], "rotation": {"y": 270 } } },
+    "facing=east,is_open=true,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [0, 0, -0.8125], "rotation": {"y": 0  } } },
+    "facing=west,is_open=true,mirror=false": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [0, 0, 0.8125], "rotation": {"y": 180 } } },
+    "facing=north,is_open=false,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [0, 0, 0.8125], "rotation": {"y": 180 } } },
+    "facing=south,is_open=false,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [0, 0, -0.8125], "rotation": {"y": 0  } } },
+    "facing=east,is_open=false,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [-0.8125, 0, 0], "rotation": {"y": 90  } } },
+    "facing=west,is_open=false,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "translation": [0.8125, 0, 0], "rotation": {"y": 270 } } },
+    "facing=north,is_open=true,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 90  } } },
+    "facing=south,is_open=true,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 270 } } },
+    "facing=east,is_open=true,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 0  } } },
+    "facing=west,is_open=true,mirror=true": {"model": "hcmw:hcmwdoortower.obj", "transform": { "rotation": {"y": 180 } } }
   }
 }

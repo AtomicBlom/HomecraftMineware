@@ -41,7 +41,7 @@ public class TowerDoorBlock extends BaseDoorBlock
         final float pixelWidth = 0.0625f;
 
         builder.setCollisionBoxes(
-                new float[] {0.0f, 0.0f, 1-pixelWidth * 3, 1.0f, 4.0f, 1}
+                new float[] {0.0f, 0.0f, 1 - pixelWidth * 3.0f, 1.0f, 4.0f, 1.0f}
         );
 
         return builder;

@@ -1,18 +1,26 @@
 package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
+import com.foudroyantfactotum.tool.structure.registry.StructureDefinition;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.github.atomicblom.hcmw.block.tileentity.DoorTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import javax.annotation.Nullable;
+import java.util.List;
+
+import static com.foudroyantfactotum.tool.structure.coordinates.TransformLAG.localToGlobalCollisionBoxes;
+import static com.github.atomicblom.hcmw.block.BlockProperties.IS_OPEN;
 
 public abstract class BaseDoorBlock extends StructureBlock
 {
@@ -22,7 +30,8 @@ public abstract class BaseDoorBlock extends StructureBlock
 
         final IBlockState defaultState = blockState
                 .getBaseState()
-                .withProperty(BlockProperties.HORIZONTAL_FACING, EnumFacing.NORTH);
+                .withProperty(BlockProperties.HORIZONTAL_FACING, EnumFacing.NORTH)
+                .withProperty(IS_OPEN, false);
         setHarvestLevel("axe", 2);
         setDefaultState(defaultState);
     }
@@ -37,7 +46,7 @@ public abstract class BaseDoorBlock extends StructureBlock
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, BlockProperties.HORIZONTAL_FACING, MIRROR, BlockProperties.IS_OPEN);
+        return new BlockStateContainer(this, BlockProperties.HORIZONTAL_FACING, MIRROR, IS_OPEN);
     }
 
     @Override
@@ -46,12 +55,13 @@ public abstract class BaseDoorBlock extends StructureBlock
         IBlockState placementState = super.getStateForPlacement(world, pos, facing.getOpposite(), hitX, hitY, hitZ, meta, placer, hand);
         placementState = placementState.withProperty(MIRROR, false);
 
-        final EnumFacing opposite = placementState.getValue(BlockProperties.HORIZONTAL_FACING).getOpposite();
-        final IBlockState rightBlock = world.getBlockState(pos.offset(opposite.rotateY()));
+        final EnumFacing opposite = placementState.getValue(BlockProperties.HORIZONTAL_FACING);
+        final IBlockState rightBlock = world.getBlockState(pos.offset(opposite.rotateYCCW()));
         if (rightBlock.getBlock() == this) {
             placementState = placementState.withProperty(MIRROR, true);
         }
         placementState = placementState.withProperty(BlockProperties.HORIZONTAL_FACING, opposite);
+        placementState = placementState.withProperty(IS_OPEN, false);
         return placementState;
     }
 
@@ -90,7 +100,7 @@ public abstract class BaseDoorBlock extends StructureBlock
     {
         worldIn.setBlockState(
                 pos,
-                state.withProperty(BlockProperties.IS_OPEN, !state.getValue(BlockProperties.IS_OPEN)),
+                state.withProperty(IS_OPEN, !state.getValue(IS_OPEN)),
                 1 | 2);
 
         return true;
@@ -115,5 +125,27 @@ public abstract class BaseDoorBlock extends StructureBlock
         return false;
     }
 
+    @Override
+    @Deprecated
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, @Nullable Entity entityIn, boolean p_185477_7_) {
+        StructureDefinition pattern = getPattern();
+        float[][] collisionBoxes = pattern.getCollisionBoxes();
+        if (collisionBoxes != null)
+        {
+            EnumFacing rotation = state.getValue(BlockHorizontal.FACING);
+            boolean mirror = getMirror(state);
+
+            if (state.getValue(IS_OPEN)) {
+                rotation = mirror ? rotation.rotateYCCW() : rotation.rotateY();
+            }
+
+            localToGlobalCollisionBoxes(
+                    pos,
+                    0, 0, 0,
+                    mask, list, collisionBoxes,
+                    rotation, mirror
+            );
+        }
+    }
 
 }

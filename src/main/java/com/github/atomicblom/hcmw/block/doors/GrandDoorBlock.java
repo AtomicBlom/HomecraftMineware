@@ -42,7 +42,7 @@ public class GrandDoorBlock extends BaseDoorBlock
         final float pixelWidth = 0.0625f;
 
         builder.setCollisionBoxes(
-                new float[] {0.0f, 0.0f, 0.0f, 1.0f, 3.0f, pixelWidth * 3}
+                new float[] {0.0f, 0.0f, 1.0f - pixelWidth * 3.0f, 1.0f, 3.0f, 1.0f}
         );
 
         return builder;
