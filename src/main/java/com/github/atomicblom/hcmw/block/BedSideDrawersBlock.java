@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
 
-//TODO: Bounding Boxes
+@SuppressWarnings("deprecation")
 public class BedSideDrawersBlock extends BaseInventoryBlock implements IHorizontalBlockHelper
 {
     public BedSideDrawersBlock()
@@ -77,13 +77,13 @@ public class BedSideDrawersBlock extends BaseInventoryBlock implements IHorizont
 
     @Override
     protected boolean canOpen(World world, BlockPos pos, IBlockState state) {
-        EnumFacing facing = state.getValue(HORIZONTAL_FACING);
+        final EnumFacing facing = state.getValue(HORIZONTAL_FACING);
         return !world.isSideSolid(pos.offset(facing), facing.getOpposite());
     }
 
     @Override
     @Deprecated
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
     {
         return side == EnumFacing.UP || side == EnumFacing.DOWN;
     }

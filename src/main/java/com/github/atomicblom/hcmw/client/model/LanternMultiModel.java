@@ -4,8 +4,9 @@ import com.github.atomicblom.hcmw.block.BlockProperties;
 import com.github.atomicblom.hcmw.client.model.obj.OBJBakedModel;
 import com.github.atomicblom.hcmw.client.model.obj.OBJModel;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
-import com.github.atomicblom.hcmw.library.Reference;
+import com.github.atomicblom.hcmw.library.Reference.Model;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -15,12 +16,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.IModelCustomData;
 import net.minecraftforge.client.model.MultiModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class LanternMultiModel extends HCMWMultiModel {
@@ -36,23 +35,23 @@ public class LanternMultiModel extends HCMWMultiModel {
 
     @Override
     public void loadModel(ModelBakeEvent event) {
-        IRegistry<ModelResourceLocation, IBakedModel> modelRegistry = event.getModelRegistry();
+        final IRegistry<ModelResourceLocation, IBakedModel> modelRegistry = event.getModelRegistry();
 
-        final IModel wallHookModel = processModel(loadModel(Reference.Model.lantern_wall_hook), flipData);
-        final IModel roofHookModel = processModel(loadModel(Reference.Model.lantern_roof_hook), flipData);
+        final IModel wallHookModel = processModel(loadModel(Model.lantern_wall_hook), flipData);
+        final IModel roofHookModel = processModel(loadModel(Model.lantern_roof_hook), flipData);
 
-        for (IBlockState state : BlockLibrary.lantern.getBlockState().getValidStates()) {
+        for (final IBlockState state : BlockLibrary.lantern.getBlockState().getValidStates()) {
             final EnumFacing connection = state.getValue(BlockProperties.FACING);
 
-            final ImmutableMap.Builder<String, Pair<IModel, IModelState>> builder = new ImmutableMap.Builder<>();
-            ModelResourceLocation modelLocation = stateMapper.getModelResourceLocation(state);
+            final Builder<String, Pair<IModel, IModelState>> builder = new Builder<>();
+            final ModelResourceLocation modelLocation = stateMapper.getModelResourceLocation(state);
 
-            IBakedModel bakedModel = modelRegistry.getObject(modelLocation);
+            final IBakedModel bakedModel = modelRegistry.getObject(modelLocation);
             if (!(bakedModel instanceof OBJBakedModel)) {
                 continue;
             }
             final OBJBakedModel objBakedModel = (OBJBakedModel) bakedModel;
-            OBJModel model = objBakedModel.getModel();
+            final OBJModel model = objBakedModel.getModel();
 
             if (connection == EnumFacing.UP)  {
                 builder.put("roof_hook", Pair.of(roofHookModel, TRSRTransformation.identity()));
@@ -65,7 +64,7 @@ public class LanternMultiModel extends HCMWMultiModel {
                 builder.put("wall_hook", Pair.of(wallHookModel, transformation));
             }
 
-            IModel multiModel = new MultiModel(
+            final IModel multiModel = new MultiModel(
                     modelLocation,
                     model,
                     objBakedModel.getState(),
@@ -73,16 +72,16 @@ public class LanternMultiModel extends HCMWMultiModel {
             );
 
             modelRegistry.putObject(modelLocation,
-                    multiModel.bake(objBakedModel.getState(), DefaultVertexFormats.ITEM, textureGetter)
+                    multiModel.bake(objBakedModel.getState(), DefaultVertexFormats.ITEM, textureGetter::apply)
             );
         }
     }
 
     private static IModel processModel(IModel model, ImmutableMap<String, String> data)
     {
-        if (model instanceof OBJModel)
+        if (model instanceof IModelCustomData)
         {
-            return ((OBJModel) model).process(data);
+            return ((IModelCustomData) model).process(data);
         }
 
         return model;

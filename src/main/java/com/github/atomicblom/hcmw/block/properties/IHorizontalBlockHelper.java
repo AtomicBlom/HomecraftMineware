@@ -15,9 +15,8 @@ public interface IHorizontalBlockHelper {
         if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
             facing = EnumFacing.NORTH;
         }
-        existingState = existingState.withProperty(HORIZONTAL_FACING, facing);
 
-        return existingState;
+        return existingState.withProperty(HORIZONTAL_FACING, facing);
     }
 
     default int getHorizontalMetaFromState(IBlockState state) {

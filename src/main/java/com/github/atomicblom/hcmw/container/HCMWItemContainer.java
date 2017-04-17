@@ -1,14 +1,13 @@
 package com.github.atomicblom.hcmw.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-
 import javax.annotation.Nonnull;
 
 public abstract class HCMWItemContainer extends HCMWContainer {
+    @SuppressWarnings("ProtectedField")
     protected final IInventory inventory;
 
     HCMWItemContainer(IInventory inventory) {

@@ -1,8 +1,5 @@
 package com.github.atomicblom.hcmw.gui;
 
-/**
- * Created by codew on 28/12/2016.
- */
 public enum GuiType {
     BEDSIDE_DRAWERS,
     ITEM_BARREL,

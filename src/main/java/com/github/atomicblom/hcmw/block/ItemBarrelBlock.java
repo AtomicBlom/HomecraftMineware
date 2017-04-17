@@ -19,6 +19,7 @@ import javax.annotation.Nonnull;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
 
+@SuppressWarnings("deprecation")
 public class ItemBarrelBlock extends BaseInventoryBlock implements IHorizontalBlockHelper
 {
     public ItemBarrelBlock()
@@ -87,7 +88,7 @@ public class ItemBarrelBlock extends BaseInventoryBlock implements IHorizontalBl
     }
 
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
     {
         return side == EnumFacing.UP || side == EnumFacing.DOWN;
     }

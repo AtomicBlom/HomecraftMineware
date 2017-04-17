@@ -1,15 +1,12 @@
 package com.github.atomicblom.hcmw.registration;
 
 import com.github.atomicblom.hcmw.HomecraftMineware;
-import com.github.atomicblom.hcmw.block.WoodVariant;
 import com.github.atomicblom.hcmw.client.CreativeTab;
 import com.github.atomicblom.hcmw.client.model.HCMWMultiModel;
 import com.github.atomicblom.hcmw.client.model.LanternMultiModel;
 import com.github.atomicblom.hcmw.client.model.obj.OBJLoader;
 import com.github.atomicblom.hcmw.library.ItemLibrary;
-import com.github.atomicblom.hcmw.library.Reference;
 import com.google.common.base.Preconditions;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -27,13 +24,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import javax.annotation.Nonnull;
 
 @EventBusSubscriber(Side.CLIENT)
 @SideOnly(Side.CLIENT)
 public final class RenderingRegistration
 {
-    private static HCMWMultiModel[] multiModels = new HCMWMultiModel[]{
+    private static final HCMWMultiModel[] multiModels = {
             new LanternMultiModel()
     };
 
@@ -58,19 +54,10 @@ public final class RenderingRegistration
     @SubscribeEvent
     public static void onModelBake(ModelBakeEvent event)
     {
-        for (HCMWMultiModel multiModel : multiModels)
+        for (final HCMWMultiModel multiModel : multiModels)
         {
             multiModel.loadModel(event);
         }
-    }
-
-    private static void setItemModel(Item item, int meta, String variant)
-    {
-        ModelLoader.setCustomModelResourceLocation(
-                item,
-                meta,
-                new ModelResourceLocation(item.getRegistryName(), variant)
-        );
     }
 
     private static void setItemModel(Item item)
@@ -78,9 +65,9 @@ public final class RenderingRegistration
         final ResourceLocation registryName = item.getRegistryName();
         Preconditions.checkNotNull(registryName);
 
-        if (!item.getHasSubtypes())
+        final boolean isSimpleItem = !item.getHasSubtypes();
+        if (isSimpleItem)
         {
-
             ModelLoader.setCustomModelResourceLocation(
                     item,
                     0,
@@ -91,23 +78,6 @@ public final class RenderingRegistration
             final NonNullList<ItemStack> subTypes = NonNullList.create();
 
             item.getSubItems(item, CreativeTab.INSTANCE, subTypes);
-//          for (final ItemStack subType : subTypes)
-//          {
-//                final StringBuilder builder = new StringBuilder(128);
-//                builder.append("inventory");
-//                final NBTTagCompound nbt = subType.getTagCompound();
-//                if (nbt != null) {
-//                    for (final String key : nbt.getKeySet())
-//                    {
-//                        final NBTBase tag = nbt.getTag(key);
-//                        if (tag instanceof NBTTagString) {
-//                            builder.append(',');
-//                            builder.append(key);
-//                            builder.append('=');
-//                            builder.append(((NBTTagString) tag).getString());
-//                        }
-//                    }
-//                }
 
             ModelLoader.setCustomMeshDefinition(item, stack ->
             {
@@ -119,12 +89,6 @@ public final class RenderingRegistration
             for (final ItemStack subType : subTypes) {
                 ModelBakery.registerItemVariants(item, new ModelResourceLocation(registryName, getInventoryString(subType)));
             }
-
-//                ModelLoader.setCustomModelResourceLocation(
-//                        item,
-//                        0,
-//                        new ModelResourceLocation(registryName, builder.toString())
-//                );
         }
     }
 
@@ -135,6 +99,7 @@ public final class RenderingRegistration
         final NBTTagCompound nbt = stack.getTagCompound();
         if (nbt != null)
         {
+            //TODO: how do we know which keys are valid?
             for (final String key : nbt.getKeySet())
             {
                 final NBTBase tag = nbt.getTag(key);

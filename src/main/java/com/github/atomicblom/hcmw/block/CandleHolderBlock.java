@@ -17,7 +17,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,9 +26,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
-import static com.github.atomicblom.hcmw.block.BlockProperties.IS_LIT;
-
+@SuppressWarnings("deprecation")
 public class CandleHolderBlock extends Block
 {
     private final AxisAlignedBB boundingBox = new AxisAlignedBB(0.25f, 0, 0.25f, 0.75f, 0.5f, 0.75f);
@@ -41,8 +38,8 @@ public class CandleHolderBlock extends Block
         setSoundType(SoundType.METAL);
         final IBlockState defaultState = blockState
                 .getBaseState()
-                .withProperty(HORIZONTAL_FACING, EnumFacing.NORTH)
-                .withProperty(IS_LIT, false);
+                .withProperty(BlockProperties.HORIZONTAL_FACING, EnumFacing.NORTH)
+                .withProperty(BlockProperties.IS_LIT, false);
 
         setHarvestLevel("pickaxe", 2);
 
@@ -54,7 +51,7 @@ public class CandleHolderBlock extends Block
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, HORIZONTAL_FACING, IS_LIT);
+        return new BlockStateContainer(this, BlockProperties.HORIZONTAL_FACING, BlockProperties.IS_LIT);
     }
 
     @Override
@@ -66,7 +63,7 @@ public class CandleHolderBlock extends Block
         if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
             facing = EnumFacing.NORTH;
         }
-        stateFromMeta = stateFromMeta.withProperty(IS_LIT, (meta & 8) != 0)
+        stateFromMeta = stateFromMeta.withProperty(BlockProperties.IS_LIT, (meta & 8) != 0)
                 .withProperty(BlockProperties.HORIZONTAL_FACING, facing);
 
         return stateFromMeta;
@@ -76,20 +73,20 @@ public class CandleHolderBlock extends Block
     public int getMetaFromState(IBlockState state)
     {
         int meta = state.getValue(BlockProperties.HORIZONTAL_FACING).ordinal();
-        meta |= state.getValue(IS_LIT) ? 8 : 0;
+        meta |= state.getValue(BlockProperties.IS_LIT) ? 8 : 0;
         return meta;
     }
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return state.getValue(IS_LIT) ? 10 : 0;
+        return state.getValue(BlockProperties.IS_LIT) ? 10 : 0;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        if(stateIn.getValue(IS_LIT)) {
+        if(stateIn.getValue(BlockProperties.IS_LIT)) {
             final double x = pos.getX() + 0.5D;
             final double y = pos.getY() + 0.5D + 0.1D;
             final double z = pos.getZ() + 0.5D;
@@ -121,9 +118,9 @@ public class CandleHolderBlock extends Block
 
         if (canPlaceOn(world, pos.down())) {
             return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
-                    .withProperty(HORIZONTAL_FACING, placer.getHorizontalFacing());
+                    .withProperty(BlockProperties.HORIZONTAL_FACING, placer.getHorizontalFacing());
         }
-        return this.getDefaultState();
+        return getDefaultState();
     }
 
     @Override
@@ -131,8 +128,8 @@ public class CandleHolderBlock extends Block
         return canPlaceOn(world, pos.down());
     }
 
-    private boolean canPlaceOn(IBlockAccess worldIn, BlockPos pos) {
-        IBlockState state = worldIn.getBlockState(pos);
+    private static boolean canPlaceOn(IBlockAccess worldIn, BlockPos pos) {
+        final IBlockState state = worldIn.getBlockState(pos);
         return state.isSideSolid(worldIn, pos, EnumFacing.UP) || state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
     }
 
@@ -140,25 +137,28 @@ public class CandleHolderBlock extends Block
     @Deprecated
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
         if (!canPlaceOn(world, pos.down())) {
-            this.dropBlockAsItem(world, pos, state, 0);
+            dropBlockAsItem(world, pos, state, 0);
             world.setBlockToAir(pos);
         }
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack heldItem = playerIn.getHeldItem(hand);
-        Boolean isLit = state.getValue(IS_LIT);
+        final ItemStack heldItem = playerIn.getHeldItem(hand);
+        final Boolean isLit = state.getValue(BlockProperties.IS_LIT);
+
         if (heldItem.getItem() == Items.FLINT_AND_STEEL) {
             if (!isLit)
             {
-                worldIn.setBlockState(pos, state.withProperty(IS_LIT, true), 3);
+                worldIn.setBlockState(pos, state.withProperty(BlockProperties.IS_LIT, true), 3);
                 heldItem.damageItem(1, playerIn);
                 worldIn.playSound(playerIn, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
             }
             return true;
-        } else if (heldItem.isEmpty() && isLit) {
-            worldIn.setBlockState(pos, state.withProperty(IS_LIT, false), 3);
+        }
+
+        if (heldItem.isEmpty() && isLit) {
+            worldIn.setBlockState(pos, state.withProperty(BlockProperties.IS_LIT, false), 3);
             return true;
         }
         return false;
@@ -172,6 +172,6 @@ public class CandleHolderBlock extends Block
 
     @Override
     @Deprecated
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, @Nullable Entity entityIn, boolean p_185477_7_) {
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, @Nullable Entity entityIn, boolean unknown) {
     }
 }

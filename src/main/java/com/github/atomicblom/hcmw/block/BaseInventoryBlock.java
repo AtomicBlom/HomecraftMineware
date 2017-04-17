@@ -14,9 +14,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+@SuppressWarnings("deprecation")
 public abstract class BaseInventoryBlock extends Block {
 
-    protected BaseInventoryBlock(Material materialIn) {
+    BaseInventoryBlock(Material materialIn) {
         super(materialIn);
     }
 
@@ -44,7 +45,7 @@ public abstract class BaseInventoryBlock extends Block {
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
         final TileEntity te = worldIn.getTileEntity(pos);
-        if (te != null && te instanceof IInventory)
+        if (te instanceof IInventory)
         {
             InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) te);
         }

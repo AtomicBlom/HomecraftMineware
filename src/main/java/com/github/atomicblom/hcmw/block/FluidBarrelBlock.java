@@ -2,9 +2,7 @@ package com.github.atomicblom.hcmw.block;
 
 import com.github.atomicblom.hcmw.block.properties.IHorizontalBlockHelper;
 import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
-import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
 import com.github.atomicblom.hcmw.gui.GuiType;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -18,15 +16,14 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-
 import javax.annotation.Nonnull;
 
 import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
 
+@SuppressWarnings("deprecation")
 public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalBlockHelper
 {
     public FluidBarrelBlock()
@@ -100,17 +97,17 @@ public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalB
 
         final TileEntity te = world.getTileEntity(pos);
 
-        if (te == null || !(te instanceof FluidBarrelTileEntity))
+        if (!(te instanceof FluidBarrelTileEntity))
         {
             return true;
         }
 
-        ItemStack heldItem = player.getHeldItem(hand);
+        final ItemStack heldItem = player.getHeldItem(hand);
 
-        IFluidHandler capability = te.getCapability(FluidBarrelTileEntity.FLUID_HANDLER_CAPABILITY, null);
+        final IFluidHandler capability = te.getCapability(FluidBarrelTileEntity.fluidHandlerCapability, null);
 
 
-        FluidActionResult fluidActionResult = FluidUtil.interactWithFluidHandler(heldItem, capability, player);
+        final FluidActionResult fluidActionResult = FluidUtil.interactWithFluidHandler(heldItem, capability, player);
         if (!fluidActionResult.isSuccess()) {
             return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
         }
@@ -121,7 +118,7 @@ public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalB
 
     @Override
     @Deprecated
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
     {
         return side == EnumFacing.UP || side == EnumFacing.DOWN;
     }

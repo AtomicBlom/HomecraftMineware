@@ -10,14 +10,11 @@ import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-/**
- * Created by codew on 30/12/2016.
- */
 public class FluidBarrelContainer extends HCMWContainer {
-    private FluidBarrelTileEntity fluidBarrelTileEntity;
+    private final FluidBarrelTileEntity fluidBarrelTileEntity;
 
-    public FluidBarrelContainer(IInventory playerInventory, FluidBarrelTileEntity fluidBarrelTileEntity) {
-        this.fluidBarrelTileEntity = fluidBarrelTileEntity;
+    public FluidBarrelContainer(IInventory playerInventory, FluidBarrelTileEntity barrelTileEntity) {
+        fluidBarrelTileEntity = barrelTileEntity;
         addPlayerInventory(playerInventory, 84);
     }
 
@@ -29,9 +26,9 @@ public class FluidBarrelContainer extends HCMWContainer {
     @Override
     public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
         if (clickTypeIn == ClickType.QUICK_MOVE) {
-            final Slot slot = this.inventorySlots.get(slotId);
+            final Slot slot = inventorySlots.get(slotId);
             if (slot.getHasStack()) {
-                IFluidHandler capability = fluidBarrelTileEntity.getCapability(FluidBarrelTileEntity.FLUID_HANDLER_CAPABILITY, null);
+                final IFluidHandler capability = fluidBarrelTileEntity.getCapability(FluidBarrelTileEntity.fluidHandlerCapability, null);
 
                 final FluidActionResult fluidActionResult = FluidUtil.interactWithFluidHandler(slot.getStack(), capability, player);
                 if (fluidActionResult.isSuccess()) {

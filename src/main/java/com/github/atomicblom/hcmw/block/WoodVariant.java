@@ -32,6 +32,7 @@ public enum WoodVariant implements IStringSerializable
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }

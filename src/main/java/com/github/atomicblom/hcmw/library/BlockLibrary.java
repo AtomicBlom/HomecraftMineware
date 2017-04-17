@@ -4,10 +4,11 @@ import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.github.atomicblom.hcmw.HomecraftMineware;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-@SuppressWarnings("Duplicates")
-@GameRegistry.ObjectHolder(HomecraftMineware.MODID)
-public class BlockLibrary {
+@SuppressWarnings({"Duplicates", "AssignmentToNull"})
+@ObjectHolder(HomecraftMineware.MODID)
+public final class BlockLibrary {
     public static final StructureBlock bed_4post;
     public static final StructureBlock bed_canopy;
     public static final StructureBlock door_inner_gate;

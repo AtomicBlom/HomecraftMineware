@@ -25,6 +25,7 @@ import java.util.List;
 
 import static com.foudroyantfactotum.tool.structure.coordinates.TransformLAG.localToGlobalCollisionBoxes;
 
+@SuppressWarnings("deprecation")
 public abstract class BaseDoorBlock extends StructureBlock
 {
     protected BaseDoorBlock()
@@ -155,13 +156,13 @@ public abstract class BaseDoorBlock extends StructureBlock
 
     @Override
     @Deprecated
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, @Nullable Entity entityIn, boolean p_185477_7_) {
-        StructureDefinition pattern = getPattern();
-        float[][] collisionBoxes = pattern.getCollisionBoxes();
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, @Nullable Entity entityIn, boolean unknown) {
+        final StructureDefinition pattern = getPattern();
+        final float[][] collisionBoxes = pattern.getCollisionBoxes();
         if (collisionBoxes != null)
         {
             EnumFacing rotation = state.getValue(BlockHorizontal.FACING);
-            boolean mirror = getMirror(state);
+            final boolean mirror = getMirror(state);
 
             if (state.getValue(BlockProperties.IS_OPEN)) {
                 rotation = mirror ? rotation.rotateYCCW() : rotation.rotateY();

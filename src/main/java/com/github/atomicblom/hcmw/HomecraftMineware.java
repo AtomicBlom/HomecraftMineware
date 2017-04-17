@@ -10,6 +10,7 @@ import com.github.atomicblom.hcmw.util.Logger;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -18,24 +19,24 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = HomecraftMineware.MODID, version = HomecraftMineware.VERSION)
+@SuppressWarnings({"AssignmentToStaticFieldFromInstanceMethod", "MethodMayBeStatic"})
+@Mod(modid = HomecraftMineware.MODID, version = HomecraftMineware.MOD_VERSION)
 public class HomecraftMineware
 {
     public static final String MODID = "hcmw";
-    public static final String VERSION = "1.0";
     public static final String MOD_VERSION = "@MOD_VERSION@";
     public static boolean DEBUG = true;
-    public static final String IS_CI_BUILD = "@CI_BUILD@";
+    private static final String IS_CI_BUILD = "@CI_BUILD@";
 
     public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(HomecraftMineware.MODID);
+    @Instance
+    public static HomecraftMineware INSTANCE;
 
-    @Mod.Instance
-    public static HomecraftMineware INSTANCE = null;
-
+    @SuppressWarnings("ConstantConditions")
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
-        if (IS_CI_BUILD == "true") {
+        if ("true".equals(IS_CI_BUILD)) {
             DEBUG = false;
         }
         if (DEBUG) {

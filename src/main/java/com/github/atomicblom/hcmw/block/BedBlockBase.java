@@ -1,15 +1,11 @@
 package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
-import com.foudroyantfactotum.tool.structure.registry.StructureDefinition;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
+import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleDigging;
-import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.SleepResult;
@@ -65,6 +61,8 @@ public abstract class BedBlockBase extends StructureBlock
 
             ((World)world).setBlockState(pos, state, 6);
             final StructureTE newTileEntity = (StructureTE)world.getTileEntity(pos);
+            Preconditions.checkNotNull(newTileEntity);
+            Preconditions.checkNotNull(tileEntity);
             newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getRegHash());
         }
     }
@@ -98,6 +96,7 @@ public abstract class BedBlockBase extends StructureBlock
                         return true;
                     }
 
+                    //FIXME: mark Tile entity as not needing a refresh.
                     state = state.withProperty(BlockProperties.OCCUPIED, Boolean.FALSE);
                     final StructureTE tileEntity = (StructureTE)worldIn.getTileEntity(pos);
                     worldIn.setBlockState(pos, state, 6);

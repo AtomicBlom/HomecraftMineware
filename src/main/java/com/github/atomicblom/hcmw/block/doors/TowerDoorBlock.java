@@ -1,15 +1,9 @@
 package com.github.atomicblom.hcmw.block.doors;
 
-import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
 import com.github.atomicblom.hcmw.block.BaseDoorBlock;
-import com.github.atomicblom.hcmw.block.BlockProperties;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import javax.annotation.Nullable;
 
 public class TowerDoorBlock extends BaseDoorBlock
 {

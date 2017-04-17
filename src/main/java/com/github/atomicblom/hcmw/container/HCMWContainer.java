@@ -1,15 +1,11 @@
 package com.github.atomicblom.hcmw.container;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 
-/**
- * Created by codew on 30/12/2016.
- */
-public abstract class HCMWContainer extends Container {
-    protected void addPlayerInventory(IInventory playerInventory, int verticalOffset) {
+abstract class HCMWContainer extends Container {
+    void addPlayerInventory(IInventory playerInventory, int verticalOffset) {
         for (int row = 0; row < 3; ++row)
         {
             for (int column = 0; column < 9; ++column)

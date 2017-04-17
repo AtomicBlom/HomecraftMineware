@@ -17,9 +17,10 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public enum GuiHandler implements IGuiHandler {
     INSTANCE;
 
+    @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         final GuiType gui = GuiType.fromId(id);
-        BlockPos pos = new BlockPos(x, y, z);
+        final BlockPos pos = new BlockPos(x, y, z);
         switch(gui)
         {
             case BEDSIDE_DRAWERS:
@@ -36,9 +37,10 @@ public enum GuiHandler implements IGuiHandler {
         return null;
     }
 
+    @Override
     public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         final GuiType gui = GuiType.fromId(id);
-        BlockPos pos = new BlockPos(x, y, z);
+        final BlockPos pos = new BlockPos(x, y, z);
         switch(gui)
         {
             case BEDSIDE_DRAWERS:

@@ -11,9 +11,6 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by codew on 23/12/2016.
- */
 @Deprecated
 public class OBJState implements IModelState {
     protected Map<String, Boolean> visibilityMap = Maps.newHashMap();

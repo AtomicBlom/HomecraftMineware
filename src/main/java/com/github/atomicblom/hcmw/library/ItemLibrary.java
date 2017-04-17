@@ -1,13 +1,12 @@
 package com.github.atomicblom.hcmw.library;
 
-import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.github.atomicblom.hcmw.HomecraftMineware;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-@SuppressWarnings("Duplicates")
-@GameRegistry.ObjectHolder(HomecraftMineware.MODID)
-public class ItemLibrary {
+@SuppressWarnings({"Duplicates", "AssignmentToNull"})
+@ObjectHolder(HomecraftMineware.MODID)
+public final class ItemLibrary {
     public static final Item bed_4post;
     public static final Item bed_canopy;
     public static final Item door_inner_gate;

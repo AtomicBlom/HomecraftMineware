@@ -1,14 +1,13 @@
 package com.github.atomicblom.hcmw.block.tileentity;
 
 import com.github.atomicblom.hcmw.container.FluidBarrelContainer;
-import com.github.atomicblom.hcmw.container.ItemBarrelContainer;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
-import com.github.atomicblom.hcmw.library.Reference;
+import com.github.atomicblom.hcmw.library.Reference.Gui;
 import com.github.atomicblom.hcmw.util.HCMWFluidTank;
+import com.google.common.base.Preconditions;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -18,23 +17,28 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IInteractionObject;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.TileFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class FluidBarrelTileEntity extends TileEntity implements IInteractionObject {
 
+    @SuppressWarnings({"StaticVariableMayNotBeInitialized", "StaticNonFinalField"})
     @CapabilityInject(IFluidHandler.class)
-    public static Capability<IFluidHandler> FLUID_HANDLER_CAPABILITY = null;
+    @Nonnull
+    public static Capability<IFluidHandler> fluidHandlerCapability;
 
-    IFluidHandler inventory;
+    private final IFluidHandler inventory;
 
     public FluidBarrelTileEntity() {
-        inventory = new HCMWFluidTank(this, 8000);
+        inventory = createInventory();
+    }
+
+    private IFluidHandler createInventory()
+    {
+        return new HCMWFluidTank(this, 8000);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class FluidBarrelTileEntity extends TileEntity implements IInteractionObj
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+        if (Objects.equals(capability, fluidHandlerCapability)) {
             return facing == null || facing == EnumFacing.UP || facing == EnumFacing.DOWN;
         }
         return super.hasCapability(capability, facing);
@@ -54,9 +58,9 @@ public class FluidBarrelTileEntity extends TileEntity implements IInteractionObj
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+        if (Objects.equals(capability, fluidHandlerCapability)) {
             if (facing == null || facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
-                return (T) inventory;
+                return fluidHandlerCapability.cast(inventory);
             }
         }
         return super.getCapability(capability, facing);
@@ -65,7 +69,7 @@ public class FluidBarrelTileEntity extends TileEntity implements IInteractionObj
     @Override
     @Nonnull
     public String getGuiID() {
-        return Reference.Gui.fluid_barrel_gui.toString();
+        return Gui.fluid_barrel_gui.toString();
     }
 
     @Override
@@ -84,7 +88,7 @@ public class FluidBarrelTileEntity extends TileEntity implements IInteractionObj
         super.readFromNBT(compound);
 
         if (compound.hasKey("contents")) {
-            CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.readNBT(inventory, null, compound.getCompoundTag("contents"));
+            fluidHandlerCapability.readNBT(inventory, null, compound.getCompoundTag("contents"));
         }
     }
 
@@ -92,29 +96,34 @@ public class FluidBarrelTileEntity extends TileEntity implements IInteractionObj
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
-        NBTBase nbtBase = CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.writeNBT(inventory, null);
+        final NBTBase nbtBase = fluidHandlerCapability.writeNBT(inventory, null);
+        Preconditions.checkNotNull(nbtBase);
         compound.setTag("contents", nbtBase);
 
         return compound;
     }
 
+    @Override
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
         final NBTTagCompound compound = new NBTTagCompound();
+        final NBTBase value = fluidHandlerCapability.writeNBT(inventory, null);
+        Preconditions.checkNotNull(value);
 
-        compound.setTag("contents", CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.writeNBT(inventory, null));
+        compound.setTag("contents", value);
 
         return new SPacketUpdateTileEntity(getPos(), 0, compound);
     }
 
+    @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
         if (pkt.getTileEntityType() == 0)
         {
-            NBTTagCompound compound = pkt.getNbtCompound();
+            final NBTTagCompound compound = pkt.getNbtCompound();
             if (compound.hasKey("contents")) {
-                CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.readNBT(inventory, null, compound.getCompoundTag("contents"));
+                fluidHandlerCapability.readNBT(inventory, null, compound.getCompoundTag("contents"));
             }
         }
     }

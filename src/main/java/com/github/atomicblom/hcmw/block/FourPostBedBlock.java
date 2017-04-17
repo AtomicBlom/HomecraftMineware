@@ -4,9 +4,6 @@ import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.util.math.BlockPos;
 
-/**
- * Created by codew on 21/12/2016.
- */
 public class FourPostBedBlock extends BedBlockBase
 {
     @Override
@@ -36,7 +33,7 @@ public class FourPostBedBlock extends BedBlockBase
 
         builder.setCollisionBoxes(
                 //Head board
-                new float[] {0.0f, 0.0f, 0.0f, 2f, 1.4f, pixelWidth * 2},
+                new float[] {0.0f, 0.0f, 0.0f, 2.0f, 1.4f, pixelWidth * 2},
                 //Posts
                 new float[] {2.0f, 0.0f, 2.0f, 2-pixelWidth*3, 1.0f-pixelWidth*1.5f, 2-pixelWidth*3},
                 new float[] {0.0f, 0.0f, 2.0f, pixelWidth*3, 1.0f-pixelWidth*1.5f, 2-pixelWidth*3},

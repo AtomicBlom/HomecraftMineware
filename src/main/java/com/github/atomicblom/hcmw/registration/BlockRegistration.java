@@ -26,27 +26,28 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
 @EventBusSubscriber(modid = HomecraftMineware.MODID)
-public class BlockRegistration {
+public final class BlockRegistration {
 
+    @SuppressWarnings("OverlyCoupledMethod")
     @SubscribeEvent
     public static void registerBlocks(Register<Block> blockRegister) {
         final Blocks blocks = new Blocks(blockRegister.getRegistry());
-        blocks.addStructure((StructureBlock)new FourPostBedBlock().setResistance(2f).setHardness(2f), Reference.Block.bed_4post);
-        blocks.addStructure((StructureBlock)new CanopyBedBlock().setResistance(2f).setHardness(2f), Reference.Block.bed_canopy);
-        blocks.addStructure((StructureBlock)new InnerGateDoorBlock().setResistance(2f).setHardness(2f), Reference.Block.door_inner_gate);
-        blocks.addStructure((StructureBlock)new TowerDoorBlock().setResistance(2f).setHardness(2f), Reference.Block.door_tower);
-        blocks.addStructure((StructureBlock)new GrandDoorBlock().setResistance(2f).setHardness(2f), Reference.Block.door_grand);
+        blocks.addStructure((StructureBlock)new FourPostBedBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_4post);
+        blocks.addStructure((StructureBlock)new CanopyBedBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_canopy);
+        blocks.addStructure((StructureBlock)new InnerGateDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_inner_gate);
+        blocks.addStructure((StructureBlock)new TowerDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_tower);
+        blocks.addStructure((StructureBlock)new GrandDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_grand);
 
-        blocks.add(new ItemBarrelBlock().setResistance(2f).setHardness(2f), Reference.Block.item_barrel);
-        blocks.add(new FluidBarrelBlock().setResistance(2f).setHardness(2f), Reference.Block.fluid_barrel);
-        blocks.add(new LanternBlock().setResistance(2f).setHardness(2f), Reference.Block.lantern);
-        blocks.add(new CandleHolderBlock().setResistance(2f).setHardness(2f), Reference.Block.candleholder);
-        blocks.add(new BedSideDrawersBlock().setResistance(2f).setHardness(2f), Reference.Block.bed_side_drawers);
+        blocks.add(new ItemBarrelBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.item_barrel);
+        blocks.add(new FluidBarrelBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.fluid_barrel);
+        blocks.add(new LanternBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.lantern);
+        blocks.add(new CandleHolderBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.candleholder);
+        blocks.add(new BedSideDrawersBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_side_drawers);
 
-        blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers.toString());
-        blocks.add(ItemBarrelTileEntity.class, Reference.Block.item_barrel.toString());
-        blocks.add(FluidBarrelTileEntity.class, Reference.Block.fluid_barrel.toString());
-        blocks.add(DoorTileEntity.class, Reference.Block.door.toString());
+        Blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers.toString());
+        Blocks.add(ItemBarrelTileEntity.class, Reference.Block.item_barrel.toString());
+        Blocks.add(FluidBarrelTileEntity.class, Reference.Block.fluid_barrel.toString());
+        Blocks.add(DoorTileEntity.class, Reference.Block.door.toString());
     }
 
     private static class Blocks
@@ -59,14 +60,13 @@ public class BlockRegistration {
             this.registry = registry;
         }
 
-        <B extends Block> B add(B block, ResourceLocation registryName) {
+        <B extends Block> void add(B block, ResourceLocation registryName) {
             block.setRegistryName(registryName)
                     .setUnlocalizedName(registryName.toString())
                     .setCreativeTab(CreativeTab.INSTANCE);
 
             registry.register(block);
 
-            return block;
         }
 
         <B extends StructureBlock> void addStructure(B block, ResourceLocation registryName)
@@ -88,7 +88,7 @@ public class BlockRegistration {
             add(StructureShapeTE.class, "hcmw:shape");
         }
 
-        public void add(Class<? extends TileEntity> tileEntityClass, String id)
+        public static void add(Class<? extends TileEntity> tileEntityClass, String id)
         {
             GameRegistry.registerTileEntity(tileEntityClass, "tile." + id);
         }

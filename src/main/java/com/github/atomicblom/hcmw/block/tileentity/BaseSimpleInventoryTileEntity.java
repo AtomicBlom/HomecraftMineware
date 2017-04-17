@@ -2,7 +2,6 @@ package com.github.atomicblom.hcmw.block.tileentity;
 
 import com.github.atomicblom.hcmw.container.BedsideDrawersContainer;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
-import com.github.atomicblom.hcmw.library.SoundLibrary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -20,11 +19,11 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public abstract class BaseSimpleInventoryTileEntity extends TileEntity implements IInventory, ITickable
 {
     private float animationProgress;
-    private float previousAnimationProgress;
 
     private int ticksSinceSync = -1;
 
@@ -98,7 +97,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     @Override
     public boolean isUsableByPlayer(@Nonnull EntityPlayer player)
     {
-        if (world.getTileEntity(pos) == this)
+        if (Objects.equals(world.getTileEntity(pos), this))
             if (player.getDistanceSq(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) <= 64.0D)
                 return true;
         return false;
@@ -167,7 +166,6 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
 
     private void updateAnimation()
     {
-        previousAnimationProgress = animationProgress;
 
         if (observingPlayerCount > 0 && animationProgress == 0.0F)
         {
@@ -223,7 +221,9 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
         }
     }
 
+    @Nullable
     protected SoundEvent getOpenSound() { return null;}
+    @Nullable
     protected SoundEvent getCloseSound() { return null;}
 
     @Override

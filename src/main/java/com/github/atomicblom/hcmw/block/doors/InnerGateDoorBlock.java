@@ -1,18 +1,16 @@
 package com.github.atomicblom.hcmw.block.doors;
 
-import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
 import com.github.atomicblom.hcmw.block.BaseDoorBlock;
 import com.github.atomicblom.hcmw.block.BlockProperties;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class InnerGateDoorBlock extends BaseDoorBlock
 {
@@ -23,7 +21,7 @@ public class InnerGateDoorBlock extends BaseDoorBlock
         placementState = placementState.withProperty(MIRROR, false);
         final EnumFacing opposite = placementState.getValue(BlockProperties.HORIZONTAL_FACING);
         final IBlockState rightBlock = world.getBlockState(pos.offset(opposite.rotateYCCW(), 1));
-        if (rightBlock.getBlock() == this) {
+        if (Objects.equals(rightBlock.getBlock(), this)) {
             placementState = placementState.withProperty(MIRROR, true);
         }
         return placementState;
