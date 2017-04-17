@@ -1,5 +1,6 @@
-package com.github.atomicblom.hcmw.block;
+package com.github.atomicblom.hcmw.block.itemstorage;
 
+import com.github.atomicblom.hcmw.block.BaseInventoryBlock;
 import com.github.atomicblom.hcmw.block.properties.IHorizontalBlockHelper;
 import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
 import com.github.atomicblom.hcmw.gui.GuiType;
@@ -15,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
+import static com.github.atomicblom.hcmw.BlockProperties.HORIZONTAL_FACING;
 
 @SuppressWarnings("deprecation")
 public class BedSideDrawersBlock extends BaseInventoryBlock implements IHorizontalBlockHelper

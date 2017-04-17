@@ -7,9 +7,6 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-/**
- * Created by codew on 23/12/2016.
- */
 public class Group implements IModelPart {
     public static final String DEFAULT_NAME = "OBJModel.Default.Element.Name";
     public static final String ALL = "OBJModel.Group.All.Key";

@@ -1,7 +1,7 @@
 package com.github.atomicblom.hcmw.item;
 
 import com.foudroyantfactotum.tool.structure.item.StructureBlockItem;
-import com.github.atomicblom.hcmw.block.BlockProperties;
+import com.github.atomicblom.hcmw.BlockProperties;
 import com.github.atomicblom.hcmw.block.WoodVariant;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

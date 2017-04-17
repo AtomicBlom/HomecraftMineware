@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
 @EventBusSubscriber
-public class StructureDefinitionLibrary
+public final class StructureDefinitionLibrary
 {
     @SubscribeEvent
     public static void registerStructureDefinitions(Register<StructureDefinition> event) {

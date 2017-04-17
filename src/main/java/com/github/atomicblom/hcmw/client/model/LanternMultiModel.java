@@ -1,6 +1,6 @@
 package com.github.atomicblom.hcmw.client.model;
 
-import com.github.atomicblom.hcmw.block.BlockProperties;
+import com.github.atomicblom.hcmw.BlockProperties;
 import com.github.atomicblom.hcmw.client.model.obj.OBJBakedModel;
 import com.github.atomicblom.hcmw.client.model.obj.OBJModel;
 import com.github.atomicblom.hcmw.library.BlockLibrary;

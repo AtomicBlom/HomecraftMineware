@@ -6,10 +6,16 @@ import com.foudroyantfactotum.tool.structure.block.StructureShapeBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureShapeTE;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
 import com.github.atomicblom.hcmw.HomecraftMineware;
-import com.github.atomicblom.hcmw.block.*;
+import com.github.atomicblom.hcmw.block.beds.CanopyBedBlock;
+import com.github.atomicblom.hcmw.block.beds.FourPostBedBlock;
 import com.github.atomicblom.hcmw.block.doors.GrandDoorBlock;
 import com.github.atomicblom.hcmw.block.doors.InnerGateDoorBlock;
 import com.github.atomicblom.hcmw.block.doors.TowerDoorBlock;
+import com.github.atomicblom.hcmw.block.fluidstorage.FluidBarrelBlock;
+import com.github.atomicblom.hcmw.block.itemstorage.BedSideDrawersBlock;
+import com.github.atomicblom.hcmw.block.itemstorage.ItemBarrelBlock;
+import com.github.atomicblom.hcmw.block.lighting.CandleHolderBlock;
+import com.github.atomicblom.hcmw.block.lighting.LanternBlock;
 import com.github.atomicblom.hcmw.block.tileentity.BedSideDrawersTileEntity;
 import com.github.atomicblom.hcmw.block.tileentity.DoorTileEntity;
 import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
@@ -26,9 +32,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 
 @EventBusSubscriber(modid = HomecraftMineware.MODID)
+@SuppressWarnings("OverlyCoupledMethod")
 public final class BlockRegistration {
-
-    @SuppressWarnings("OverlyCoupledMethod")
     @SubscribeEvent
     public static void registerBlocks(Register<Block> blockRegister) {
         final Blocks blocks = new Blocks(blockRegister.getRegistry());

@@ -3,7 +3,7 @@ package com.github.atomicblom.hcmw.library;
 import com.github.atomicblom.hcmw.HomecraftMineware;
 import net.minecraft.util.ResourceLocation;
 
-@SuppressWarnings("UtilityClass")
+@SuppressWarnings({"UtilityClass", "SpellCheckingInspection"})
 public final class Reference {
     public static final class Block {
         public static final ResourceLocation shape = resource("shape");

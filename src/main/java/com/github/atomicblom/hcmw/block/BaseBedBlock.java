@@ -2,6 +2,7 @@ package com.github.atomicblom.hcmw.block;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
+import com.github.atomicblom.hcmw.BlockProperties;
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
@@ -21,9 +22,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public abstract class BedBlockBase extends StructureBlock
+@SuppressWarnings("deprecation")
+public abstract class BaseBedBlock extends StructureBlock
 {
-    protected BedBlockBase() {
+    protected BaseBedBlock() {
         super(false);
 
         final IBlockState defaultState = blockState

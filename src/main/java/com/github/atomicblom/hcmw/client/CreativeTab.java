@@ -12,7 +12,8 @@ public class CreativeTab extends CreativeTabs
         super(HomecraftMineware.MODID);
     }
 
-    public static CreativeTab INSTANCE = new CreativeTab();
+    @SuppressWarnings("PublicField")
+    public static final CreativeTab INSTANCE = new CreativeTab();
 
     private ItemStack itemStack = null;
 

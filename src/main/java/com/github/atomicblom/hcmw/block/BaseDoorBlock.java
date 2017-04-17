@@ -3,6 +3,7 @@ package com.github.atomicblom.hcmw.block;
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.registry.StructureDefinition;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
+import com.github.atomicblom.hcmw.BlockProperties;
 import com.github.atomicblom.hcmw.block.tileentity.DoorTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;

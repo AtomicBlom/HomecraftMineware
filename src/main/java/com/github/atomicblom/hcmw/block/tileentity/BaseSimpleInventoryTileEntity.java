@@ -119,7 +119,6 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     public void closeInventory(@Nonnull EntityPlayer player) {
         if (!player.isSpectator())
         {
-            final BlockPos pos = getPos();
             if (world == null)
             {
                 return;

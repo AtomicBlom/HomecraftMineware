@@ -1,12 +1,15 @@
-package com.github.atomicblom.hcmw.block;
+package com.github.atomicblom.hcmw.block.fluidstorage;
 
+import com.github.atomicblom.hcmw.block.BaseInventoryBlock;
 import com.github.atomicblom.hcmw.block.properties.IHorizontalBlockHelper;
-import com.github.atomicblom.hcmw.block.tileentity.ItemBarrelTileEntity;
+import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
 import com.github.atomicblom.hcmw.gui.GuiType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -14,21 +17,25 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import javax.annotation.Nonnull;
 
-import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
+import static com.github.atomicblom.hcmw.BlockProperties.HORIZONTAL_FACING;
 
 @SuppressWarnings("deprecation")
-public class ItemBarrelBlock extends BaseInventoryBlock implements IHorizontalBlockHelper
+public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalBlockHelper
 {
-    public ItemBarrelBlock()
+    public FluidBarrelBlock()
     {
         super(Material.WOOD);
         final IBlockState defaultState = blockState
                 .getBaseState()
                 .withProperty(HORIZONTAL_FACING, EnumFacing.NORTH);
+
         setHarvestLevel("axe", 2);
+
         setDefaultState(defaultState);
     }
 
@@ -69,11 +76,9 @@ public class ItemBarrelBlock extends BaseInventoryBlock implements IHorizontalBl
         return EnumBlockRenderType.MODEL;
     }
 
-
-
     @Override
     protected GuiType getGuiType() {
-        return GuiType.ITEM_BARREL;
+        return GuiType.FLUID_BARREL;
     }
 
     @Override
@@ -84,10 +89,36 @@ public class ItemBarrelBlock extends BaseInventoryBlock implements IHorizontalBl
     @Override
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state)
     {
-        return new ItemBarrelTileEntity();
+        return new FluidBarrelTileEntity();
     }
 
     @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+
+
+        final TileEntity te = world.getTileEntity(pos);
+
+        if (!(te instanceof FluidBarrelTileEntity))
+        {
+            return true;
+        }
+
+        final ItemStack heldItem = player.getHeldItem(hand);
+
+        final IFluidHandler capability = te.getCapability(FluidBarrelTileEntity.fluidHandlerCapability, null);
+
+
+        final FluidActionResult fluidActionResult = FluidUtil.interactWithFluidHandler(heldItem, capability, player);
+        if (!fluidActionResult.isSuccess()) {
+            return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
+        }
+        player.setHeldItem(hand, fluidActionResult.getResult());
+
+        return true;
+    }
+
+    @Override
+    @Deprecated
     public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
     {
         return side == EnumFacing.UP || side == EnumFacing.DOWN;

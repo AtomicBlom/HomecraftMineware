@@ -1,5 +1,6 @@
-package com.github.atomicblom.hcmw.block;
+package com.github.atomicblom.hcmw.block.lighting;
 
+import com.github.atomicblom.hcmw.BlockProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

@@ -1,16 +1,15 @@
-package com.github.atomicblom.hcmw.block;
+package com.github.atomicblom.hcmw;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
+import com.github.atomicblom.hcmw.block.WoodVariant;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 
-/**
- * Created by codew on 23/12/2016.
- */
-public class BlockProperties {
+@SuppressWarnings("UtilityClass")
+public final class BlockProperties {
     /** Whether this block connects in the northern direction */
     public static final PropertyBool CONNECT_NORTH = PropertyBool.create("north");
     /** Whether this block connects in the eastern direction */
@@ -39,4 +38,6 @@ public class BlockProperties {
     public static final PropertyBool OCCUPIED = PropertyBool.create("occupied");
 
     public static final PropertyBool IS_LIT = PropertyBool.create("lit");
+
+    private BlockProperties() {}
 }

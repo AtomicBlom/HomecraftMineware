@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 @SuppressWarnings("deprecation")
 public abstract class BaseInventoryBlock extends Block {
 
-    BaseInventoryBlock(Material materialIn) {
+    protected BaseInventoryBlock(Material materialIn) {
         super(materialIn);
     }
 

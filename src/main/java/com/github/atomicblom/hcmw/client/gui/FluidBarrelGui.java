@@ -7,18 +7,15 @@ import com.google.common.base.Preconditions;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import org.lwjgl.opengl.GL11;
 
 public class FluidBarrelGui extends GuiContainer {
     private final FluidBarrelTileEntity drawerInventory;
@@ -78,7 +75,7 @@ public class FluidBarrelGui extends GuiContainer {
 
                             final float amountStored = 8 * contents.amount / 1000.0f;
 
-                            drawRepeatedFluidSprite(
+                            FluidRenderHelper.drawRepeatedFluidSprite(
                                     sprite,
                                     offsetX + 70,
                                     offsetY + 10 + 64 - amountStored,
@@ -102,53 +99,5 @@ public class FluidBarrelGui extends GuiContainer {
         );
     }
 
-    private static void drawRepeatedFluidSprite(TextureAtlasSprite sprite, float x, float y, float w, float h)
-    {
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexBuffer = tessellator.getBuffer();
-        vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        final int iW = sprite.getIconWidth();
-        final int iH = sprite.getIconHeight();
-        if(iW > 0 && iH > 0) {
-            drawRepeatedSprite(vertexBuffer, x, y, w, h, iW, iH, sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV());
-        }
-
-        tessellator.draw();
-    }
-
-
-    @SuppressWarnings({"NumericCastThatLosesPrecision", "TooBroadScope"})
-    public static void drawRepeatedSprite(BufferBuilder bufferBuilder, float x, float y, float w, float h, int iconWidth, int iconHeight, float uMin, float uMax, float vMin, float vMax)
-    {
-        final int iterMaxW = (int) (w / iconWidth);
-        final int iterMaxH = (int) (h / iconHeight);
-        final float leftoverW = w % iconWidth;
-        final float leftoverH = h % iconHeight;
-        final float leftoverWf = leftoverW / iconWidth;
-        final float leftoverHf = leftoverH / iconHeight;
-        final float iconUDif = uMax - uMin;
-        final float iconVDif = vMax - vMin;
-        for(int ww = 0; ww < iterMaxW; ww++)
-        {
-            for(int hh = 0; hh < iterMaxH; hh++)
-                drawTexturedRect(bufferBuilder, x + ww * iconWidth, y + hh * iconHeight, iconWidth, iconHeight, uMin, uMax, vMin, vMax);
-            drawTexturedRect(bufferBuilder, x + ww * iconWidth, y + iterMaxH * iconHeight, iconWidth, leftoverH, uMin, uMax, vMin, (vMin + iconVDif * leftoverHf));
-        }
-        if(leftoverW > 0)
-        {
-            for(int hh = 0; hh < iterMaxH; hh++)
-                drawTexturedRect(bufferBuilder, x + iterMaxW * iconWidth, y + hh * iconHeight, leftoverW, iconHeight, uMin, (uMin + iconUDif * leftoverWf), vMin, vMax);
-            drawTexturedRect(bufferBuilder, x + iterMaxW * iconWidth, y + iterMaxH * iconHeight, leftoverW, leftoverH, uMin, (uMin + iconUDif * leftoverWf), vMin, (vMin + iconVDif * leftoverHf));
-        }
-    }
-
-
-    public static void drawTexturedRect(BufferBuilder bufferBuilder, float x, float y, float w, float h, double... uv)
-    {
-        bufferBuilder.pos(x, y + h, 0).tex(uv[0], uv[3]).endVertex();
-        bufferBuilder.pos(x + w, y + h, 0).tex(uv[1], uv[3]).endVertex();
-        bufferBuilder.pos(x + w, y, 0).tex(uv[1], uv[2]).endVertex();
-        bufferBuilder.pos(x, y, 0).tex(uv[0], uv[2]).endVertex();
-    }
 
 }

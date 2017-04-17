@@ -3,7 +3,7 @@ package com.github.atomicblom.hcmw.block.properties;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 
-import static com.github.atomicblom.hcmw.block.BlockProperties.HORIZONTAL_FACING;
+import static com.github.atomicblom.hcmw.BlockProperties.HORIZONTAL_FACING;
 
 public interface IHorizontalBlockHelper {
     default IBlockState getHorizontalStateFromMeta(IBlockState existingState, int meta) {

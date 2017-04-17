@@ -2,7 +2,7 @@ package com.github.atomicblom.hcmw.block.doors;
 
 import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
 import com.github.atomicblom.hcmw.block.BaseDoorBlock;
-import com.github.atomicblom.hcmw.block.BlockProperties;
+import com.github.atomicblom.hcmw.BlockProperties;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
