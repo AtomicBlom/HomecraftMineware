@@ -4,6 +4,7 @@ import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.item.StructureBlockItem;
 import com.github.atomicblom.hcmw.HomecraftMineware;
 import com.github.atomicblom.hcmw.client.CreativeTab;
+import com.github.atomicblom.hcmw.item.DoorBlockItem;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -26,9 +27,10 @@ public final class ItemRegistration {
         final Items items = new Items(event.getRegistry());
         items.addStructure(BlockLibrary.bed_4post);
         items.addStructure(BlockLibrary.bed_canopy);
-        items.addStructure(BlockLibrary.door_inner_gate);
-        items.addStructure(BlockLibrary.door_tower);
-        items.addStructure(BlockLibrary.door_grand);
+
+        items.addBlockItem(new DoorBlockItem(BlockLibrary.door_inner_gate));
+        items.addBlockItem(new DoorBlockItem(BlockLibrary.door_tower));
+        items.addBlockItem(new DoorBlockItem(BlockLibrary.door_grand));
 
         items.add(BlockLibrary.item_barrel);
         items.add(BlockLibrary.fluid_barrel);
@@ -67,6 +69,12 @@ public final class ItemRegistration {
         {
             final StructureBlockItem item = new StructureBlockItem(block);
             add(item, block.getRegistryName());
+            return item;
+        }
+
+        ItemBlock addBlockItem(ItemBlock item)
+        {
+            add(item, item.getBlock().getRegistryName());
             return item;
         }
     }

@@ -6,9 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
-/**
- * Created by codew on 20/12/2016.
- */
 public class StructureBlockSubItem extends StructureBlockItem
 {
     public StructureBlockSubItem(Block block)

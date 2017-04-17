@@ -1,9 +1,11 @@
 package com.github.atomicblom.hcmw.block;
 
+import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.properties.PropertyEnum;
 
 /**
  * Created by codew on 23/12/2016.
@@ -21,6 +23,11 @@ public class BlockProperties {
     public static final PropertyBool CONNECT_UP = PropertyBool.create("up");
     /** Whether this block connects in the down direction */
     public static final PropertyBool CONNECT_DOWN = PropertyBool.create("down");
+
+    /** Types of wood supported */
+    public static final PropertyEnum<WoodVariant> WOOD_VARIANT = PropertyEnum.create("variant", WoodVariant.class);
+
+    public static final PropertyBool MIRROR = StructureBlock.MIRROR;
 
     /** Whether doors are open or not */
     public static final PropertyBool IS_OPEN = PropertyBool.create("is_open");

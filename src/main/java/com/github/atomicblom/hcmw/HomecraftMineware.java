@@ -2,6 +2,7 @@ package com.github.atomicblom.hcmw;
 
 import com.foudroyantfactotum.tool.structure.StructureRegistry;
 import com.foudroyantfactotum.tool.structure.net.StructureNetwork;
+import com.foudroyantfactotum.tool.structure.CommandReloadStructures;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightBoundingBoxDebug;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightPreview;
 import com.github.atomicblom.hcmw.gui.GuiHandler;
@@ -40,9 +41,6 @@ public class HomecraftMineware
         if (DEBUG) {
             Logger.info("Homecraft Mineware Debugging is enabled.");
         }
-
-        StructureRegistry.setMOD_ID(MODID);
-        StructureNetwork.init(CHANNEL);
     }
 
     @EventHandler
@@ -77,8 +75,9 @@ public class HomecraftMineware
         if (DEBUG)
         {
 
-            event.registerServerCommand(new StructureRegistry.CommandReloadStructures());
+            event.registerServerCommand(new CommandReloadStructures());
             Logger.info("Reload Structures command enabled.");
         }
     }
+
 }

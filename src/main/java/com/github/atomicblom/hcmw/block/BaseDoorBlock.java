@@ -8,9 +8,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -20,7 +24,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static com.foudroyantfactotum.tool.structure.coordinates.TransformLAG.localToGlobalCollisionBoxes;
-import static com.github.atomicblom.hcmw.block.BlockProperties.IS_OPEN;
 
 public abstract class BaseDoorBlock extends StructureBlock
 {
@@ -31,22 +34,47 @@ public abstract class BaseDoorBlock extends StructureBlock
         final IBlockState defaultState = blockState
                 .getBaseState()
                 .withProperty(BlockProperties.HORIZONTAL_FACING, EnumFacing.NORTH)
-                .withProperty(IS_OPEN, false);
+                .withProperty(BlockProperties.WOOD_VARIANT, WoodVariant.OAK)
+                .withProperty(BlockProperties.IS_OPEN, false);
         setHarvestLevel("axe", 2);
         setDefaultState(defaultState);
+    }
+
+    @Override
+    public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
+    {
+        for (final WoodVariant woodVariant : WoodVariant.values())
+        {
+            final NBTTagCompound nbtTagCompound = new NBTTagCompound();
+            nbtTagCompound.setString("variant", woodVariant.getName());
+
+            final ItemStack itemStack = new ItemStack(itemIn, 1, 0);
+            itemStack.setTagCompound(nbtTagCompound);
+            list.add(itemStack);
+        }
     }
 
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState state)
     {
-        return new DoorTileEntity(getPattern(), state.getValue(BlockProperties.HORIZONTAL_FACING), state.getValue(MIRROR));
+        return new DoorTileEntity(
+                getPattern(),
+                state.getValue(BlockProperties.HORIZONTAL_FACING),
+                state.getValue(BlockProperties.MIRROR),
+                state.getValue(BlockProperties.WOOD_VARIANT)
+        );
     }
 
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, BlockProperties.HORIZONTAL_FACING, MIRROR, IS_OPEN);
+        return new BlockStateContainer(
+                this,
+                BlockProperties.HORIZONTAL_FACING,
+                BlockProperties.MIRROR,
+                BlockProperties.WOOD_VARIANT,
+                BlockProperties.IS_OPEN);
     }
 
     @Override
@@ -58,10 +86,10 @@ public abstract class BaseDoorBlock extends StructureBlock
         final EnumFacing opposite = placementState.getValue(BlockProperties.HORIZONTAL_FACING);
         final IBlockState rightBlock = world.getBlockState(pos.offset(opposite.rotateYCCW()));
         if (rightBlock.getBlock() == this) {
-            placementState = placementState.withProperty(MIRROR, true);
+            placementState = placementState.withProperty(BlockProperties.MIRROR, true);
         }
         placementState = placementState.withProperty(BlockProperties.HORIZONTAL_FACING, opposite);
-        placementState = placementState.withProperty(IS_OPEN, false);
+        placementState = placementState.withProperty(BlockProperties.IS_OPEN, false);
         return placementState;
     }
 
@@ -100,7 +128,7 @@ public abstract class BaseDoorBlock extends StructureBlock
     {
         worldIn.setBlockState(
                 pos,
-                state.withProperty(IS_OPEN, !state.getValue(IS_OPEN)),
+                state.withProperty(BlockProperties.IS_OPEN, !state.getValue(BlockProperties.IS_OPEN)),
                 1 | 2);
 
         return true;
@@ -135,7 +163,7 @@ public abstract class BaseDoorBlock extends StructureBlock
             EnumFacing rotation = state.getValue(BlockHorizontal.FACING);
             boolean mirror = getMirror(state);
 
-            if (state.getValue(IS_OPEN)) {
+            if (state.getValue(BlockProperties.IS_OPEN)) {
                 rotation = mirror ? rotation.rotateYCCW() : rotation.rotateY();
             }
 
