@@ -1,7 +1,5 @@
 package com.github.atomicblom.hcmw;
 
-import com.foudroyantfactotum.tool.structure.StructureRegistry;
-import com.foudroyantfactotum.tool.structure.net.StructureNetwork;
 import com.foudroyantfactotum.tool.structure.CommandReloadStructures;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightBoundingBoxDebug;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightPreview;
@@ -53,7 +51,6 @@ public class HomecraftMineware
             Logger.info("You are not running a release build of Homecraft Mineware. This message is purely for informational purposes.");
         }
 
-        StructureRegistry.loadRegisteredPatterns();
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, GuiHandler.INSTANCE);
     }
 

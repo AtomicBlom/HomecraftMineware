@@ -61,7 +61,7 @@ public abstract class BaseDoorBlock extends StructureBlock
     public TileEntity createTileEntity(World world, IBlockState state)
     {
         return new DoorTileEntity(
-                getPattern(),
+                getStructureDefinitionProvider().getStructureDefinition(),
                 state.getValue(BlockProperties.HORIZONTAL_FACING),
                 state.getValue(BlockProperties.MIRROR),
                 state.getValue(BlockProperties.WOOD_VARIANT)
@@ -158,7 +158,7 @@ public abstract class BaseDoorBlock extends StructureBlock
     @Override
     @Deprecated
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, @Nullable Entity entityIn, boolean unknown) {
-        final StructureDefinition pattern = getPattern();
+        final StructureDefinition pattern = getStructureDefinitionProvider().getStructureDefinition();
         final float[][] collisionBoxes = pattern.getCollisionBoxes();
         if (collisionBoxes != null)
         {

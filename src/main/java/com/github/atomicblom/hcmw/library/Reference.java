@@ -52,6 +52,20 @@ public final class Reference {
         private Gui() {}
     }
 
+    public static final class TileEntity
+    {
+        public static final ResourceLocation structure = resource("structure");
+        public static final ResourceLocation shape = resource("shape");
+
+        private TileEntity() {}
+    }
+
+    public static final class Structure {
+        public static final ResourceLocation canopy_bed = resource("canopy_bed");
+
+        private Structure() {}
+    }
+
     private static ResourceLocation resource(String name) {
         return new ResourceLocation(HomecraftMineware.MODID, name);
     }

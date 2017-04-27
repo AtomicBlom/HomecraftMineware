@@ -7,37 +7,5 @@ import net.minecraft.util.math.BlockPos;
 
 public class TowerDoorBlock extends BaseDoorBlock
 {
-    @Override
-    public StructureDefinitionBuilder getStructureBuild()
-    {
-        final StructureDefinitionBuilder builder = new StructureDefinitionBuilder();
 
-        builder.assignConstructionDef(ImmutableMap.of(
-                'w', "minecraft:planks"
-        ));
-
-        builder.assignConstructionBlocks(
-                new String[] {"w"},
-                new String[] {"w"},
-                new String[] {"w"},
-                new String[] {"w"}
-        );
-
-        builder.assignToolFormPosition(BlockPos.ORIGIN);
-
-        builder.setConfiguration(BlockPos.ORIGIN,
-                new String[] {"M"},
-                new String[] {"-"},
-                new String[] {"-"},
-                new String[] {"-"}
-        );
-
-        final float pixelWidth = 0.0625f;
-
-        builder.setCollisionBoxes(
-                new float[] {0.0f, 0.0f, 1 - pixelWidth * 3.0f, 1.0f, 4.0f, 1.0f}
-        );
-
-        return builder;
-    }
 }

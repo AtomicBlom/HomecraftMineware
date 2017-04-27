@@ -1,7 +1,5 @@
 package com.github.atomicblom.hcmw.registration;
 
-import com.foudroyantfactotum.tool.structure.StructureRegistry;
-import com.foudroyantfactotum.tool.structure.block.StructureBlock;
 import com.foudroyantfactotum.tool.structure.block.StructureShapeBlock;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureShapeTE;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
@@ -37,11 +35,14 @@ public final class BlockRegistration {
     @SubscribeEvent
     public static void registerBlocks(Register<Block> blockRegister) {
         final Blocks blocks = new Blocks(blockRegister.getRegistry());
-        blocks.addStructure((StructureBlock)new FourPostBedBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_4post);
-        blocks.addStructure((StructureBlock)new CanopyBedBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_canopy);
-        blocks.addStructure((StructureBlock)new InnerGateDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_inner_gate);
-        blocks.addStructure((StructureBlock)new TowerDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_tower);
-        blocks.addStructure((StructureBlock)new GrandDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_grand);
+        blocks.add(new FourPostBedBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_4post);
+        blocks.add(new CanopyBedBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_canopy);
+
+        blocks.add(new InnerGateDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_inner_gate);
+        blocks.add(new TowerDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_tower);
+        blocks.add(new GrandDoorBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.door_grand);
+
+        blocks.add(new StructureShapeBlock(), Reference.Block.shape);
 
         blocks.add(new ItemBarrelBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.item_barrel);
         blocks.add(new FluidBarrelBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.fluid_barrel);
@@ -49,16 +50,18 @@ public final class BlockRegistration {
         blocks.add(new CandleHolderBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.candleholder);
         blocks.add(new BedSideDrawersBlock().setResistance(2.0f).setHardness(2.0f), Reference.Block.bed_side_drawers);
 
-        Blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers.toString());
-        Blocks.add(ItemBarrelTileEntity.class, Reference.Block.item_barrel.toString());
-        Blocks.add(FluidBarrelTileEntity.class, Reference.Block.fluid_barrel.toString());
-        Blocks.add(DoorTileEntity.class, Reference.Block.door.toString());
+        blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers);
+        blocks.add(ItemBarrelTileEntity.class, Reference.Block.item_barrel);
+        blocks.add(FluidBarrelTileEntity.class, Reference.Block.fluid_barrel);
+        blocks.add(DoorTileEntity.class, Reference.Block.door);
+
+        blocks.add(StructureTE.class, Reference.TileEntity.structure);
+        blocks.add(StructureShapeTE.class, Reference.TileEntity.shape);
     }
 
     private static class Blocks
     {
         private final IForgeRegistry<Block> registry;
-        private StructureShapeBlock shapeBlock = null;
 
         Blocks(IForgeRegistry<Block> registry)
         {
@@ -71,29 +74,10 @@ public final class BlockRegistration {
                     .setCreativeTab(CreativeTab.INSTANCE);
 
             registry.register(block);
-
         }
 
-        <B extends StructureBlock> void addStructure(B block, ResourceLocation registryName)
-        {
-            if (shapeBlock == null) {
-                registerShape();
-            }
-
-            add(block, registryName);
-            StructureRegistry.registerStructureForLoad(block, shapeBlock);
-        }
-
-        private void registerShape()
-        {
-            shapeBlock = new StructureShapeBlock();
-            add(shapeBlock, Reference.Block.shape);
-
-            add(StructureTE.class, "hcmw:structure");
-            add(StructureShapeTE.class, "hcmw:shape");
-        }
-
-        public static void add(Class<? extends TileEntity> tileEntityClass, String id)
+        @SuppressWarnings("MethodMayBeStatic")
+        public void add(Class<? extends TileEntity> tileEntityClass, ResourceLocation id)
         {
             GameRegistry.registerTileEntity(tileEntityClass, "tile." + id);
         }

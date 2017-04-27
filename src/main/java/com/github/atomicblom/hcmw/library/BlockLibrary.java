@@ -1,6 +1,7 @@
 package com.github.atomicblom.hcmw.library;
 
 import com.foudroyantfactotum.tool.structure.block.StructureBlock;
+import com.foudroyantfactotum.tool.structure.block.StructureShapeBlock;
 import com.github.atomicblom.hcmw.HomecraftMineware;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -19,6 +20,7 @@ public final class BlockLibrary {
     public static final Block lantern;
     public static final Block candle_holder;
     public static final Block bed_side_drawers;
+    public static final StructureShapeBlock shape;
 
     static {
         bed_4post = null;
@@ -31,5 +33,6 @@ public final class BlockLibrary {
         lantern = null;
         candle_holder = null;
         bed_side_drawers = null;
+        shape = null;
     }
 }
