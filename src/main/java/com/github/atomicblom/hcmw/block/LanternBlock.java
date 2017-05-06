@@ -35,6 +35,8 @@ public class LanternBlock extends Block
                 .withProperty(FACING, EnumFacing.DOWN)
                 .withProperty(IS_LIT, false);
 
+        setHarvestLevel("pickaxe", 2);
+
         setDefaultState(defaultState);
     }
 

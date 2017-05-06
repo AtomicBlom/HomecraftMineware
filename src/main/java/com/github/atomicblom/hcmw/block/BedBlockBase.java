@@ -34,6 +34,7 @@ public abstract class BedBlockBase extends StructureBlock
                 .getBaseState()
                 .withProperty(BlockProperties.HORIZONTAL_FACING, EnumFacing.NORTH)
                 .withProperty(BlockProperties.OCCUPIED, false);
+        setHarvestLevel("axe", 2);
         setDefaultState(defaultState);
     }
 

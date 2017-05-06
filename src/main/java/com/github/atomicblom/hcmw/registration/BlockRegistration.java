@@ -29,11 +29,11 @@ public class BlockRegistration {
         final Blocks blocks = new Blocks(blockRegister.getRegistry());
         blocks.addStructure(new FourPostBedBlock(), Reference.Block.bed_4post);
         blocks.addStructure(new CanopyBedBlock(), Reference.Block.bed_canopy);
-        blocks.add(new ItemBarrelBlock(), Reference.Block.item_barrel);
-        blocks.add(new FluidBarrelBlock(), Reference.Block.fluid_barrel);
-        blocks.add(new LanternBlock(), Reference.Block.lantern);
-        blocks.add(new CandleHolderBlock(), Reference.Block.candleholder);
-        blocks.add(new BedSideDrawersBlock(), Reference.Block.bed_side_drawers);
+        blocks.add(new ItemBarrelBlock().setResistance(2f).setHardness(2f), Reference.Block.item_barrel);
+        blocks.add(new FluidBarrelBlock().setResistance(2f).setHardness(2f), Reference.Block.fluid_barrel);
+        blocks.add(new LanternBlock().setResistance(2f).setHardness(2f), Reference.Block.lantern);
+        blocks.add(new CandleHolderBlock().setResistance(2f).setHardness(2f), Reference.Block.candleholder);
+        blocks.add(new BedSideDrawersBlock().setResistance(2f).setHardness(2f), Reference.Block.bed_side_drawers);
 
         blocks.add(BedSideDrawersTileEntity.class, Reference.Block.bed_side_drawers.toString());
         blocks.add(ItemBarrelTileEntity.class, Reference.Block.item_barrel.toString());

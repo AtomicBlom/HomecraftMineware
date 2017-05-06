@@ -27,7 +27,7 @@ public class ItemBarrelBlock extends BaseInventoryBlock implements IHorizontalBl
         final IBlockState defaultState = blockState
                 .getBaseState()
                 .withProperty(HORIZONTAL_FACING, EnumFacing.NORTH);
-
+        setHarvestLevel("axe", 2);
         setDefaultState(defaultState);
     }
 
