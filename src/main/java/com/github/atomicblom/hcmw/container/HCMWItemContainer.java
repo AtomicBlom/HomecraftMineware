@@ -1,13 +1,9 @@
 package com.github.atomicblom.hcmw.container;
 
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
 
 public abstract class HCMWItemContainer extends HCMWContainer {
     protected final IInventory inventory;
@@ -19,7 +15,7 @@ public abstract class HCMWItemContainer extends HCMWContainer {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        ItemStack itemstack = ItemStackTools.getEmptyStack();
+        ItemStack itemstack = null;
         final Slot slot = inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
@@ -32,17 +28,17 @@ public abstract class HCMWItemContainer extends HCMWContainer {
             {
                 if (!mergeItemStack(itemstack1, size, inventorySlots.size(), true))
                 {
-                    return ItemStackTools.getEmptyStack();
+                    return null;
                 }
             }
             else if (!mergeItemStack(itemstack1, 0, size, false))
             {
-                return ItemStackTools.getEmptyStack();
+                return null;
             }
 
             if (ItemStackTools.isEmpty(itemstack1))
             {
-                slot.putStack(ItemStackTools.getEmptyStack());
+                slot.putStack(null);
             }
             else
             {

@@ -1,14 +1,10 @@
 package com.github.atomicblom.hcmw.block.tileentity;
 
 import com.github.atomicblom.hcmw.container.BedsideDrawersContainer;
+import com.github.atomicblom.hcmw.container.ItemStackTools;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
-import com.github.atomicblom.hcmw.library.SoundLibrary;
-import mcjty.lib.tools.ItemStackList;
-import mcjty.lib.tools.ItemStackTools;
-import mcjty.lib.tools.WorldTools;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -34,11 +30,11 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     private int ticksSinceSync = -1;
 
 
-    private final ItemStackList items;
+    private final ItemStack[] items;
     private int observingPlayerCount;
 
     BaseSimpleInventoryTileEntity(int itemStackSize) {
-        items = ItemStackList.create(itemStackSize);
+        items = new ItemStack[itemStackSize];
     }
 
     @Override
@@ -48,12 +44,12 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
 
     @Override
     public int getSizeInventory() {
-        return items.size();
+        return items.length;
     }
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        return items.get(index);
+        return items[index];
     }
 
     @Override
@@ -77,12 +73,12 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        items.set(index, stack);
+        items[index] = stack;
 
 
-        if (ItemStackTools.getStackSize(stack) > getInventoryStackLimit())
+        if (stack != null && stack.stackSize > getInventoryStackLimit())
         {
-            ItemStackTools.setStackSize(stack, getInventoryStackLimit());
+            stack.stackSize = getInventoryStackLimit();
         }
 
         markDirty();
@@ -113,7 +109,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
         observingPlayerCount = Math.max(0, observingPlayerCount + 1);
 
         world.addBlockEvent(pos, blockType, 1, observingPlayerCount);
-        WorldTools.notifyNeighborsOfStateChange(world, pos, blockType);
+        world.notifyNeighborsOfStateChange(pos, blockType);
     }
 
     @Override
@@ -248,7 +244,10 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
 
     @Override
     public void clear() {
-        items.clear();
+        for (int i = 0; i < items.length; i++)
+        {
+            items[i] = null;
+        }
     }
 
     public String getCustomName() { return null; }
@@ -287,7 +286,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        items.clear();
+        clear();
         loadAllItems(compound, items);
     }
 
@@ -322,15 +321,14 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
     }
 
     @Nullable
-    private static ItemStack getAndSplit(ItemStackList stacks, int index, int amount)
+    private static ItemStack getAndSplit(ItemStack[] stacks, int index, int amount)
     {
-        if (index >= 0 && index < stacks.size() && stacks.get(index) != null && amount > 0)
-        {
-            ItemStack itemstack = stacks.get(index).splitStack(amount);
+        if (index >= 0 && index < stacks.length && stacks[index] != null && amount > 0)        {
+            ItemStack itemstack = stacks[index].splitStack(amount);
 
-            if (stacks.get(index).stackSize == 0)
+            if (stacks[index].stackSize == 0)
             {
-                stacks.set(index, null);
+                stacks[index] = null;
             }
 
             return itemstack;
@@ -341,12 +339,12 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
         }
     }
 
-    private static ItemStack getAndRemove(ItemStackList stacks, int index)
+    private static ItemStack getAndRemove(ItemStack[] stacks, int index)
     {
-        if (index >= 0 && index < stacks.size())
+        if (index >= 0 && index < stacks.length)
         {
-            ItemStack itemstack = stacks.get(index);
-            stacks.set(index, null);
+            ItemStack itemstack = stacks[index];
+            stacks[index] = null;
             return itemstack;
         }
         else
@@ -355,7 +353,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
         }
     }
 
-    private static void loadAllItems(NBTTagCompound compound, ItemStackList items) {
+    private static void loadAllItems(NBTTagCompound compound, ItemStack[] items) {
         NBTTagList nbttaglist = compound.getTagList("Items", 10);
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
@@ -363,19 +361,19 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
             NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
             int slot = nbttagcompound.getByte("Slot") & 255;
 
-            if (slot >= 0 && slot < items.size())
+            if (slot >= 0 && slot < items.length)
             {
-                items.set(slot, ItemStack.loadItemStackFromNBT(nbttagcompound));
+                items[slot] = ItemStack.loadItemStackFromNBT(nbttagcompound);
             }
         }
     }
 
-    private static void saveAllItems(NBTTagCompound compound, ItemStackList items) {
+    private static void saveAllItems(NBTTagCompound compound, ItemStack[] items) {
         NBTTagList nbttaglist = new NBTTagList();
 
-        for (int i = 0; i < items.size(); ++i)
+        for (int i = 0; i < items.length; ++i)
         {
-            ItemStack itemStack = items.get(i);
+            ItemStack itemStack = items[i];
             if (itemStack != null)
             {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();

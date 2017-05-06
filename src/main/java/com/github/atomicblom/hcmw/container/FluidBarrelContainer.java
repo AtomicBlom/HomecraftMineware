@@ -1,7 +1,6 @@
 package com.github.atomicblom.hcmw.container;
 
 import com.github.atomicblom.hcmw.block.tileentity.FluidBarrelTileEntity;
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.IInventory;
@@ -36,7 +35,7 @@ public class FluidBarrelContainer extends HCMWContainer {
                 FluidUtil.interactWithFluidHandler(slot.getStack(), capability, player);
             }
 
-            return ItemStackTools.getEmptyStack();
+            return null;
         }
         return super.slotClick(slotId, dragType, clickTypeIn, player);
     }
