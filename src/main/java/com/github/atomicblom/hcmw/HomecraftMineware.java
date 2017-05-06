@@ -1,6 +1,7 @@
 package com.github.atomicblom.hcmw;
 
 import com.foudroyantfactotum.tool.structure.StructureRegistry;
+import com.foudroyantfactotum.tool.structure.net.StructureNetwork;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightBoundingBoxDebug;
 import com.foudroyantfactotum.tool.structure.renderer.HighlightPreview;
 import com.github.atomicblom.hcmw.gui.GuiHandler;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -23,12 +25,15 @@ public class HomecraftMineware
     public static boolean DEBUG = false;
     public static final String IS_CI_BUILD = "@CI_BUILD@";
 
+    public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(HomecraftMineware.MODID);
+
     @Mod.Instance
     public static HomecraftMineware INSTANCE = null;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         StructureRegistry.setMOD_ID(MODID);
+        StructureNetwork.init(CHANNEL);
     }
 
     @EventHandler
