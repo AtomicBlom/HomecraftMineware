@@ -61,7 +61,7 @@ public abstract class BaseDoorBlock extends StructureBlock
     public TileEntity createTileEntity(World world, IBlockState state)
     {
         return new DoorTileEntity(
-                getStructureDefinitionProvider().getStructureDefinition(),
+                getStructureDefinitionProvider(),
                 state.getValue(BlockProperties.HORIZONTAL_FACING),
                 state.getValue(BlockProperties.MIRROR),
                 state.getValue(BlockProperties.WOOD_VARIANT)

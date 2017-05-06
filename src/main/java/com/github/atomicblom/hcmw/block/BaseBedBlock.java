@@ -65,7 +65,7 @@ public abstract class BaseBedBlock extends StructureBlock
             final StructureTE newTileEntity = (StructureTE)world.getTileEntity(pos);
             Preconditions.checkNotNull(newTileEntity);
             Preconditions.checkNotNull(tileEntity);
-            newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getStructureDefinition());
+            newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getStructureDefinitionProvider());
         }
     }
 
@@ -103,7 +103,7 @@ public abstract class BaseBedBlock extends StructureBlock
                     final StructureTE tileEntity = (StructureTE)worldIn.getTileEntity(pos);
                     worldIn.setBlockState(pos, state, 6);
                     final StructureTE newTileEntity = (StructureTE)worldIn.getTileEntity(pos);
-                    newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getStructureDefinition());
+                    newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getStructureDefinitionProvider());
                 }
 
                 final BlockPos sleepPosition = pos.offset(state.getValue(BlockProperties.HORIZONTAL_FACING));
@@ -118,7 +118,7 @@ public abstract class BaseBedBlock extends StructureBlock
                     worldIn.setBlockState(pos, state, 6);
 
                     final StructureTE newTileEntity = (StructureTE)worldIn.getTileEntity(pos);
-                    newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getStructureDefinition());
+                    newTileEntity.configureBlock(tileEntity.getLocal(), tileEntity.getStructureDefinitionProvider());
 
                     playerIn.setPosition(playerIn.posX, playerIn.posY + 1, playerIn.posZ);
                     return true;
@@ -212,7 +212,7 @@ public abstract class BaseBedBlock extends StructureBlock
     @Override
     public TileEntity createTileEntity(World world, IBlockState state)
     {
-        return new StructureTE(getStructureDefinitionProvider().getStructureDefinition(), state.getValue(BlockProperties.HORIZONTAL_FACING), false);
+        return new StructureTE(getStructureDefinitionProvider(), state.getValue(BlockProperties.HORIZONTAL_FACING), false);
     }
 
     @Override

@@ -10,6 +10,6 @@ public class StructureEventHandler
 {
     @SubscribeEvent
     public static void onCreateRegistry(NewRegistry event) {
-        Structure.configure(HomecraftMineware.MODID);
+        Structure.configure(HomecraftMineware.MODID, HomecraftMineware.CHANNEL, 1);
     }
 }

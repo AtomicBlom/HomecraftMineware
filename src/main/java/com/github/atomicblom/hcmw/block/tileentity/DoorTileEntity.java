@@ -2,6 +2,7 @@ package com.github.atomicblom.hcmw.block.tileentity;
 
 import com.foudroyantfactotum.tool.structure.registry.StructureDefinition;
 import com.foudroyantfactotum.tool.structure.tileentity.StructureTE;
+import com.foudroyantfactotum.tool.structure.utility.IStructureDefinitionProvider;
 import com.github.atomicblom.hcmw.block.WoodVariant;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -12,8 +13,8 @@ public class DoorTileEntity extends StructureTE
 {
     private final WoodVariant type;
 
-    public DoorTileEntity(StructureDefinition sd, EnumFacing orientation, boolean mirror, WoodVariant type) {
-        super(sd, orientation, mirror);
+    public DoorTileEntity(IStructureDefinitionProvider structureDefinitionProvider, EnumFacing orientation, boolean mirror, WoodVariant type) {
+        super(structureDefinitionProvider, orientation, mirror);
         this.type = type;
     }
 
