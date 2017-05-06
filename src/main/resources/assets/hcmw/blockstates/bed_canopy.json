@@ -29,6 +29,10 @@
           "translation": [0.20,-0.15,0],
           "rotation": [{"x": 30}, {"y": 45}],
           "scale": 0.3333
+        },
+        "ground": {
+          "scale": 0.25,
+          "translation": [0.125, 0, 0.125]
         }
       }
     }],
