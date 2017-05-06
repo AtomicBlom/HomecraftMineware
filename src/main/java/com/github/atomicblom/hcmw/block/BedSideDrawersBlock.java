@@ -27,7 +27,7 @@ public class BedSideDrawersBlock extends BaseInventoryBlock implements IHorizont
         final IBlockState defaultState = blockState
                 .getBaseState()
                 .withProperty(HORIZONTAL_FACING, EnumFacing.NORTH);
-
+        setHarvestLevel("axe", 2);
         setDefaultState(defaultState);
     }
 

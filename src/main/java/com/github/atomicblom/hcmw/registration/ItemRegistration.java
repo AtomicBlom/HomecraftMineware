@@ -39,10 +39,18 @@ public final class ItemRegistration {
     {
         GameRegistry.addRecipe(new ItemStack(BlockLibrary.bed_4post),
                 new String[] { "bb" }, 'b', net.minecraft.init.Items.BED);
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                new ItemStack(BlockLibrary.bed_4post),
+                new String[] { "bb" }, 'b', "blockBed")
+        );
 
         GameRegistry.addRecipe(new ShapedOreRecipe(
                 new ItemStack(BlockLibrary.bed_canopy),
                 new String[] {"ww","ll","bb" }, 'b', net.minecraft.init.Items.BED, 'w', "blockWool", 'l', "plankWood"
+        ));
+        GameRegistry.addRecipe(new ShapedOreRecipe(
+                new ItemStack(BlockLibrary.bed_canopy),
+                new String[] {"ww","ll","bb" }, 'b', "blockBed", 'w', "blockWool", 'l', "plankWood"
         ));
         GameRegistry.addRecipe(
                 new ItemStack(BlockLibrary.bed_canopy),

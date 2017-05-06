@@ -45,6 +45,8 @@ public class CandleHolderBlock extends Block
                 .withProperty(HORIZONTAL_FACING, EnumFacing.NORTH)
                 .withProperty(IS_LIT, false);
 
+        setHarvestLevel("pickaxe", 2);
+
         setDefaultState(defaultState);
     }
 

@@ -33,6 +33,8 @@ public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalB
                 .getBaseState()
                 .withProperty(HORIZONTAL_FACING, EnumFacing.NORTH);
 
+        setHarvestLevel("axe", 2);
+
         setDefaultState(defaultState);
     }
 
