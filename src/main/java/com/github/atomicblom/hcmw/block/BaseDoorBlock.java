@@ -7,6 +7,7 @@ import com.github.atomicblom.hcmw.BlockProperties;
 import com.github.atomicblom.hcmw.block.tileentity.DoorTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -128,12 +129,31 @@ public abstract class BaseDoorBlock extends StructureBlock
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
+        final boolean isOpen = !state.getValue(BlockProperties.IS_OPEN);
         worldIn.setBlockState(
                 pos,
-                state.withProperty(BlockProperties.IS_OPEN, !state.getValue(BlockProperties.IS_OPEN)),
+                state.withProperty(BlockProperties.IS_OPEN, isOpen),
                 1 | 2);
 
+        int sound = 1006;
+        final WoodVariant woodVariant = state.getValue(BlockProperties.WOOD_VARIANT);
+        if (isOpen && woodVariant == WoodVariant.IRON) {
+            sound = 1005;
+        } else if (!isOpen && woodVariant == woodVariant.IRON) {
+            sound = 1011;
+        } else if (!isOpen) {
+            sound = 1012;
+        }
+
+        worldIn.playEvent(playerIn, sound, pos, 0);
+
         return true;
+    }
+
+    @Override
+    public boolean onStructureBlockActivated(World world, BlockPos pos, EntityPlayer player, EnumHand hand, BlockPos callPos, EnumFacing side, BlockPos local, float sx, float sy, float sz)
+    {
+        return onBlockActivated(world, pos, world.getBlockState(pos), player, hand, side, sx, sy, sz);
     }
 
     @SuppressWarnings("deprecation")
@@ -154,28 +174,4 @@ public abstract class BaseDoorBlock extends StructureBlock
     protected boolean shouldDecompose() {
         return false;
     }
-
-    @Override
-    @Deprecated
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB mask, List<AxisAlignedBB> list, @Nullable Entity entityIn, boolean unknown) {
-        final StructureDefinition pattern = getStructureDefinitionProvider().getStructureDefinition();
-        final float[][] collisionBoxes = pattern.getCollisionBoxes();
-        if (collisionBoxes != null)
-        {
-            EnumFacing rotation = state.getValue(BlockHorizontal.FACING);
-            final boolean mirror = getMirror(state);
-
-            if (state.getValue(BlockProperties.IS_OPEN)) {
-                rotation = mirror ? rotation.rotateYCCW() : rotation.rotateY();
-            }
-
-            localToGlobalCollisionBoxes(
-                    pos,
-                    0, 0, 0,
-                    mask, list, collisionBoxes,
-                    rotation, mirror
-            );
-        }
-    }
-
 }

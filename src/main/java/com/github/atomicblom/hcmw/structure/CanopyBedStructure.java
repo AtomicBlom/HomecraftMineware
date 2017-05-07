@@ -2,6 +2,7 @@ package com.github.atomicblom.hcmw.structure;
 
 import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionBuilder;
 import com.foudroyantfactotum.tool.structure.utility.StructureDefinitionProviderBase;
+import com.github.atomicblom.hcmw.BlockProperties;
 import com.github.atomicblom.hcmw.library.BlockLibrary;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.util.math.BlockPos;
@@ -36,6 +37,7 @@ public class CanopyBedStructure extends StructureDefinitionProviderBase {
 
         );
         final float pixelWidth = 0.0625f;
+
         builder.setCollisionBoxes(
                 //Head board
                 new float[] {0.0f, 0.0f, 0.0f, 2.0f, 1.4f, pixelWidth * 2},
