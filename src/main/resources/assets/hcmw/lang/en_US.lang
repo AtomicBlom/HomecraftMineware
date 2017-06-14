@@ -8,5 +8,29 @@ tile.hcmw:item_barrel.name=Item Barrel
 tile.hcmw:fluid_barrel.name=Fluid Barrel
 tile.hcmw:bed_side_drawers.name=Bedside Drawers
 
+tile.hcmw:door_inner_gate.oak.name=Oak Inner Gate
+tile.hcmw:door_inner_gate.iron.name=Iron Inner Gate
+tile.hcmw:door_inner_gate.acacia.name=Acacia Inner Gate
+tile.hcmw:door_inner_gate.birch.name=Birch Inner Gate
+tile.hcmw:door_inner_gate.jungle.name=Jungle Inner Gate
+tile.hcmw:door_inner_gate.spruce.name=Spruce Inner Gate
+tile.hcmw:door_inner_gate.dark_oak.name=Dark Oak Inner Gate
+
+tile.hcmw:door_tower.oak.name=Oak Tower Door
+tile.hcmw:door_tower.iron.name=Iron Tower Door
+tile.hcmw:door_tower.acacia.name=Acacia Tower Door
+tile.hcmw:door_tower.birch.name=Birch Tower Door
+tile.hcmw:door_tower.jungle.name=Jungle Tower Door
+tile.hcmw:door_tower.spruce.name=Spruce Tower Door
+tile.hcmw:door_tower.dark_oak.name=Dark Oak Tower Door
+
+tile.hcmw:door_grand.oak.name=Grand Oak Door
+tile.hcmw:door_grand.iron.name=Grand Iron Door
+tile.hcmw:door_grand.acacia.name=Grand Acacia Door
+tile.hcmw:door_grand.birch.name=Grand Birch Door
+tile.hcmw:door_grand.jungle.name=Grand Jungle Door
+tile.hcmw:door_grand.spruce.name=Grand Spruce Door
+tile.hcmw:door_grand.dark_oak.name=Grand Dark Oak Door
+
 gui.hcmw:bed_side_drawers_upper=Upper Drawer
 gui.hcmw:bed_side_drawers_lower=Lower Drawer
