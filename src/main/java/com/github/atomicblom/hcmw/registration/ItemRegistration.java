@@ -29,6 +29,7 @@ public final class ItemRegistration
 		items.addBlockItem(new DoorBlockItem(BlockLibrary.door_inner_gate));
 		items.addBlockItem(new DoorBlockItem(BlockLibrary.door_tower));
 		items.addBlockItem(new DoorBlockItem(BlockLibrary.door_grand));
+		items.addBlockItem(new DoorBlockItem(BlockLibrary.door_super_double));
 
 		items.add(BlockLibrary.item_barrel);
 		items.add(BlockLibrary.fluid_barrel);

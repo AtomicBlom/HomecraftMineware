@@ -1,17 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 15.04.2017 17:13:08
+# File Created: 15.02.2017 00:24:26
 
 newmtl CheckerE64
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.5880 0.5880 0.5880
-	Kd 0.5880 0.5880 0.5880
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
-	map_Ka F:\3dsMax\scenes\Minecraft\HomeWare\hcmwsuperdoor.png
-	map_Kd F:\3dsMax\scenes\Minecraft\HomeWare\hcmwsuperdoor.png
-	map_d F:\3dsMax\scenes\Minecraft\HomeWare\hcmwsuperdoor.png
+map_Ka hcmw:models/hcmwdoors

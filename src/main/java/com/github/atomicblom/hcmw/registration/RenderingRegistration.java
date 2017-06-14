@@ -44,6 +44,7 @@ public final class RenderingRegistration
         setItemModel(ItemLibrary.door_inner_gate);
         setItemModel(ItemLibrary.door_tower);
         setItemModel(ItemLibrary.door_grand);
+        setItemModel(ItemLibrary.door_super_double);
         setItemModel(ItemLibrary.item_barrel);
         setItemModel(ItemLibrary.fluid_barrel);
         setItemModel(ItemLibrary.bed_side_drawers);

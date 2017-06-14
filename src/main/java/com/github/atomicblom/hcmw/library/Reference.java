@@ -12,6 +12,7 @@ public final class Reference {
         public static final ResourceLocation door_inner_gate = resource("door_inner_gate");
         public static final ResourceLocation door_grand = resource("door_grand");
         public static final ResourceLocation door_tower = resource("door_tower");
+        public static final ResourceLocation door_super_double = resource("door_super_double");
         public static final ResourceLocation item_barrel = resource("item_barrel");
         public static final ResourceLocation fluid_barrel = resource("fluid_barrel");
         public static final ResourceLocation bed_side_drawers = resource("bed_side_drawers");
@@ -20,7 +21,7 @@ public final class Reference {
         public static final ResourceLocation door = resource("door");
 
 
-        private Block() {}
+	    private Block() {}
     }
 
     public static final class Model {

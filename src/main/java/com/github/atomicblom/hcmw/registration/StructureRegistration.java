@@ -20,5 +20,6 @@ public final class StructureRegistration
         registry.register(new GrandDoorStructure().setRegistryName(Block.door_grand));
         registry.register(new InnerGateDoorStructure().setRegistryName(Block.door_inner_gate));
         registry.register(new TowerDoorStructure().setRegistryName(Block.door_tower));
+        registry.register(new SuperDoubleDoorStructure().setRegistryName(Block.door_super_double));
     }
 }
