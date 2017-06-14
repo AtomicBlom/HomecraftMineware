@@ -6,7 +6,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.FMLLog;
-import org.apache.logging.log4j.core.helpers.Strings;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.vecmath.Vector4f;
 import java.io.BufferedReader;
@@ -107,8 +107,8 @@ public class Parser {
                         String[] pts = splitData[i].split("/");
 
                         int vert = Integer.parseInt(pts[0]);
-                        Integer texture = pts.length < 2 || Strings.isEmpty(pts[1]) ? null : Integer.parseInt(pts[1]);
-                        Integer normal = pts.length < 3 || Strings.isEmpty(pts[2]) ? null : Integer.parseInt(pts[2]);
+                        Integer texture = pts.length < 2 || StringUtils.isEmpty(pts[1]) ? null : Integer.parseInt(pts[1]);
+                        Integer normal = pts.length < 3 || StringUtils.isEmpty(pts[2]) ? null : Integer.parseInt(pts[2]);
 
                         vert = vert < 0 ? this.vertices.size() - 1 : vert - 1;
                         Vertex newV = new Vertex(new Vector4f(this.vertices.get(vert).getPos()), this.vertices.get(vert).getMaterial());

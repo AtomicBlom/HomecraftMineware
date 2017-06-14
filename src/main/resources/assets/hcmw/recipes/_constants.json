@@ -1,0 +1,30 @@
+[
+    {
+        "name": "ANY_BED",
+        "ingredient": [
+            { "item": "minecraft:bed" },
+            { "ore": "blockBed", "type": "ore_dict" }
+        ]
+    },
+    {
+        "name" : "ANY_PLANK",
+        "ingredient" : {
+            "type" : "ore_dict",
+            "ore" : "plankWood"
+        }
+    },
+    {
+        "name" : "ANY_LOG",
+        "ingredient" : {
+            "type" : "ore_dict",
+            "ore" : "logWood"
+        }
+    },
+    {
+        "name" : "ANY_WOOL",
+        "ingredient" : {
+            "type" : "ore_dict",
+            "ore" : "blockWool"
+        }
+    }
+]

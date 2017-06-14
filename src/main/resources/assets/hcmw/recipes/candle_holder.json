@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "hcmw_lighting",
+    "pattern": [
+        "i",
+        "t"
+
+    ],
+    "key": {
+        "i": {"item": "minecraft:iron_ingot"},
+        "t": {"item": "minecraft:torch"}
+    },
+    "result": {
+        "item": "hcmw:candle_holder",
+        "data": 0
+    }
+}

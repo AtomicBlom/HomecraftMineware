@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "hcmw_fluid_storage",
+    "pattern": [
+        "ppp",
+        "ibi",
+        "ppp"
+    ],
+    "key": {
+        "i": {"item": "minecraft:iron_ingot"},
+        "b": {"item": "minecraft:glass_bottle"},
+        "p": {"item": "#ANY_PLANK"}
+    },
+    "result": {
+        "item": "hcmw:fluid_barrel"
+    }
+}

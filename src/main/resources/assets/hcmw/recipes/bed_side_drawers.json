@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "hcmw_item_storage",
+    "pattern": [
+        "p",
+        "c",
+        "p"
+    ],
+    "key": {
+        "c": {"item": "minecraft:chest"},
+        "p": {"item": "#ANY_PLANK"}
+    },
+    "result": {
+        "item": "hcmw:bed_side_drawers"
+    }
+}

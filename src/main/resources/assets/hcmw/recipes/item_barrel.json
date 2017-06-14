@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "hcmw_item_storage",
+    "pattern": [
+        "ppp",
+        "i i",
+        "ppp"
+    ],
+    "key": {
+        "i": {"item": "minecraft:iron_ingot"},
+        "p": {"item": "#ANY_PLANK"}
+    },
+    "result": {
+        "item": "hcmw:item_barrel"
+    }
+}

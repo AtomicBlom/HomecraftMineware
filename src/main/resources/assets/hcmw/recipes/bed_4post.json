@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "hcmw_beds",
+    "pattern": [
+        "b",
+        "b"
+    ],
+    "key": {
+        "b": {"item": "#ANY_BED"}
+    },
+    "result": {
+        "item": "hcmw:bed_4post"
+    }
+}

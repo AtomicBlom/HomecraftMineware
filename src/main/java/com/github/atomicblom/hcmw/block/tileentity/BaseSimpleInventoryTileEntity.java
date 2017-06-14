@@ -149,7 +149,7 @@ public abstract class BaseSimpleInventoryTileEntity extends TileEntity implement
             observingPlayerCount = 0;
 
             final float radius = 5.0F;
-            final AxisAlignedBB searchBounds = new AxisAlignedBB(pos).expandXyz(radius);
+            final AxisAlignedBB searchBounds = new AxisAlignedBB(pos).grow(radius);
             for (final EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, searchBounds))
             {
                 if (player.openContainer instanceof BedsideDrawersContainer)

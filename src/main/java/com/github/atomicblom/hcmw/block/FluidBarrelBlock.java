@@ -120,6 +120,7 @@ public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalB
     }
 
     @Override
+    @Deprecated
     public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
     {
         return side == EnumFacing.UP || side == EnumFacing.DOWN;

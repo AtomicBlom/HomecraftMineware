@@ -33,9 +33,9 @@ public class BedSideDrawersGui extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        fontRendererObj.drawString(upperUnlocalizedLabel, 8, 6, 4210752);
-        fontRendererObj.drawString(lowerUnlocalizedLabel, 8, 6 + 18 * 3, 4210752);
-        fontRendererObj.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+        fontRenderer.drawString(upperUnlocalizedLabel, 8, 6, 4210752);
+        fontRenderer.drawString(lowerUnlocalizedLabel, 8, 6 + 18 * 3, 4210752);
+        fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)

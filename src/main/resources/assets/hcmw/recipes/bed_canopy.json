@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "hcmw_beds",
+    "pattern": [
+        "ww",
+        "ll",
+        "bb"
+
+    ],
+    "key": {
+        "b": {"item": "#ANY_BED"},
+        "l": {"item": "#ANY_LOG"},
+        "w": {"item": "#ANY_WOOL"}
+    },
+    "result": {
+        "item": "hcmw:bed_canopy"
+    }
+}

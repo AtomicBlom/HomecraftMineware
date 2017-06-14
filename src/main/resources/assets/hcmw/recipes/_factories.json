@@ -1,0 +1,10 @@
+{
+  "ingredients" : {
+    "ore_dict": "net.minecraftforge.oredict.OreIngredientFactory",
+    "itemstack_nbt": "net.minecraftforge.util.NBTIngredientFactory"
+  },
+  "recipes" : {
+    "shapeless_ore" : "net.minecraftforge.oredict.ShapelessOreRecipeFactory",
+    "shaped_ore" : "net.minecraftforge.oredict.ShapedOreRecipeFactory"
+  }
+}

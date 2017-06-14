@@ -2,7 +2,7 @@ import org.gradle.plugins.ide.idea.model.*
 
 
 // define the properties file
-ext.configFile = file "build.properties"
+ext.configFile = file "gradle.properties"
 configFile.withReader {
     // read config.  it shall from now on be referenced as simply config or as project.config
     def prop = new Properties()
@@ -20,7 +20,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 apply plugin: 'java'
@@ -34,6 +34,10 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 idea {
     project {
         languageLevel = '1.8'
+        outputFile = new File(outputFile.parentFile, rootProject.name + "-" + config.minecraft_version + ".ipr")
+    }
+    module {
+        name = rootProject.name + "-" + config.minecraft_version
     }
 }
 
@@ -125,7 +129,7 @@ if (config.structure_local_enabled == "true") {
     def existingModule = idea.project.modules[0]
     def newIml = new IdeaModuleIml(existingModule.iml.xmlTransformer, newModuleLocation)
     def newModule = new IdeaModule(existingModule.project, newIml)
-    newModule.name = "Structure"
+    newModule.name = "Structure-"+config.minecraft_version
     newModule.contentRoot = newModuleLocation
     newModule.sourceDirs = [newModuleLocation]
 

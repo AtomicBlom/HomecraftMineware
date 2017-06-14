@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shapedless",
+    "group": "hcmw_lighting",
+    "pattern": [
+        "c",
+        "f"
+
+    ],
+    "key": {
+        "c": {"item": "hcmw:candle_holder", "data": 0 },
+        "f": {"item": "minecraft:flint_and_steel" }
+    },
+    "result": {
+        "item": "hcmw:candle_holder",
+        "data": 1
+    }
+}

@@ -82,6 +82,7 @@ public class BedSideDrawersBlock extends BaseInventoryBlock implements IHorizont
     }
 
     @Override
+    @Deprecated
     public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side)
     {
         return side == EnumFacing.UP || side == EnumFacing.DOWN;
