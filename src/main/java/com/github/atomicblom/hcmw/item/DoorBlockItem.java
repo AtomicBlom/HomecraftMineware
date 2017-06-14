@@ -29,7 +29,7 @@ public class DoorBlockItem extends StructureBlockItem
     }
 
     @Override
-    protected IBlockState getInitialStateForSubItems(ItemStack stack, IBlockState initialState)
+    public IBlockState getInitialStateForSubItem(ItemStack stack, IBlockState initialState)
     {
         final NBTTagCompound tagCompound = stack.getTagCompound();
         if (tagCompound == null) { return initialState; }

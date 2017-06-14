@@ -77,7 +77,7 @@ public final class RenderingRegistration
         {
             final NonNullList<ItemStack> subTypes = NonNullList.create();
 
-            item.getSubItems(item, CreativeTab.INSTANCE, subTypes);
+            item.getSubItems(CreativeTab.INSTANCE, subTypes);
 
             ModelLoader.setCustomMeshDefinition(item, stack ->
             {

@@ -44,14 +44,14 @@ public abstract class BaseDoorBlock extends StructureBlock
     }
 
     @Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list)
     {
         for (final WoodVariant woodVariant : WoodVariant.values())
         {
             final NBTTagCompound nbtTagCompound = new NBTTagCompound();
             nbtTagCompound.setString("variant", woodVariant.getName());
 
-            final ItemStack itemStack = new ItemStack(itemIn, 1, 0);
+            final ItemStack itemStack = new ItemStack(this, 1, 0);
             itemStack.setTagCompound(nbtTagCompound);
             list.add(itemStack);
         }

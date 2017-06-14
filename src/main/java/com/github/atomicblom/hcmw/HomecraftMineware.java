@@ -27,8 +27,6 @@ public class HomecraftMineware
     private static final String IS_CI_BUILD = "@CI_BUILD@";
     public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 
-
-    public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(HomecraftMineware.MODID);
     @Instance
     public static HomecraftMineware INSTANCE;
 
