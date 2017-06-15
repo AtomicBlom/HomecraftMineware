@@ -6,16 +6,14 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -43,9 +41,17 @@ public class CandleHolderBlock extends Block
                 .withProperty(BlockProperties.IS_LIT, false);
 
         setHarvestLevel("pickaxe", 2);
-
         setDefaultState(defaultState);
     }
+
+    ///////////// Items //////////////
+    @Override
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
+    {
+        items.add(new ItemStack(this, 1, 0));
+        items.add(new ItemStack(this, 1, 1));
+    }
+
 
     ///////////// Block State Management //////////////
 
@@ -118,8 +124,12 @@ public class CandleHolderBlock extends Block
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 
         if (canPlaceOn(world, pos.down())) {
+            final ItemStack heldItem = placer.getHeldItem(hand);
+            final boolean isLit = heldItem.getItemDamage() != 0;
+
             return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
-                    .withProperty(BlockProperties.HORIZONTAL_FACING, placer.getHorizontalFacing());
+                    .withProperty(BlockProperties.HORIZONTAL_FACING, placer.getHorizontalFacing())
+                    .withProperty(BlockProperties.IS_LIT, isLit);
         }
         return getDefaultState();
     }

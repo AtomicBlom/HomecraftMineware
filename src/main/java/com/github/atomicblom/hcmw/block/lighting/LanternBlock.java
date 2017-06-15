@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -43,6 +44,14 @@ public class LanternBlock extends Block
     @Deprecated
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return boundingBox;
+    }
+
+    ///////////// Items //////////////
+    @Override
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
+    {
+        items.add(new ItemStack(this, 1, 0));
+        items.add(new ItemStack(this, 1, 1));
     }
 
     ///////////// Block State Management //////////////
@@ -164,9 +173,13 @@ public class LanternBlock extends Block
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 
         if (canPlaceAt(world, pos, facing)) {
+            final ItemStack heldItem = placer.getHeldItem(hand);
+            final boolean isLit = heldItem.getItemDamage() != 0;
+
             return super
                     .getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
-                    .withProperty(BlockProperties.FACING, facing.getOpposite());
+                    .withProperty(BlockProperties.FACING, facing.getOpposite())
+                    .withProperty(BlockProperties.IS_LIT, isLit);
         }
 
         for (final EnumFacing preferredDirection : preferredDirections) {

@@ -33,8 +33,8 @@ public final class ItemRegistration
 		items.add(BlockLibrary.item_barrel);
 		items.add(BlockLibrary.fluid_barrel);
 		items.add(BlockLibrary.bed_side_drawers);
-		items.add(BlockLibrary.candle_holder);
-		items.add(BlockLibrary.lantern);
+		items.addWithSubtypes(BlockLibrary.candle_holder);
+		items.addWithSubtypes(BlockLibrary.lantern);
 	}
 
 	private static class Items
@@ -49,6 +49,13 @@ public final class ItemRegistration
 		void add(Block block)
 		{
 			final ItemBlock item = new ItemBlock(block);
+			add(item, block.getRegistryName());
+		}
+
+		void addWithSubtypes(Block block)
+		{
+			final ItemBlock item = new ItemBlock(block);
+			item.setHasSubtypes(true);
 			add(item, block.getRegistryName());
 		}
 
