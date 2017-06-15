@@ -1,5 +1,5 @@
 {
-    "type": "minecraft:crafting_shapedless",
+    "type": "minecraft:crafting_shapeless",
     "group": "hcmw_lighting",
     "pattern": [
         "c",
