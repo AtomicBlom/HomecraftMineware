@@ -13,13 +13,13 @@
   "variants": {
     "normal": [{
     }],
-    "inventory,variant=oak": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsoak" }}],
-    "inventory,variant=iron": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsiron" }}],
-    "inventory,variant=acacia": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsacacia" }}],
-    "inventory,variant=birch": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsbirch" }}],
-    "inventory,variant=jungle": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsjungle" }}],
-    "inventory,variant=spruce": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsspruce" }}],
-    "inventory,variant=dark_oak": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsdarkoak" }}],
+    "inventory,variant=oak": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsoak" }, "transform": { "translation": [0.02, -0.38, 0], "scale": [0.25, 0.25, 0.25] }}],
+    "inventory,variant=iron": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsiron" }, "transform": { "translation": [0.02, -0.38, 0], "scale": [0.25, 0.25, 0.25] }}],
+    "inventory,variant=acacia": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsacacia" }, "transform": { "translation": [0.02, -0.38, 0], "scale": [0.25, 0.25, 0.25] }}],
+    "inventory,variant=birch": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsbirch" }, "transform": { "translation": [0.02, -0.38, 0], "scale": [0.25, 0.25, 0.25] }}],
+    "inventory,variant=jungle": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsjungle" }, "transform": { "translation": [0.02, -0.38, 0], "scale": [0.25, 0.25, 0.25] }}],
+    "inventory,variant=spruce": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsspruce" }, "transform": { "translation": [0.02, -0.38, 0], "scale": [0.25, 0.25, 0.25] }}],
+    "inventory,variant=dark_oak": [{ "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsdarkoak" }, "transform": { "translation": [0.02, -0.38, 0], "scale": [0.25, 0.25, 0.25] }}],
 
     "facing=north,is_open=false,mirror=false,variant=oak": {"model": "hcmw:hcmwdoortower.obj", "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsoak" }, "transform": { "rotation": {"y": 0  } } },
     "facing=south,is_open=false,mirror=false,variant=oak": {"model": "hcmw:hcmwdoortower.obj", "textures": { "#hcmw:models/hcmwdoors": "hcmw:models/hcmwdoorsoak" }, "transform": { "rotation": {"y": 180 } } },
