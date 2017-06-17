@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -94,6 +95,21 @@ public abstract class BaseDoorBlock extends StructureBlock
         placementState = placementState.withProperty(BlockProperties.HORIZONTAL_FACING, opposite);
         placementState = placementState.withProperty(BlockProperties.IS_OPEN, false);
         return placementState;
+    }
+
+    @Override
+    @Deprecated
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    {
+        final IBlockState actualState = super.getActualState(state, worldIn, pos);
+
+        final TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if (!(tileEntity instanceof DoorTileEntity)) {
+            return actualState;
+        }
+
+        return actualState
+                .withProperty(BlockProperties.WOOD_VARIANT, ((DoorTileEntity)tileEntity).getType());
     }
 
     @Override
