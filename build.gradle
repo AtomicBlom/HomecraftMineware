@@ -44,7 +44,13 @@ idea {
 ///////////////////////////////////////////////////
 // ForgeGradle
 ///////////////////////////////////////////////////
-version = (hasProperty("CIRevision") ? CIRevision : config.mod_version)
+def isCIBuild = hasProperty("CIRevision")
+if (isCIBuild) {
+    println("Producing a Release build")
+} else {
+    println("This build will produce an unsactioned release")
+}
+version = (isCIBuild ? CIRevision : config.mod_version)
 group = config.group_name
 archivesBaseName = "${config.mod_id}-${config.minecraft_version}"
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -59,7 +65,7 @@ minecraft {
 
     replace '@MOD_VERSION@', version
     replace '@MOD_ID@', config.mod_id
-    replace '@CI_BUILD@', hasProperty("CIRevision") ? 'true' : 'false'
+    replace '@CI_BUILD@', isCIBuild
 }
 
 processResources
@@ -109,8 +115,7 @@ buildscript {
 apply plugin: 'com.github.johnrengelman.shadow'
 
 shadowJar {
-    def deobfPrefix = "deobf."// + minecraft.mappingsChannel + '.' + minecraft.mappingsVersion + '.'
-    println deobfPrefix
+    def deobfPrefix = "deobf."
     dependencies {
         include(dependency(deobfPrefix + 'com.foudroyantfactotum:Structure-' + config.minecraft_version + ':' + config.structure_version))
     }
@@ -139,7 +144,7 @@ dependencies {
 }
 
 
-if (config.structure_local_enabled == "true") {
+if (!isCIBuild && config.structure_local_enabled == "true") {
     println("Using Structure from local path - You cannot produce a build with this configuration")
     def newModuleLocation = file(config.structure_local_path)
     def existingModule = idea.project.modules[0]

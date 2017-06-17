@@ -33,7 +33,7 @@ public class HomecraftMineware
     @SuppressWarnings("ConstantConditions")
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-
+        Logger.info("Checking if this is built from CI: " + IS_CI_BUILD);
         if ("true".equals(IS_CI_BUILD)) {
             DEBUG = false;
         }
@@ -47,6 +47,7 @@ public class HomecraftMineware
     {
         if (Boolean.parseBoolean(IS_CI_BUILD)) {
             DEBUG = false;
+            Logger.info("This is a release build of Homecraft Mineware.");
         } else {
             Logger.info("You are not running a release build of Homecraft Mineware. This message is purely for informational purposes.");
         }
@@ -64,7 +65,6 @@ public class HomecraftMineware
             MinecraftForge.EVENT_BUS.register(new HighlightBoundingBoxDebug());
             Logger.info("Homecraft Mineware Structure Highlighting enabled.");
         }
-
     }
 
     @EventHandler
