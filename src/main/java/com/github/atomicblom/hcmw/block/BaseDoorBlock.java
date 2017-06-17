@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import javax.annotation.Nullable;
@@ -110,6 +111,25 @@ public abstract class BaseDoorBlock extends StructureBlock
 
         return actualState
                 .withProperty(BlockProperties.WOOD_VARIANT, ((DoorTileEntity)tileEntity).getType());
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+    {
+        final ItemStack pickBlock = super.getPickBlock(state, target, world, pos, player);
+        final TileEntity tileEntity = world.getTileEntity(pos);
+        if (!(tileEntity instanceof DoorTileEntity))
+        {
+            return pickBlock;
+        }
+
+        NBTTagCompound tagCompound = pickBlock.getTagCompound();
+        if (tagCompound == null) {
+            tagCompound = new NBTTagCompound();
+            pickBlock.setTagCompound(tagCompound);
+        }
+        tagCompound.setString("variant", ((DoorTileEntity)tileEntity).getType().getName());
+        return pickBlock;
     }
 
     @Override
