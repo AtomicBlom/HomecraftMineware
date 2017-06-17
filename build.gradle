@@ -27,20 +27,6 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-
-///////////////////////////////////////////////////
-// IDE Settings
-///////////////////////////////////////////////////
-idea {
-    project {
-        languageLevel = '1.8'
-        outputFile = new File(outputFile.parentFile, rootProject.name + "-" + config.minecraft_version + ".ipr")
-    }
-    module {
-        name = rootProject.name + "-" + config.minecraft_version
-    }
-}
-
 ///////////////////////////////////////////////////
 // ForgeGradle
 ///////////////////////////////////////////////////
@@ -143,8 +129,10 @@ dependencies {
     runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
 }
 
-
-if (!isCIBuild && config.structure_local_enabled == "true") {
+if (!isCIBuild && (findProject(':Structure') != null)) {
+    println("Using Structure from gradle path - You cannot produce a build with this configuration")
+} else if (!isCIBuild && config.structure_local_enabled == "true") {
+    //TODO: This shouldn't be neccessary anymore once I move to a full gradle environment
     println("Using Structure from local path - You cannot produce a build with this configuration")
     def newModuleLocation = file(config.structure_local_path)
     def existingModule = idea.project.modules[0]
@@ -176,5 +164,45 @@ if (!isCIBuild && config.structure_local_enabled == "true") {
             }
         }
         deobfCompile(group: 'com.foudroyantfactotum', name: 'Structure-' + config.minecraft_version, version: config.structure_version, classifier: 'universal')
+    }
+}
+
+sourceSets.remove(sourceSets.api)
+
+///////////////////////////////////////////////////
+// Structure
+///////////////////////////////////////////////////
+task workWithStructure() {
+    doLast {
+        def settings = new File("../settings.gradle")
+        settings.createNewFile()
+        settings.text =
+                """include '${project.name}' 
+include '${config.structure_project_name}' 
+"""
+
+        def buildFile = new File("../build.gradle")
+        buildFile.createNewFile()
+        buildFile.text =
+                """subprojects { 
+    apply plugin: 'java' 
+} 
+ 
+project(':${project.name}') { 
+    dependencies { 
+        compile project(':${config.structure_project_name}') 
+    } 
+} 
+"""
+        copy {
+            from ('.'){
+                include 'gradlew*'
+            }
+            into '../'
+        }
+        copy {
+            from ('gradle')
+            into '../gradle'
+        }
     }
 }
