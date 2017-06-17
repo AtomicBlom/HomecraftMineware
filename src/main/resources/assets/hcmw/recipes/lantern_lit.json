@@ -1,14 +1,10 @@
 {
-    "type": "minecraft:crafting_shapedless",
+    "type": "minecraft:crafting_shapeless",
     "group": "hcmw_lighting",
-    "pattern": [
-        "l",
-        "f"
+    "ingredients": [
+        {"item": "hcmw:lantern", "data": 0 },
+        {"item": "minecraft:flint_and_steel" }
     ],
-    "key": {
-        "l": {"item": "hcmw:lantern", "data": 0 },
-        "f": {"item": "minecraft:flint_and_steel" }
-    },
     "result": {
         "item": "hcmw:lantern",
         "data": 1

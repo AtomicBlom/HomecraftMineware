@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hcmw:wooden_door",
+  "pattern": [
+    "p",
+    "d"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:birch_door"
+    },
+    "p": {
+      "item": "minecraft:planks",
+      "data": 2
+    }
+  },
+  "result": {
+    "type": "minecraft:item_nbt",
+    "item": "hcmw:door_grand",
+    "data": 0,
+    "nbt": {
+      "variant": "birch"
+    }
+  }
+}

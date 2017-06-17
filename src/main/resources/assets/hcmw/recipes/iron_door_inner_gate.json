@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hcmw:wooden_door",
+  "pattern": [
+    "pp",
+    "dd"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:iron_door"
+    },
+    "p": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "type": "minecraft:item_nbt",
+    "item": "hcmw:door_inner_gate",
+    "data": 0,
+    "nbt": {
+      "variant": "iron"
+    }
+  }
+}

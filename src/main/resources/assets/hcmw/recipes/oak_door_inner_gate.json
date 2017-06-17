@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hcmw:wooden_door",
+  "pattern": [
+    "pp",
+    "dd"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:wooden_door"
+    },
+    "p": {
+      "item": "minecraft:planks",
+      "data": 0
+    }
+  },
+  "result": {
+    "type": "minecraft:item_nbt",
+    "item": "hcmw:door_inner_gate",
+    "data": 0,
+    "nbt": {
+      "variant": "oak"
+    }
+  }
+}
