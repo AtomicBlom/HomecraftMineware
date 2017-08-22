@@ -9,11 +9,12 @@ import com.github.atomicblom.hcmw.library.BlockLibrary;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemColored;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber(modid = HomecraftMineware.MODID)
 public final class ItemRegistration
@@ -33,8 +34,8 @@ public final class ItemRegistration
 		items.add(BlockLibrary.item_barrel);
 		items.add(BlockLibrary.fluid_barrel);
 		items.add(BlockLibrary.bed_side_drawers);
-		items.addWithSubtypes(BlockLibrary.candle_holder);
-		items.addWithSubtypes(BlockLibrary.lantern);
+		items.addWithSubtypes(BlockLibrary.candle_holder, "unlit", "lit");
+		items.addWithSubtypes(BlockLibrary.lantern, "unlit", "lit");
 	}
 
 	private static class Items
@@ -52,10 +53,10 @@ public final class ItemRegistration
 			add(item, block.getRegistryName());
 		}
 
-		void addWithSubtypes(Block block)
+		void addWithSubtypes(Block block, String... subTypeNames)
 		{
-			final ItemBlock item = new ItemBlock(block);
-			item.setHasSubtypes(true);
+			final ItemColored item = new ItemColored(block, true);
+			item.setSubtypeNames(subTypeNames);
 			add(item, block.getRegistryName());
 		}
 
