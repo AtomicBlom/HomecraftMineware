@@ -16,7 +16,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelCustomData;
 import net.minecraftforge.client.model.MultiModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -37,8 +36,8 @@ public class LanternMultiModel extends HCMWMultiModel {
     public void loadModel(ModelBakeEvent event) {
         final IRegistry<ModelResourceLocation, IBakedModel> modelRegistry = event.getModelRegistry();
 
-        final IModel wallHookModel = processModel(loadModel(Model.lantern_wall_hook), flipData);
-        final IModel roofHookModel = processModel(loadModel(Model.lantern_roof_hook), flipData);
+        final IModel wallHookModel = loadModel(Model.lantern_wall_hook).process(flipData);
+        final IModel roofHookModel = loadModel(Model.lantern_roof_hook).process(flipData);
 
         for (final IBlockState state : BlockLibrary.lantern.getBlockState().getValidStates()) {
             final EnumFacing connection = state.getValue(BlockProperties.FACING);
@@ -77,13 +76,4 @@ public class LanternMultiModel extends HCMWMultiModel {
         }
     }
 
-    private static IModel processModel(IModel model, ImmutableMap<String, String> data)
-    {
-        if (model instanceof IModelCustomData)
-        {
-            return ((IModelCustomData) model).process(data);
-        }
-
-        return model;
-    }
 }

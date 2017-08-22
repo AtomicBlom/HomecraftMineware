@@ -19,12 +19,6 @@
 
 package com.github.atomicblom.hcmw.client.model.obj;
 
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -32,8 +26,11 @@ import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.FMLLog;
-
-import org.apache.logging.log4j.Level;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /*
  * Loader for OBJ models.
@@ -44,16 +41,17 @@ public enum OBJLoader implements ICustomModelLoader {
     INSTANCE;
 
     private IResourceManager manager;
-    private final Set<String> enabledDomains = new HashSet<String>();
-    private final Map<ResourceLocation, OBJModel> cache = new HashMap<ResourceLocation, OBJModel>();
-    private final Map<ResourceLocation, Exception> errors = new HashMap<ResourceLocation, Exception>();
+    private final Set<String> enabledDomains = new HashSet<>();
+    private final Map<ResourceLocation, OBJModel> cache = new HashMap<>();
+    private final Map<ResourceLocation, Exception> errors = new HashMap<>();
 
     public void addDomain(String domain)
     {
         enabledDomains.add(domain.toLowerCase());
-        FMLLog.log(Level.INFO, "OBJLoader: Domain %s has been added.", domain.toLowerCase());
+        FMLLog.log.info("OBJLoader: Domain {} has been added.", domain.toLowerCase());
     }
 
+    @Override
     public void onResourceManagerReload(IResourceManager resourceManager)
     {
         this.manager = resourceManager;
@@ -61,17 +59,19 @@ public enum OBJLoader implements ICustomModelLoader {
         errors.clear();
     }
 
+    @Override
     public boolean accepts(ResourceLocation modelLocation)
     {
         return enabledDomains.contains(modelLocation.getResourceDomain()) && modelLocation.getResourcePath().endsWith(".obj");
     }
 
+    @Override
     public IModel loadModel(ResourceLocation modelLocation) throws Exception
     {
         ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
         if (!cache.containsKey(file))
         {
-            IResource resource = null;
+            IResource resource;
             try
             {
                 resource = manager.getResource(file);

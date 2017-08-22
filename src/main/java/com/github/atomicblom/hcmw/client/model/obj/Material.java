@@ -2,64 +2,74 @@ package com.github.atomicblom.hcmw.client.model.obj;
 
 import javax.vecmath.Vector4f;
 
-/**
- * Created by codew on 23/12/2016.
- */
-public class Material {
+public class Material
+{
     public static final String WHITE_NAME = "OBJModel.White.Texture.Name";
     public static final String DEFAULT_NAME = "OBJModel.Default.Texture.Name";
-    Vector4f color;
-    Texture texture = Texture.WHITE;
-    String name = DEFAULT_NAME;
+    private Vector4f color;
+    private Texture texture = Texture.WHITE;
+    private String name = DEFAULT_NAME;
 
-    public Material() {
+    public Material()
+    {
         this(new Vector4f(1f, 1f, 1f, 1f));
     }
 
-    public Material(Vector4f color) {
+    public Material(Vector4f color)
+    {
         this(color, Texture.WHITE, WHITE_NAME);
     }
 
-    public Material(Texture texture) {
+    public Material(Texture texture)
+    {
         this(new Vector4f(1f, 1f, 1f, 1f), texture, DEFAULT_NAME);
     }
 
-    public Material(Vector4f color, Texture texture, String name) {
+    public Material(Vector4f color, Texture texture, String name)
+    {
         this.color = color;
         this.texture = texture;
         this.name = name != null ? name : DEFAULT_NAME;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name != null ? name : DEFAULT_NAME;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return this.name;
     }
 
-    public void setColor(Vector4f color) {
+    public void setColor(Vector4f color)
+    {
         this.color = color;
     }
 
-    public Vector4f getColor() {
+    public Vector4f getColor()
+    {
         return this.color;
     }
 
-    public void setTexture(Texture texture) {
+    public void setTexture(Texture texture)
+    {
         this.texture = texture;
     }
 
-    public Texture getTexture() {
+    public Texture getTexture()
+    {
         return this.texture;
     }
 
-    public boolean isWhite() {
+    public boolean isWhite()
+    {
         return this.texture.equals(Texture.WHITE);
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder builder = new StringBuilder(String.format("%nMaterial:%n"));
         builder.append(String.format("    Name: %s%n", this.name));
         builder.append(String.format("    Color: %s%n", this.color.toString()));

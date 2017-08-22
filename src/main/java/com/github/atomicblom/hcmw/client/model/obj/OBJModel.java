@@ -19,31 +19,25 @@
 
 package com.github.atomicblom.hcmw.client.model.obj;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.*;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.common.FMLLog;
+import java.util.*;
+import java.util.function.Function;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-
-public class OBJModel implements IRetexturableModel, IModelCustomData
+public class OBJModel implements IModel
 {
     //private Gson GSON = new GsonBuilder().create();
     private MaterialLibrary matLib;
-    final ResourceLocation modelLocation;
-    CustomData customData;
+    private final ResourceLocation modelLocation;
+    private CustomData customData;
 
     public OBJModel(MaterialLibrary matLib, ResourceLocation modelLocation)
     {
@@ -58,15 +52,9 @@ public class OBJModel implements IRetexturableModel, IModelCustomData
     }
 
     @Override
-    public Collection<ResourceLocation> getDependencies()
-    {
-        return Collections.emptyList();
-    }
-
-    @Override
     public Collection<ResourceLocation> getTextures()
     {
-        Iterator<Material> materialIterator = this.matLib.materials.values().iterator();
+        Iterator<Material> materialIterator = this.matLib.getMaterials().values().iterator();
         List<ResourceLocation> textures = Lists.newArrayList();
         while (materialIterator.hasNext())
         {
@@ -84,11 +72,11 @@ public class OBJModel implements IRetexturableModel, IModelCustomData
         ImmutableMap.Builder<String, TextureAtlasSprite> builder = ImmutableMap.builder();
         builder.put(ModelLoader.White.LOCATION.toString(), ModelLoader.White.INSTANCE);
         TextureAtlasSprite missing = bakedTextureGetter.apply(new ResourceLocation("missingno"));
-        for (Map.Entry<String, Material> e : matLib.materials.entrySet())
+        for (Map.Entry<String, Material> e : matLib.getMaterials().entrySet())
         {
             if (e.getValue().getTexture().getTextureLocation().getResourcePath().startsWith("#"))
             {
-                FMLLog.severe("OBJLoader: Unresolved texture '%s' for obj model '%s'", e.getValue().getTexture().getTextureLocation().getResourcePath(), modelLocation);
+                FMLLog.log.fatal("OBJLoader: Unresolved texture '{}' for obj model '{}'", e.getValue().getTexture().getTextureLocation().getResourcePath(), modelLocation);
                 builder.put(e.getKey(), missing);
             }
             else
@@ -119,9 +107,13 @@ public class OBJModel implements IRetexturableModel, IModelCustomData
         return ret;
     }
 
-    @Override
-    public IModelState getDefaultState()
+    public CustomData getCustomData()
     {
-        return TRSRTransformation.identity();
+        return customData;
+    }
+
+    public ResourceLocation getModelLocation()
+    {
+        return modelLocation;
     }
 }
