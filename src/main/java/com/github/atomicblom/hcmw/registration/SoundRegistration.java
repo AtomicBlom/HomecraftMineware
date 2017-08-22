@@ -7,7 +7,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber(modid = HomecraftMineware.MODID)
 public final class SoundRegistration {
