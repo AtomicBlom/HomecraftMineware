@@ -19,8 +19,8 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 public class FluidBarrelGui extends GuiContainer {
     private final FluidBarrelTileEntity drawerInventory;
-    private final TextureMap blocksTextureMap;
-    private final TextureManager textureManager;
+    private TextureMap blocksTextureMap;
+    private TextureManager textureManager;
 
     @SuppressWarnings("AssignmentToSuperclassField")
     public FluidBarrelGui(InventoryPlayer inventory, FluidBarrelTileEntity te) {
@@ -30,8 +30,12 @@ public class FluidBarrelGui extends GuiContainer {
 
         allowUserInput = false;
         ySize = 204;
-        //final Minecraft mc = Minecraft.getMinecraft();
+    }
 
+    @Override
+    public void initGui()
+    {
+        super.initGui();
         blocksTextureMap = mc.getTextureMapBlocks();
         textureManager = mc.getTextureManager();
     }
