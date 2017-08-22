@@ -2,8 +2,7 @@
     "type": "forge:ore_shaped",
     "group": "hcmw_beds",
     "pattern": [
-        "b",
-        "b"
+        "bb"
     ],
     "key": {
         "b": {"item": "#ANY_BED"}

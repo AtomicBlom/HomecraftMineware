@@ -2,9 +2,8 @@
     "type": "minecraft:crafting_shaped",
     "group": "hcmw_lighting",
     "pattern": [
-        "i",
-        "t"
-
+        "t",
+        "i"
     ],
     "key": {
         "i": {"item": "minecraft:iron_ingot"},
