@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class FluidBarrelContainer extends HCMWContainer {
     private final FluidBarrelTileEntity fluidBarrelTileEntity;
@@ -28,11 +30,21 @@ public class FluidBarrelContainer extends HCMWContainer {
         if (clickTypeIn == ClickType.QUICK_MOVE) {
             final Slot slot = inventorySlots.get(slotId);
             if (slot.getHasStack()) {
-                final IFluidHandler capability = fluidBarrelTileEntity.getCapability(FluidBarrelTileEntity.fluidHandlerCapability, null);
+                final IFluidHandler handler = fluidBarrelTileEntity.getCapability(FluidBarrelTileEntity.fluidHandlerCapability, null);
 
-                final FluidActionResult fluidActionResult = FluidUtil.interactWithFluidHandler(slot.getStack(), capability, player);
-                if (fluidActionResult.isSuccess()) {
-                    slot.putStack(fluidActionResult.result);
+                IItemHandler playerInventory = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+                if (playerInventory != null)
+                {
+                    FluidActionResult fluidActionResult = FluidUtil.tryFillContainerAndStow(slot.getStack(), handler, playerInventory, Integer.MAX_VALUE, player);
+                    if (!fluidActionResult.isSuccess())
+                    {
+                        fluidActionResult = FluidUtil.tryEmptyContainerAndStow(slot.getStack(), handler, playerInventory, Integer.MAX_VALUE, player);
+                    }
+
+                    if (fluidActionResult.isSuccess())
+                    {
+                        slot.putStack(fluidActionResult.getResult());
+                    }
                 }
             }
 

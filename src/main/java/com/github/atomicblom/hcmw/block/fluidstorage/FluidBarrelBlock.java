@@ -103,16 +103,13 @@ public class FluidBarrelBlock extends BaseInventoryBlock implements IHorizontalB
             return true;
         }
 
-        final ItemStack heldItem = player.getHeldItem(hand);
-
         final IFluidHandler capability = te.getCapability(FluidBarrelTileEntity.fluidHandlerCapability, null);
 
 
-        final FluidActionResult fluidActionResult = FluidUtil.interactWithFluidHandler(heldItem, capability, player);
-        if (!fluidActionResult.isSuccess()) {
+        boolean succeeded = FluidUtil.interactWithFluidHandler(player, hand, capability);
+        if (!succeeded) {
             return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
         }
-        player.setHeldItem(hand, fluidActionResult.getResult());
 
         return true;
     }
